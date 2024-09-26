@@ -8,8 +8,8 @@ namespace SistemaContabilidadAltosDelAbejonal
         // Para obtener más información sobre las uniones, visite https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            //            "~/Scripts/jquery-{version}.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
             //            "~/Scripts/jquery.validate*"));
@@ -19,24 +19,44 @@ namespace SistemaContabilidadAltosDelAbejonal
             //bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
             //            "~/Scripts/modernizr-*"));
 
-            bundles.Add(new Bundle("~/bundles/js").Include(
-                      "~/assets/js/pages/layout.js",
-                       "~/assets/libs/jquery/jquery.min.js",
-                        "~/assets/libs/bootstrap/js/bootstrap.bundle.min.js",
-                         "~/assets/libs/metismenu/metisMenu.min.js",
-                          "~/assets/libs/simplebar/simplebar.min.js",
-                          "~/assets/libs/node-waves/waves.min.js",
-                          "~/assets/libs/parsleyjs/parsley.min.js",
+            bundles.Add(new Bundle("~/bundles/js").Include(//JAVASCRIPT!!
+                //Principal
+                "~/assets/js/pages/layout.js",
+                "~/assets/libs/jquery/jquery.min.js",
+                "~/assets/libs/bootstrap/js/bootstrap.bundle.min.js",
+                "~/assets/libs/metismenu/metisMenu.min.js",
+                "~/assets/libs/simplebar/simplebar.min.js",
+                "~/assets/libs/node-waves/waves.min.js",
+                "~/assets/js/app.js",
+                 "~/assets/libs/parsleyjs/parsley.min.js",
                           "~/assets/js/pages/form-validation.init.js",
-                          "~/assets/js/app.js",
-                          "~/assets/libs/apexcharts/apexcharts.min.js",
-                          "~/assets/js/pages/dashboard.init.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/assets/css/bootstrap.min.css",
-                      "~/assets/css/icons.min.css",
-                      "~/assets/libs/simplebar/simplebar.min.css",
-                      "~/assets/css/app.min.css"));
+
+                //libs/datables.net
+                "~/assets/libs/datatables.net/js/jquery.dataTables.min.js",
+                "~/assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js",
+                "~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js",
+                "~/assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js",
+
+                //libs/js/pages
+                "~/assets/js/pages/dashboard.init.js",
+                //"~/assets/js/pages/datatables-base.init.js",
+
+                //libs/apexcharts    
+                "~/assets/libs/apexcharts/apexcharts.min.js"
+                ));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(//CSS!
+                //Principal
+                "~/assets/css/bootstrap.min.css",
+                "~/assets/css/icons.min.css",
+                "~/assets/libs/simplebar/simplebar.min.css",
+                "~/assets/css/app.min.css",
+
+                //libs/datables.net
+                "~/assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
+                "~/assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
+                ));
         }
     }
 }

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.Producto>
+
+@{
+    ViewBag.Title = "Stock";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Inventario</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Inventario</a></li>
+                            <li class="breadcrumb-item active">Gestión de Productos</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sección de Productos</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                            <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Tipo de Grano</th>
+                                        <th>Tipo de Presentación</th>
+                                        <th>Categoria</th>
+                                        <th>Stock</th>
+                                        <th>Precio</th>
+                                        <th>Fecha de Actualización</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var producto in Model)
+                                    {
+                                        <tr>
+                                            <td>@producto.Nombre</td>
+                                            <td>@producto.TipoGrano.NombreGrano</td>
+                                            <td>@producto.TipoPresentacion.NombrePresentacion</td>
+                                            <td>@producto.CategoriaProducto.NombreCategoria</td>
+                                            <td>@producto.Stock</td>
+                                            <td>@producto.Precio</td>
+                                            <td>@producto.FechaActualizacion.ToString("dd/MM/yyyy")</td>
+                                            <td>
+                                                <button class="btn btn-info" onclick="location.href='EditarProducto.html'">Editar Producto</button>
+                                                <button class="btn btn-danger" onclick="location.href='EliminarProducto.html'">Eliminar</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+            </div> <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- container-fluid -->
+    <div style="text-align: center;">
+        <button class="btn btn-primary" onclick="location.href='AgregarProducto.html'">Agregar Producto</button>
+    </div>
+</div>
+<!-- End Page-content -->
