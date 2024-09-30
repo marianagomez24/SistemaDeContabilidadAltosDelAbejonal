@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace SistemaContabilidadAltosDelAbejonal
 {
@@ -20,7 +19,7 @@ namespace SistemaContabilidadAltosDelAbejonal
             //            "~/Scripts/modernizr-*"));
 
             bundles.Add(new Bundle("~/bundles/js").Include(//JAVASCRIPT!!
-                //Principal
+                                                           //Principal
                 "~/assets/js/pages/layout.js",
                 "~/assets/libs/jquery/jquery.min.js",
                 "~/assets/libs/bootstrap/js/bootstrap.bundle.min.js",
@@ -47,7 +46,7 @@ namespace SistemaContabilidadAltosDelAbejonal
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(//CSS!
-                //Principal
+                                                                 //Principal
                 "~/assets/css/bootstrap.min.css",
                 "~/assets/css/icons.min.css",
                 "~/assets/libs/simplebar/simplebar.min.css",
