@@ -59,7 +59,10 @@
                                         <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
                                         <td>
-                                            <button class="btn btn-info">@Html.ActionLink("Edit", "Edit", new { id = item.IDUsuario })</button>
+                                        <td>
+                                            <button class="btn btn-info" style="color: white;">
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.IDUsuario }, new { @style = "color: white; text-decoration: none;" })
+                                            </button>
                                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@item.IDUsuario">Eliminar</button>
                                         </td>
                                     </tr>
@@ -100,10 +103,12 @@
         </div>
         <!-- end row -->
     </div>
-  
+
     <!-- container-fluid -->
     <div style="text-align: center;">
-        <button class="btn btn-primary">@Html.ActionLink("Create", "Create")</button>
+        <button class="btn btn-primary" style="color: white;">
+            @Html.ActionLink("Crear Usuario", "Create", null, new { @style = "color: white; text-decoration: none;" })
+        </button>
     </div>
 </div>
 <!-- End Page-content -->

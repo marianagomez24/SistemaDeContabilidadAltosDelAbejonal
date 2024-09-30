@@ -104,7 +104,9 @@
 
                             <div class="col-12">
                                 <input type="submit" value="Guardar" class="btn btn-primary" />
-                                <button class="btn btn-primary">@Html.ActionLink("Regresar", "Index")</button>
+                                <button type="button" class="btn btn-primary" style="color: white;">
+                                    @Html.ActionLink("Regresar", "Index", null, new { @style = "color: white; text-decoration: none;" })
+                                </button>
                             </div>
                         </form>
                         <!-- end card -->
