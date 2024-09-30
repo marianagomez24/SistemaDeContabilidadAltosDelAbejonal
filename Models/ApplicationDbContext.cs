@@ -11,6 +11,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<TipoPresentacion> TipoPresentaciones { get; set; }
         public DbSet<CategoriaProducto> CategoriaProductos { get; set; }
         public DbSet<Producto> Productos { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Rol> Rols { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -18,8 +20,5 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
             base.OnModelCreating(modelBuilder);
         }
 
-        public System.Data.Entity.DbSet<SistemaContabilidadAltosDelAbejonal.Models.Usuario> Usuarios { get; set; }
-
-        public System.Data.Entity.DbSet<SistemaContabilidadAltosDelAbejonal.Models.Rol> Rols { get; set; }
     }
 }
