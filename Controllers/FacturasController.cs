@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistemaContabilidadAltosDelAbejonal.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,16 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
     public class FacturasController : Controller
     {
-        // GET: Facturas
-        public ActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public FacturasController()
         {
-            return View();
+            _context = new ApplicationDbContext();
+        }
+        public ActionResult Facturas()
+        {
+            var facturas = _context.Facturas;
+            return View(facturas);
         }
     }
 }
