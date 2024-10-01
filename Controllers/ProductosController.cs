@@ -1,13 +1,16 @@
-﻿using SistemaContabilidadAltosDelAbejonal.Models;
+using SistemaContabilidadAltosDelAbejonal.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using System.Net;
+
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
     public class ProductosController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ProductosController()
         {
@@ -22,6 +25,37 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 .ToList();
 
             return View(productos);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Producto producto = db.Productos.Find(id);
+            if (producto == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(producto);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Producto producto = db.Productos.Find(id);
+
+            if (producto != null)
+            {
+                db.Productos.Remove(producto);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Stock"); 
         }
         protected override void Dispose(bool disposing)
         {

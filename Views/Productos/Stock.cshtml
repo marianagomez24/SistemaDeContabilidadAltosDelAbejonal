@@ -59,9 +59,38 @@
                                             <td>@producto.FechaActualizacion.ToString("dd/MM/yyyy")</td>
                                             <td>
                                                 <button class="btn btn-info" onclick="location.href='EditarProducto.html'">Editar Producto</button>
-                                                <button class="btn btn-danger" onclick="location.href='EliminarProducto.html'">Eliminar</button>
+                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@producto.IDProducto">Eliminar</button>
                                             </td>
                                         </tr>
+                                        <!-- Modal Para Eliminar-->
+                                        <div class="modal fade" id="modal1-@producto.IDProducto" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@producto.IDProducto" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modal1Label-@producto.IDProducto">Confirmar Eliminación del Producto:</h5>
+                                                        <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="mdi mdi-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-muted mb-0">Nombre: @Html.DisplayFor(modelItem => producto.Nombre)</p>
+                                                        <p class="text-muted mb-0">Tipo de Grano: @Html.DisplayFor(modelItem => producto.TipoGrano)</p>
+                                                        <p class="text-muted mb-0">Tipo de Presentación: @Html.DisplayFor(modelItem => producto.TipoPresentacion)</p>
+                                                        <p class="text-muted mb-0">Categoría del Producto: @Html.DisplayFor(modelItem => producto.CategoriaProducto)</p>
+                                                        <p class="text-muted mb-0">Stock: @Html.DisplayFor(modelItem => producto.Stock)</p>
+                                                        <p class="text-muted mb-0">Precio: @Html.DisplayFor(modelItem => producto.Precio)</p>
+                                                    </div>
+                                                    @using (Html.BeginForm("Delete", "Productos", new { id = producto.IDProducto }, FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <div class="modal-footer">
+                                                            <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
                                     }
                                 </tbody>
 

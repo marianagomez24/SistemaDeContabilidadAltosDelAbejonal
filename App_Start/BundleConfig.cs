@@ -39,7 +39,7 @@ namespace SistemaContabilidadAltosDelAbejonal
 
                 //libs/js/pages
                 "~/assets/js/pages/dashboard.init.js",
-                //"~/assets/js/pages/datatables-base.init.js",
+                "~/assets/js/pages/datatables-base.init.js",
 
                 //libs/apexcharts    
                 "~/assets/libs/apexcharts/apexcharts.min.js"
