@@ -497,8 +497,24 @@
                                         </div>
 
                                         <div class="text-center mt-4">
-                                            <button class="btn btn-primary" onclick="generarReporte()">Generar Reporte</button>
+                                            <form action="@Url.Action("GenerarReporte", "Ventas")" method="get">
+                                                <label for="fechaInicio">Fecha Inicio:</label>
+                                                <input type="date" name="fechaInicio" id="fechaInicio" required />
+
+                                                <label for="fechaFin">Fecha Fin:</label>
+                                                <input type="date" name="fechaFin" id="fechaFin" required />
+
+                                                <button class="btn btn-primary" type="submit">Generar Reporte</button>
+                                            </form>
                                         </div>
+
+                                        <script>
+                                            function generarReporte() {
+                                                
+                                                window.location.href = '/Ventas/GenerarReporte';
+                                            }
+                                        </script>
+
 
                                     </div>
                                 </div>

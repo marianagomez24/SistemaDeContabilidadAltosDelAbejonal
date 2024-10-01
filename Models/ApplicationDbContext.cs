@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Web.Services.Description;
 
 namespace SistemaContabilidadAltosDelAbejonal.Models
 {
@@ -11,13 +12,16 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<TipoPresentacion> TipoPresentaciones { get; set; }
         public DbSet<CategoriaProducto> CategoriaProductos { get; set; }
         public DbSet<Producto> Productos { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Rol> Rols { get; set; }
+        public DbSet<Ventas> Venta { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<System.Data.Entity.ModelConfiguration.Conventions.PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
         }
-
 
     }
 }
