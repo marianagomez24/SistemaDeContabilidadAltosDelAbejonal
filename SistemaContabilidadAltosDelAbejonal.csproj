@@ -125,7 +125,7 @@
     <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\FacturasController.cs" />
+    <Compile Include="Controllers\GestionFacturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -1717,7 +1717,9 @@
     <Content Include="Views\Usuarios\Create.cshtml" />
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
-    <Content Include="Views\InformesFinancieros\Facturas.cshtml" />
+    <Content Include="Views\GestionFacturas\Edit.cshtml" />
+    <Content Include="Views\GestionFacturas\Facturas.cshtml" />
+    <Content Include="Views\GestionFacturas\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

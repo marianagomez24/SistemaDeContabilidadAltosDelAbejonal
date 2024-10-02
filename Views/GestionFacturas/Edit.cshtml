@@ -1,0 +1,78 @@
+﻿@model SistemaContabilidadAltosDelAbejonal.Models.Factura
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Información de la Factura</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Gestión de Facturas</a></li>
+                            <li class="breadcrumb-item active">Editar Factura</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Datos de la Factura</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Edit", "GestionFacturas", FormMethod.Post, new { @class = "custom-validation" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.IdFactura)
+
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.TipoFactura, new { @class = "form-control", placeholder = "Ingrese la categoría de la factura", required = "required" })
+                                <label for="TipoFactura" class="fw-normal">Tipo de factura</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.FechaIngreso, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", required = "required" })
+                                <label for="FechaIngreso" class="fw-normal">Fecha de Ingreso al sistema</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.FechaEmision, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", required = "required" })
+                                <label for="FechaEmision" class="fw-normal">Fecha de Emisión</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.FechaPago, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", required = "required" })
+                                <label for="FechaPago" class="fw-normal">Fecha de Pago</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Total, new { @class = "form-control", placeholder = "Ingrese el monto a pagar", required = "required" })
+                                <label for="Total" class="fw-normal">Pago Total (₡)</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a href="@Url.Action("Facturas")" class="btn btn-secondary">Regresar</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
