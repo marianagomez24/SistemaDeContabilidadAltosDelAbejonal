@@ -73,5 +73,37 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             }
             return View(factura);
         }
+
+        // GET: Eliminar Facturas
+        public ActionResult Delete(int? id) 
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+
+            var factura = _context.Facturas.Find(id);
+            if (factura == null) 
+            {
+                return HttpNotFound();
+            }
+
+            return View(factura);
+        }
+
+        // POST: Eliminar Facturas
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id) 
+        {
+            var factura = _context.Facturas.Find(id);
+            if (factura != null)
+            {
+                _context.Facturas.Remove(factura);
+                _context.SaveChanges();
+            }
+
+            return View(factura);
+        }
     }
 }
