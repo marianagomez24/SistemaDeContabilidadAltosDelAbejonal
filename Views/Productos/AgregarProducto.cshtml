@@ -1,0 +1,90 @@
+﻿@model SistemaContabilidadAltosDelAbejonal.Models.Producto
+
+@{
+    ViewBag.Title = "Agregar Producto";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Información de Producto</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Gestión de Productos</a></li>
+                                <li class="breadcrumb-item active">Agregar Producto</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos del Producto</h3>
+                    </div>
+                    <div class="card-body">
+                        <form class="custom-validation" action="#">
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.IDTipoGrano, "Tipo de Grano", htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.DropDownList("IDTipoGrano", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IDTipoGrano, "", new { @class = "text-danger" })
+                            </div>
+
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.IDTipoPresentacion, "Tipo de Presentación", htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.DropDownList("IDTipoPresentacion", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IDTipoPresentacion, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.IDCategoria, "Categoría del Producto", htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.DropDownList("IDCategoria", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IDCategoria, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <input type="submit" value="AgregarProducto" class="btn btn-primary" />
+                                <button type="button" class="btn btn-primary" style="color: white;">
+                                    @Html.ActionLink("Regresar", "Stock", null, new { @style = "color: white; text-decoration: none;" })
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- end card -->
+            </div> <!-- end col -->
+        }
+        </div>
+    <!-- end row -->
+</div> <!-- container-fluid -->
+<!-- End Page-content -->

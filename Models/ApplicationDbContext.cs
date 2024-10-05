@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Web.Services.Description;
 
 namespace SistemaContabilidadAltosDelAbejonal.Models
 {
@@ -13,7 +14,10 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Rol> Rols { get; set; }
+        public DbSet<Ventas> Venta { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Factura> Facturas { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
