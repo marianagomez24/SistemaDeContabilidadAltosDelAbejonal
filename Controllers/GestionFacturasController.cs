@@ -75,7 +75,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         }
 
         // GET: Eliminar Facturas
-        public ActionResult Delete(int? id) 
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -83,7 +83,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             }
 
             var factura = _context.Facturas.Find(id);
-            if (factura == null) 
+            if (factura == null)
             {
                 return HttpNotFound();
             }
@@ -94,7 +94,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         // POST: Eliminar Facturas
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id) 
+        public ActionResult DeleteConfirmed(int id)
         {
             var factura = _context.Facturas.Find(id);
             if (factura != null)
@@ -103,7 +103,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 _context.SaveChanges();
             }
 
-            return View(factura);
+            return RedirectToAction("Facturas");
         }
     }
 }

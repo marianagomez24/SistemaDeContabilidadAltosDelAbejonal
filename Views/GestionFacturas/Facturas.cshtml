@@ -58,9 +58,37 @@
                                         <td>
                                             @Html.ActionLink("Editar Factura", "Edit", "GestionFacturas", new { id = factura.IdFactura }, new { @class = "btn btn-info" })
 
-                                            <button class="btn btn-danger" onclick="location.href='EliminarFactura.html'">Eliminar</button>
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete-@factura.IdFactura">Eliminar</button>
                                         </td>
                                     </tr>
+
+                                    <!-- Modal Para Eliminar-->
+                                    <div class="modal fade" id="modalDelete-@factura.IdFactura" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel-@factura.IdFactura" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalDeleteLabel-@factura.IdFactura">Confirmar Eliminación de Factura</h5>
+                                                    <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                        <i class="mdi mdi-close"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="text-muted mb-0">¿Estás seguro de que deseas eliminar la factura con el número: <strong>@factura.IdFactura</strong>?</p>
+                                                    <p class="text-muted mb-0">Tipo de Factura: @factura.TipoFactura</p>
+                                                    <p class="text-muted mb-0">Fecha de Emisión: @factura.FechaEmision.ToString("dd/MM/yyyy")</p>
+                                                    <p class="text-muted mb-0">Total: @factura.Total</p>
+                                                </div>
+                                                @using (Html.BeginForm("Delete", "GestionFacturas", new { id = factura.IdFactura }, FormMethod.Post))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="modal-footer">
+                                                        <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                             </tbody>
                         </table>
