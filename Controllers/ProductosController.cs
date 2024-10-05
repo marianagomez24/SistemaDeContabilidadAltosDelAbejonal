@@ -133,5 +133,34 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult BuscarProductos(string searchQuery)
+        {
+            
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                var productos = db.Productos
+                                  .Include(p => p.TipoGrano)
+                                  .Include(p => p.TipoPresentacion)
+                                  .Include(p => p.CategoriaProducto)
+                                  .ToList();
+                return View("Stock", productos);  
+            }
+
+           
+            var productosFiltrados = db.Productos
+                           .Include(p => p.TipoGrano)
+                           .Include(p => p.TipoPresentacion)
+                           .Include(p => p.CategoriaProducto)
+                           .Where(p => p.Nombre.Contains(searchQuery) ||
+                                       (p.TipoGrano != null && p.TipoGrano.NombreGrano.Contains(searchQuery)) ||
+                                       (p.TipoPresentacion != null && p.TipoPresentacion.NombrePresentacion.Contains(searchQuery)) ||
+                                       (p.CategoriaProducto != null && p.CategoriaProducto.NombreCategoria.Contains(searchQuery)))
+                           .ToList();
+            
+            return View("Stock", productosFiltrados);
+        }
+
+
     }
 }
