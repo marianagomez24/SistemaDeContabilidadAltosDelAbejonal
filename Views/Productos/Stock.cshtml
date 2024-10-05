@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Stock";
+    var totalStock = Model.Sum(p => p.Stock);
 }
 
 <div class="page-content">
@@ -16,7 +17,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Inventario</a></li>
-                            <li class="breadcrumb-item active">Gestión de Productos</li>
+                            <li class="breadcrumb-item active">Stock</li>
                         </ol>
                     </div>
 
@@ -32,6 +33,17 @@
                         <h4 class="card-title">Sección de Productos</h4>
                     </div>
                     <div class="card-body">
+                        <div class="border-bottom text-center pb-3">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span class="text-primary fs-24 me-2">
+                                    <i class="fas fa-arrow-circle-right"></i>
+                                </span>
+                                
+
+                                <h4 class="display-5 mb-0">@totalStock</h4>
+                            </div>
+                            <p class="text-muted mb-0">Productos en Stock</p>
+                        </div>
                         <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                             <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
@@ -58,39 +70,43 @@
                                             <td>@producto.Precio</td>
                                             <td>@producto.FechaActualizacion.ToString("dd/MM/yyyy")</td>
                                             <td>
-                                                <button class="btn btn-info" onclick="location.href='EditarProducto.html'">Editar Producto</button>
+                                                <button class="btn btn-info">
+                                                        @Html.ActionLink("Editar Producto", "EditarProducto", new { id = producto.IDProducto }, new { @style = "color: white; text-decoration: none;" })
+                                                </button>
                                                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@producto.IDProducto">Eliminar</button>
                                             </td>
                                         </tr>
                                         <!-- Modal Para Eliminar-->
-                                        <div class="modal fade" id="modal1-@producto.IDProducto" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@producto.IDProducto" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="modal1Label-@producto.IDProducto">Confirmar Eliminación del Producto:</h5>
-                                                        <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
-                                                            <i class="mdi mdi-close"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p class="text-muted mb-0">Nombre: @Html.DisplayFor(modelItem => producto.Nombre)</p>
-                                                        <p class="text-muted mb-0">Tipo de Grano: @Html.DisplayFor(modelItem => producto.TipoGrano)</p>
-                                                        <p class="text-muted mb-0">Tipo de Presentación: @Html.DisplayFor(modelItem => producto.TipoPresentacion)</p>
-                                                        <p class="text-muted mb-0">Categoría del Producto: @Html.DisplayFor(modelItem => producto.CategoriaProducto)</p>
-                                                        <p class="text-muted mb-0">Stock: @Html.DisplayFor(modelItem => producto.Stock)</p>
-                                                        <p class="text-muted mb-0">Precio: @Html.DisplayFor(modelItem => producto.Precio)</p>
-                                                    </div>
-                                                    @using (Html.BeginForm("Delete", "Productos", new { id = producto.IDProducto }, FormMethod.Post))
-                                                    {
-                                                        @Html.AntiForgeryToken()
-                                                        <div class="modal-footer">
-                                                            <input type="submit" value="Eliminar" class="btn btn-danger" />
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
-                                                        </div>
-                                                    }
-                                                </div>
+                                <div class="modal fade" id="modal1-@producto.IDProducto" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@producto.IDProducto" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modal1Label-@producto.IDProducto">Confirmar Eliminación del Producto</h5>
+                                                <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                    <i class="mdi mdi-close"></i>
+                                                </button>
                                             </div>
+                                            <div class="modal-body">
+                                                <h6>Detalles del Producto</h6>
+                                                <hr>
+                                                <p><strong>Nombre:</strong> @Html.DisplayFor(modelItem => producto.Nombre)</p>
+                                                <p><strong>Tipo de Grano:</strong> @Html.DisplayFor(modelItem => producto.TipoGrano.NombreGrano)</p>
+                                                <p><strong>Tipo de Presentación:</strong> @Html.DisplayFor(modelItem => producto.TipoPresentacion.NombrePresentacion)</p>
+                                                <p><strong>Categoría:</strong> @Html.DisplayFor(modelItem => producto.CategoriaProducto.NombreCategoria)</p>
+                                                <p><strong>Stock:</strong> @Html.DisplayFor(modelItem => producto.Stock)</p>
+                                                <p><strong>Precio:</strong> @Html.DisplayFor(modelItem => producto.Precio)</p>
+                                            </div>
+                                            @using (Html.BeginForm("EliminarProducto", "Productos", new { id = producto.IDProducto }, FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
+                                                </div>
+                                            }
                                         </div>
+                                    </div>
+                                </div>
                                     }
                                 </tbody>
 
@@ -103,7 +119,7 @@
     </div>
     <!-- container-fluid -->
     <div style="text-align: center;">
-        <button class="btn btn-primary" onclick="location.href='AgregarProducto.html'">Agregar Producto</button>
+        <button class="btn btn-primary" onclick="location.href = '/Productos/AgregarProducto'">Agregar Producto</button>
     </div>
 </div>
 <!-- End Page-content -->
