@@ -1,0 +1,114 @@
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.PedidoProducto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Estado de Pedidos</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Pedidos</a></li>
+                            <li class="breadcrumb-item active">Estado de Pedidos</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table id="datatable-fixedcolumn" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.Proveedor.Nombre)</th>
+                                    <th>@Html.DisplayNameFor(model => model.FechaPedido)</th>
+                                    <th>@Html.DisplayNameFor(model => model.FechaEntregaEstimada)</th>
+                                    <th>@Html.DisplayNameFor(model => model.EstadoEntrega.Estado)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Observaciones)</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    string estadoClass;
+                                    switch (item.EstadoEntrega.IDEstado)
+                                    {
+                                        case 1:
+                                            estadoClass = "bg-success text-white"; // Recibido (Verde)
+                                            break;
+                                        case 2:
+                                            estadoClass = "bg-warning text-dark"; // Pendiente (Amarillo)
+                                            break;
+                                        case 3:
+                                            estadoClass = "bg-info text-dark"; // En Camino (Azul)
+                                            break;
+                                        case 4:
+                                            estadoClass = "bg-danger text-white"; // Cancelado (Rojo)
+                                            break;
+                                        default:
+                                            estadoClass = ""; 
+                                            break;
+                                    }
+
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Proveedor.Nombre)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.FechaPedido)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.FechaEntregaEstimada)</td>
+                                        <td class="@estadoClass">
+                                            @Html.DisplayFor(modelItem => item.EstadoEntrega.Estado)
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.Observaciones)</td>
+                                        <td>
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@item.IDPedido">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <!-- Modal Para Eliminar-->
+                                    <div class="modal fade" id="modal1-@item.IDPedido" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@item.IDPedido" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modal1Label-@item.IDPedido">Confirmar Eliminación del Pedido:</h5>
+                                                    <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                        <i class="mdi mdi-close"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="text-muted mb-0">Nombre: @Html.DisplayFor(modelItem => item.IDPedido)</p>
+                                                    <p class="text-muted mb-0">Fecha Pedido: @Html.DisplayFor(modelItem => item.FechaPedido)</p>
+                                                    <p class="text-muted mb-0">Estado: @Html.DisplayFor(modelItem => item.EstadoEntrega.Estado)</p>
+                                                </div>
+                                                @using (Html.BeginForm("Delete", "PedidoProductos", new { id = item.IDPedido }, FormMethod.Post))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="modal-footer">
+                                                        <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+<!-- End Page-content -->

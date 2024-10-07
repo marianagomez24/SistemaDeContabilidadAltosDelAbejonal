@@ -13,6 +13,10 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Rol> Rols { get; set; }
+        public DbSet<Proveedor> Proveedores { get; set; }
+        public DbSet<PedidoProducto> PedidoProductos { get; set; }
+        public DbSet<EstadoEntrega> EstadoEntregas { get; set; }
+        public DbSet<PedidoProductoDetalle> PedidoProductoDetalle { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

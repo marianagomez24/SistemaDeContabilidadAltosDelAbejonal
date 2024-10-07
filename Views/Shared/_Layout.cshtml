@@ -76,107 +76,31 @@
                                             <h6 class="text-white m-0"><i class="far fa-bell me-2"></i> Notificaciones </h6>
                                         </div>
                                         <div class="col-auto">
-                                            <a href="#!" class="badge bg-info-subtle text-info"> 8+</a>
+                                            <a href="#!" class="badge bg-info-subtle text-info"> 1+ </a>
                                         </div>
                                     </div>
                                 </div>
                                 <div data-simplebar style="max-height: 230px;">
-                                    <a href="" class="text-reset notification-item">
-                                        <div class="d-flex">
-                                            <div class="avatar avatar-xs avatar-label-primary me-3">
-                                                <span class="rounded fs-16">
-                                                    <i class="mdi mdi-file-document-outline"></i>
-                                                </span>
-                                            </div>
-                                            <div class="flex-1">
-                                                <h6 class="mb-1">Nuevo reporte añadido</h6>
-                                                <div class="fs-12 text-muted">
-                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> Hace 3 minutos</p>
+                                    <!-- Aquí mostramos las notificaciones -->
+                                    @if (TempData["Notificaciones"] != null)
+                                    {
+                                        <a href="" class="text-reset notification-item">
+                                            <div class="d-flex">
+                                                <div class="avatar avatar-xs avatar-label-primary me-3">
+                                                    <span class="rounded fs-16">
+                                                        <i class="mdi mdi-file-document-outline"></i>
+                                                    </span>
                                                 </div>
-                                            </div>
-                                            <i class="mdi mdi-chevron-right align-middle ms-2"></i>
-                                        </div>
-                                    </a>
-                                    <a href="" class="text-reset notification-item">
-                                        <div class="d-flex">
-                                            <div class="avatar avatar-xs avatar-label-success me-3">
-                                                <span class="rounded fs-16">
-                                                    <i class="mdi mdi-cart-variant"></i>
-                                                </span>
-                                            </div>
-                                            <div class="flex-1">
-                                                <h6 class="mb-1">Orden Enviada</h6>
-                                                <div class="fs-12 text-muted">
-                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> Hace una hora</p>
+                                                <div class="flex-1">
+                                                    <h6 class="mb-1">@TempData["Notificaciones"]</h6>
+                                                    <div class="fs-12 text-muted">
+                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> Hace unos segundos</p>
+                                                    </div>
                                                 </div>
+                                                <i class="mdi mdi-chevron-right align-middle ms-2"></i>
                                             </div>
-                                            <i class="mdi mdi-chevron-right align-middle ms-2"></i>
-                                        </div>
-                                    </a>
-                                    <a href="" class="text-reset notification-item">
-                                        <div class="d-flex">
-                                            <div class="avatar avatar-xs avatar-label-danger me-3">
-                                                <span class="rounded fs-16">
-                                                    <i class="mdi mdi-account-group"></i>
-                                                </span>
-                                            </div>
-                                            <div class="flex-1">
-                                                <h6 class="mb-1">Reunión de Equipo</h6>
-                                                <div class="fs-12 text-muted">
-                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> Hace 5 horas</p>
-                                                </div>
-                                            </div>
-                                            <i class="mdi mdi-chevron-right align-middle ms-2"></i>
-                                        </div>
-                                    </a>
-                                    <a href="" class="text-reset notification-item">
-                                        <div class="d-flex">
-                                            <div class="avatar avatar-xs avatar-label-warning me-3">
-                                                <span class="rounded fs-16">
-                                                    <i class="mdi mdi-send-outline"></i>
-                                                </span>
-                                            </div>
-                                            <div class="flex-1">
-                                                <h6 class="mb-1">Cambios en los reportes</h6>
-                                                <div class="fs-12 text-muted">
-                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> Hace 6 horas</p>
-                                                </div>
-                                            </div>
-                                            <i class="mdi mdi-chevron-right align-middle ms-2"></i>
-                                        </div>
-                                    </a>
-                                    <a href="" class="text-reset notification-item">
-                                        <div class="d-flex">
-                                            <div class="avatar avatar-xs avatar-label-secondary me-3">
-                                                <span class="rounded fs-16">
-                                                    <i class="mdi mdi-download-box"></i>
-                                                </span>
-                                            </div>
-                                            <div class="flex-1">
-                                                <h6 class="mb-1">Actualización del sistema</h6>
-                                                <div class="fs-12 text-muted">
-                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> Hace un día</p>
-                                                </div>
-                                            </div>
-                                            <i class="mdi mdi-chevron-right align-middle ms-2"></i>
-                                        </div>
-                                    </a>
-                                    <a href="" class="text-reset notification-item">
-                                        <div class="d-flex">
-                                            <div class="avatar avatar-xs avatar-label-info me-3">
-                                                <span class="rounded fs-16">
-                                                    <i class="mdi mdi-hexagram-outline"></i>
-                                                </span>
-                                            </div>
-                                            <div class="flex-1">
-                                                <h6 class="mb-1">Cambio de contraseña</h6>
-                                                <div class="fs-12 text-muted">
-                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> Hace 2 días</p>
-                                                </div>
-                                            </div>
-                                            <i class="mdi mdi-chevron-right align-middle ms-2"></i>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    }
                                 </div>
                                 <div class="p-2 border-top">
                                     <div class="d-grid">
@@ -187,6 +111,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- End Notification -->
                         <!-- Start Activities -->
                         <div class="d-inline-block activities">
@@ -281,7 +206,6 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="/Productos/Stock"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Stock</a></li>
-
                         </ul>
                     </li>
 
@@ -356,7 +280,10 @@
                             <span>Pedidos</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="ui-EstadoPedidos.html"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Estado de Pedidos</a></li>
+                            <li><a href="/PedidoProductos/Create"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Generar Pedidos</a></li>
+                        </ul>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="/PedidoProductos/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Estado de Pedidos</a></li>
                         </ul>
                     </li>
 
@@ -366,7 +293,7 @@
                             <span>Compras</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="ui-ComprasRealizadas.html"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Compras Realizadas</a></li>
+                            <li><a href="/PedidoProductos/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Compras Realizadas</a></li>
                         </ul>
                     </li>
 

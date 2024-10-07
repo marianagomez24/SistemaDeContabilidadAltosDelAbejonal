@@ -21,21 +21,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             return View(usuarios.ToList());
         }
 
-        // GET: Usuarios/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
-        }
-
         // GET: Usuarios/Create
         public ActionResult Create()
         {
@@ -44,8 +29,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         }
 
         // POST: Usuarios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDUsuario,Nombre,PrimerApellido,SegundoApellido,Contraseña,Correo,Telefono,Direccion,IDRol")] Usuario usuario)
@@ -78,8 +61,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         }
 
         // POST: Usuarios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IDUsuario,Nombre,PrimerApellido,SegundoApellido,Contraseña,Correo,Telefono,Direccion,IDRol")] Usuario usuario)
