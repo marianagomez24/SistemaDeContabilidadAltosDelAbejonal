@@ -17,6 +17,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<Ventas> Venta { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Factura> Facturas { get; set; }
+        public DbSet<Compra> Compras { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
