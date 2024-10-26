@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using BCrypt.Net;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
@@ -48,6 +49,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         {
             if (ModelState.IsValid)
             {
+                usuario.Contraseña = BCrypt.Net.BCrypt.HashPassword(usuario.Contraseña);
                 db.Usuarios.Add(usuario);
                 db.SaveChanges();
                 return RedirectToAction("Index");
