@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaContabilidadAltosDelAbejonal.Models
 {
-    [Table("Cliente")] // Especifica el nombre de la tabla en la base de datos
+    [Table("Cliente")] 
     public class Cliente
     {
         [Key] 

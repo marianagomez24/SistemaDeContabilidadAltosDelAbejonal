@@ -1,0 +1,122 @@
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.Proveedor>
+
+@{
+    ViewBag.Title = "Proveedores";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Proveedores</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Proveedores</a></li>
+                            <li class="breadcrumb-item active">Listado de Proveedores</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sección de Proveedores</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Search bar and button -->
+                        <form method="get" action="@Url.Action("BuscarProveedores", "Proveedores")">
+                            <div class="row mb-3">
+                                <div class="col-md-9">
+                                    <input type="search" name="searchQuery" class="form-control form-control-sm" placeholder="Buscar por Nombre, Email, Teléfono..." aria-controls="datatable" />
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-primary">Buscar</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                            <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Email</th>
+                                        <th>Teléfono</th>
+                                        <th>Dirección</th>
+                                        <th>Fecha de Ingreso</th>
+                                        <th>Estado</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var proveedor in Model)
+                                    {
+                                        <tr>
+                                            <td>@proveedor.Nombre</td>
+                                            <td>@proveedor.Email</td>
+                                            <td>@proveedor.Telefono</td>
+                                            <td>@proveedor.Direccion</td>
+                                            <td>@proveedor.FechaIngreso.ToString("dd/MM/yyyy")</td>
+                                            <td>@proveedor.Estado</td>
+                                            <td>
+                                                <button class="btn btn-info">
+                                                    @Html.ActionLink("Editar Proveedor", "EditarProveedor", new { id = proveedor.IDProveedor }, new { @style = "color: white; text-decoration: none;" })
+                                                </button>
+                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@proveedor.IDProveedor">Eliminar</button>
+                                            </td>
+                                        </tr>
+                                        <!-- Modal Para Eliminar-->
+                                        <div class="modal fade" id="modal1-@proveedor.IDProveedor" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@proveedor.IDProveedor" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modal1Label-@proveedor.IDProveedor">Confirmar Eliminación del Proveedor</h5>
+                                                        <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="mdi mdi-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <h6>Detalles del Proveedor</h6>
+                                                        <hr>
+                                                        <p><strong>Nombre:</strong> @Html.DisplayFor(modelItem => proveedor.Nombre)</p>
+                                                        <p><strong>Email:</strong> @Html.DisplayFor(modelItem => proveedor.Email)</p>
+                                                        <p><strong>Teléfono:</strong> @Html.DisplayFor(modelItem => proveedor.Telefono)</p>
+                                                        <p><strong>Dirección:</strong> @Html.DisplayFor(modelItem => proveedor.Direccion)</p>
+                                                        <p><strong>Fecha de Ingreso:</strong> @Html.DisplayFor(modelItem => proveedor.FechaIngreso)</p>
+                                                        <p><strong>Estado:</strong> @Html.DisplayFor(modelItem => proveedor.Estado)</p>
+                                                    </div>
+                                                    @using (Html.BeginForm("EliminarProveedor", "Proveedores", new { id = proveedor.IDProveedor }, FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- container-fluid -->
+    <div style="text-align: center;">
+        <button class="btn btn-primary" onclick="location.href = '/Proveedores/AgregarProveedor'">Agregar Proveedor</button>
+    </div>
+</div>
+<!-- End Page-content -->

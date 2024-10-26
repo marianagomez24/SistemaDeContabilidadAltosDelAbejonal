@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -141,10 +141,12 @@
     <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\GestionFacturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\VentasController.cs" />
     <Compile Include="Global.asax.cs">
@@ -155,6 +157,7 @@
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Producto.cs" />
+    <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\TipoGrano.cs" />
     <Compile Include="Models\TipoPresentacion.cs" />
@@ -1744,6 +1747,12 @@
     <Content Include="Views\GestionFacturas\Edit.cshtml" />
     <Content Include="Views\GestionFacturas\Facturas.cshtml" />
     <Content Include="Views\GestionFacturas\Create.cshtml" />
+    <Content Include="Views\Clientes\AgregarCliente.cshtml" />
+    <Content Include="Views\Clientes\EditarCliente.cshtml" />
+    <Content Include="Views\Clientes\Clientes.cshtml" />
+    <Content Include="Views\Proveedores\Proveedores.cshtml" />
+    <Content Include="Views\Proveedores\AgregarProveedor.cshtml" />
+    <Content Include="Views\Proveedores\EditarProveedor.cshtml" />
     <Content Include="Views\Login\IniciarSesion.cshtml" />
   </ItemGroup>
   <ItemGroup>
