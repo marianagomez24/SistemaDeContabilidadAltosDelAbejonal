@@ -1,13 +1,24 @@
-﻿
+﻿@{
+    var nombreUsuario = Session["NombreUsuario"] as string; 
+}
 <div class="page-content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <div>
-                        <h4 class="fs-16 fw-semibold mb-1 mb-md-2">Bienvenido, <span class="text-primary">(Nombre del Usuario)!</span></h4>
-                        <p class="text-muted mb-0">Aquí tienes un resumen del día.</p>
-                    </div>
+
+                    @if (!string.IsNullOrEmpty(nombreUsuario))
+                    {
+                        <div>
+                            <h4 class="fs-16 fw-semibold mb-1 mb-md-2">
+                                Bienvenido, <span class="text-primary">@nombreUsuario!</span>
+                            </h4>
+                            <p class="text-muted mb-0">Aquí tienes un resumen del día.</p>
+                        </div>
+                    }
+
+                    
+
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Altos del Abejonal</a></li>
@@ -510,7 +521,7 @@
 
                                         <script>
                                             function generarReporte() {
-                                                
+
                                                 window.location.href = '/Ventas/GenerarReporte';
                                             }
                                         </script>
