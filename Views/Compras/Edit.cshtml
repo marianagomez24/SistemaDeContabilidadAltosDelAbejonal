@@ -1,0 +1,92 @@
+﻿@model SistemaContabilidadAltosDelAbejonal.Models.Compra
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Editar Datos</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Otras Opciones</a></li>
+                                <li class="breadcrumb-item active">Editar Compra</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos del usuario</h3>
+                    </div>
+                    <div class="card-body">
+                        <form class="custom-validation" action="#">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.IdCompra)
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.IDPedido, "IDPedido", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="form-floating">
+                                    @Html.DropDownList("IDPedido", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.IDPedido, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.IDProveedor, "IDProveedor", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="form-floating">
+                                    @Html.DropDownList("IDProveedor", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.IDProveedor, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.FechaCompra, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.FechaCompra, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FechaCompra, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.TotalCompra, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.TotalCompra, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.TotalCompra, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <input type="submit" value="Guardar" class="btn btn-primary" />
+                                <button type="button" class="btn btn-primary" style="color: white;">
+                                    @Html.ActionLink("Regresar", "Index", null, new { @style = "color: white; text-decoration: none;" })
+                                </button>
+                            </div>
+                        </form>
+                        <!-- end card -->
+                    </div> <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div> <!-- container-fluid -->
+        }
+    </div><!-- End Page-content -->
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

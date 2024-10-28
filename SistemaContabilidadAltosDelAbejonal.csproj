@@ -138,7 +138,11 @@
     <Compile Include="Models\CategoriaProducto.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Compra.cs" />
+    <Compile Include="Models\EstadoEntrega.cs" />
+    <Compile Include="Models\PedidoProducto.cs" />
+    <Compile Include="Models\PedidoProductoDetalle.cs" />
     <Compile Include="Models\Producto.cs" />
+    <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\TipoGrano.cs" />
     <Compile Include="Models\TipoPresentacion.cs" />
@@ -1728,6 +1732,10 @@
     <Content Include="Views\GestionFacturas\Edit.cshtml" />
     <Content Include="Views\GestionFacturas\Facturas.cshtml" />
     <Content Include="Views\GestionFacturas\Create.cshtml" />
+    <Content Include="Views\Compras\Create.cshtml" />
+    <Content Include="Views\Compras\Delete.cshtml" />
+    <Content Include="Views\Compras\Edit.cshtml" />
+    <Content Include="Views\Compras\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

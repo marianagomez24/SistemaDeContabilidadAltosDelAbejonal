@@ -1,0 +1,137 @@
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.Compra>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Compras Realizadas</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Compras</a></li>
+                            <li class="breadcrumb-item active">Compras Realizadas</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="text-muted">Se muestran las compras realizadas por la empresa.</p>
+
+                        <table id="datatable-row-callback" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.IdCompra)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.FechaCompra)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Proveedor.Nombre)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PedidoProducto.Observaciones)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TotalCompra)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdCompra)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FechaCompra)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Proveedor.Nombre)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PedidoProducto.Observaciones)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TotalCompra)
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-info" style="color: white;">
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.IdCompra }, new { @style = "color: white; text-decoration: none;" })
+                                            </button>
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@item.IdCompra">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <!-- Modal Para Eliminar-->
+                                    <div class="modal fade" id="modal1-@item.IdCompra" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@item.IdCompra" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modal1Label-@item.IdCompra">Confirmar Eliminación del Usuario:</h5>
+                                                    <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                        <i class="mdi mdi-close"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="text-muted mb-0">Nombre: @Html.DisplayFor(modelItem => item.IdCompra)</p>
+                                                    <p class="text-muted mb-0">Apellido: @Html.DisplayFor(modelItem => item.FechaCompra)</p>
+                                                    <p class="text-muted mb-0">Rol: @Html.DisplayFor(modelItem => item.TotalCompra)</p>
+                                                </div>
+                                                @using (Html.BeginForm("Delete", "Compras", new { id = item.IdCompra }, FormMethod.Post))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="modal-footer">
+                                                        <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <script>document.write(new Date().getFullYear())</script> © Clivax.
+            </div>
+            <div class="col-sm-6">
+                <div class="text-sm-end d-none d-sm-block">
+                    Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="http://codebucks.in/" target="_blank" class="text-muted">Codebucks</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+

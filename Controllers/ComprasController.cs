@@ -1,83 +1,136 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using SistemaContabilidadAltosDelAbejonal.Models;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
     public class ComprasController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public ComprasController()
-        {
-            _context = new ApplicationDbContext();
-
-        }
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Compras
-        public ActionResult Compras()
+        public ActionResult Index()
         {
-            var compras = _context.Compras.ToList();
-            return View(compras);
+            var compras = db.Compras.Include(c => c.PedidoProducto).Include(c => c.Proveedor);
+            return View(compras.ToList());
         }
 
-        // GET: Compras/Details
-        public ActionResult Details(int id)
+        // GET: Compras/Details/5
+        public ActionResult Details(int? id)
         {
-            var compra = _context.Compras.Find(id);
-
-            if (compra == null) return NotFound();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Compra compra = db.Compras.Find(id);
+            if (compra == null)
+            {
+                return HttpNotFound();
+            }
             return View(compra);
         }
 
-        // GET: Compras/Buscar
-        public ActionResult Buscar(string proveedor, string producto, DateTime? fecha, int cantidad, decimal precioTotal)
+        // GET: Compras/Create
+        public ActionResult Create()
         {
-            var compras = _context.Compras.AsQueryable();
+            ViewBag.IDPedido = new SelectList(db.PedidoProducto, "IDPedido", "Observaciones");
+            ViewBag.IDProveedor = new SelectList(db.Proveedores, "IDProveedor", "Nombre");
+            return View();
+        }
 
-            //Busqueda Proveedor
-            if (!string.IsNullOrEmpty(proveedor))
+        // POST: Compras/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "IdCompra,IDPedido,IDProveedor,FechaCompra,TotalCompra")] Compra compra)
+        {
+            if (ModelState.IsValid)
             {
-                compras = compras.Where(c => c.Proveedor.Contains(proveedor));
+                db.Compras.Add(compra);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
-            //Busqueda Producto
-            if (!string.IsNullOrEmpty(producto))
+            ViewBag.IDPedido = new SelectList(db.PedidoProducto, "IDPedido", "Observaciones", compra.IDPedido);
+            ViewBag.IDProveedor = new SelectList(db.Proveedores, "IDProveedor", "Nombre", compra.IDProveedor);
+            return View(compra);
+        }
+
+        // GET: Compras/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
             {
-                compras = compras.Where(c => c.Producto.Contains(producto));
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            //Busqueda Fecha
-            if (fecha.HasValue)
+            Compra compra = db.Compras.Find(id);
+            if (compra == null)
             {
-                compras = compras.Where(c => c.Fecha.Date == fecha.Value.Date);
+                return HttpNotFound();
             }
+            ViewBag.IDPedido = new SelectList(db.PedidoProducto, "IDPedido", "Observaciones", compra.IDPedido);
+            ViewBag.IDProveedor = new SelectList(db.Proveedores, "IDProveedor", "Nombre", compra.IDProveedor);
+            return View(compra);
+        }
 
-            //Busqueda Catidad
-            if (cantidad.HasValue) 
-            { 
-                compras = compras.Where(c => c.Cantidad == cantidad.Value);
-            }
-
-            //Busqueda PrecioTotal
-            if (precioTotal.HasValue)
+        // POST: Compras/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "IdCompra,IDPedido,IDProveedor,FechaCompra,TotalCompra")] Compra compra)
+        {
+            if (ModelState.IsValid)
             {
-                compras = compras.Where(c => c.PrecioTotal == precioTotal.Value);
+                db.Entry(compra).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
+            ViewBag.IDPedido = new SelectList(db.PedidoProducto, "IDPedido", "Observaciones", compra.IDPedido);
+            ViewBag.IDProveedor = new SelectList(db.Proveedores, "IDProveedor", "Nombre", compra.IDProveedor);
+            return View(compra);
+        }
 
-            //Se realiza la consulta
-            var resultados = compras.ToList();
-
-            // Si no se encuentran resultados
-            if (!resultados.Any()) 
+        // GET: Compras/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
             {
-                ViewBag.Mensaje = "No se encontraron datos.";
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            Compra compra = db.Compras.Find(id);
+            if (compra == null)
+            {
+                return HttpNotFound();
+            }
+            return View(compra);
+        }
 
-            return View("Compras",  resultados);
+        // POST: Compras/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Compra compra = db.Compras.Find(id);
+            db.Compras.Remove(compra);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
