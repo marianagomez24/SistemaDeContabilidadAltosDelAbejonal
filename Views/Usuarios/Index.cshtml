@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.Usuario>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Administrar Usuarios";
 }
 
 <!-- Start right Content here -->
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Operarios</h4>
+                    <h4 class="mb-sm-0">Usuarios</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -30,80 +30,79 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Sección de Personal</h4>
+                        <h4 class="card-title">Sección de Usuarios</h4>
                     </div>
                     <div class="card-body">
-                        <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>@Html.DisplayNameFor(model => model.Rol.NombreRol)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-                                    <th>@Html.DisplayNameFor(model => model.PrimerApellido)</th>
-                                    <th>@Html.DisplayNameFor(model => model.SegundoApellido)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Contraseña)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Correo)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Telefono)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Direccion)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Rol.NombreRol)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.PrimerApellido)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.SegundoApellido)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Contraseña)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Correo)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
-                                        <td>
-                                        <td>
-                                            <button class="btn btn-info" style="color: white;">
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.IDUsuario }, new { @style = "color: white; text-decoration: none;" })
-                                            </button>
-                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@item.IDUsuario">Eliminar</button>
-                                        </td>
-                                    </tr>
+                        <!-- Search bar and button -->
 
-                                    <!-- Modal Para Eliminar-->
-                                    <div class="modal fade" id="modal1-@item.IDUsuario" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@item.IDUsuario" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="modal1Label-@item.IDUsuario">Confirmar Eliminación del Usuario:</h5>
-                                                    <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
-                                                        <i class="mdi mdi-close"></i>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p class="text-muted mb-0">Nombre: @Html.DisplayFor(modelItem => item.Nombre)</p>
-                                                    <p class="text-muted mb-0">Apellido: @Html.DisplayFor(modelItem => item.PrimerApellido)</p>
-                                                    <p class="text-muted mb-0">Rol: @Html.DisplayFor(modelItem => item.Rol.NombreRol)</p>
-                                                </div>
-                                                @using (Html.BeginForm("Delete", "Usuarios", new { id = item.IDUsuario }, FormMethod.Post))
-                                                {
-                                                    @Html.AntiForgeryToken()
-                                                    <div class="modal-footer">
-                                                        <input type="submit" value="Eliminar" class="btn btn-danger" />
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
+                        <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                            <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre Rol</th>
+                                        <th>Nombre</th>
+                                        <th>Primer Apellido</th>
+                                        <th>Segundo Apellido</th>
+                                        <th>Correo</th>
+                                        <th>Teléfono</th>
+                                        <th>Dirección</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var usuario in Model)
+                                    {
+                                        <tr>
+                                            <td>@usuario.Rol.NombreRol</td>
+                                            <td>@usuario.Nombre</td>
+                                            <td>@usuario.PrimerApellido</td>
+                                            <td>@usuario.SegundoApellido</td>
+                                            <td>@usuario.Correo</td>
+                                            <td>@usuario.Telefono</td>
+                                            <td>@usuario.Direccion</td>
+                                            <td>
+                                                <button class="btn btn-info" style="color: white;">
+                                                    @Html.ActionLink("Edit", "Edit", new { id = usuario.IDUsuario }, new { @style = "color: white; text-decoration: none;" })
+                                                </button>
+                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@usuario.IDUsuario">Eliminar</button>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Modal Para Eliminar-->
+                                        <div class="modal fade" id="modal1-@usuario.IDUsuario" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@usuario.IDUsuario" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modal1Label-@usuario.IDUsuario">Confirmar Eliminación del Usuario:</h5>
+                                                        <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="mdi mdi-close"></i>
+                                                        </button>
                                                     </div>
-                                                }
+                                                    <div class="modal-body">
+                                                        <p class="text-muted mb-0">Nombre: @Html.DisplayFor(modelItem => usuario.Nombre)</p>
+                                                        <p class="text-muted mb-0">Apellido: @Html.DisplayFor(modelItem => usuario.PrimerApellido)</p>
+                                                        <p class="text-muted mb-0">Rol: @Html.DisplayFor(modelItem => usuario.Rol.NombreRol)</p>
+                                                    </div>
+                                                    @using (Html.BeginForm("Delete", "Usuarios", new { id = usuario.IDUsuario }, FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <div class="modal-footer">
+                                                            <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
+                                                        </div>
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                }
-
-                            </tbody>
-                        </table>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div> <!-- end col -->
-        </div>
+            </div>
         <!-- end row -->
     </div>
-
     <!-- container-fluid -->
     <div style="text-align: center;">
         <button class="btn btn-primary" style="color: white;">
@@ -112,3 +111,4 @@
     </div>
 </div>
 <!-- End Page-content -->
+</div>
