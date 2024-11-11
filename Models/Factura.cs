@@ -26,6 +26,5 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
 
         public int Total {  get; set; }
 
-
     }
 }

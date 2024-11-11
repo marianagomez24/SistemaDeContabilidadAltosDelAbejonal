@@ -21,7 +21,9 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<Compra> Compras { get; set; }
         public DbSet<EstadoEntrega> EstadoEntregas { get; set; }
         public DbSet<PedidoProducto> PedidoProducto { get; set; }
-
+        public DbSet<CompraDetalle> CompraDetalle { get; set; }
+        public DbSet<Cotizacion> Cotizacion { get; set; }
+        public DbSet<CotizacionDetalle> CotizacionDetalle { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

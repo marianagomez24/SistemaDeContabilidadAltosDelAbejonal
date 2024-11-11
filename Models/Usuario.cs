@@ -25,6 +25,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         [Required]
         public string Telefono { get; set; }
         public string Direccion { get; set; }
+        public bool Activo { get; set; }
         [ForeignKey("Rol")]
         public int? IDRol { get; set; }
         public Rol Rol { get; set; }

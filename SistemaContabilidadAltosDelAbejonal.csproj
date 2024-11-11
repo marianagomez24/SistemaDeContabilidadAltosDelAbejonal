@@ -138,6 +138,9 @@
     <Compile Include="Models\CategoriaProducto.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Compra.cs" />
+    <Compile Include="Models\CompraDetalle.cs" />
+    <Compile Include="Models\Cotizacion.cs" />
+    <Compile Include="Models\CotizacionDetalle.cs" />
     <Compile Include="Models\EstadoEntrega.cs" />
     <Compile Include="Models\PedidoProducto.cs" />
     <Compile Include="Models\PedidoProductoDetalle.cs" />
