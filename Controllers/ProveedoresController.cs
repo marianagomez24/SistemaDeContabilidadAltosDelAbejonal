@@ -17,8 +17,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
 
         public ActionResult Proveedores()
         {
-            var proveedores = _context.Proveedor.ToList();
-            return View(proveedores);
+            var proveedoresActivos = _context.Proveedor.Where(c => c.Activo == true).ToList();
+            return View(proveedoresActivos);
         }
 
         public ActionResult AgregarProveedor()
@@ -90,7 +90,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             Proveedor proveedor = _context.Proveedor.Find(id);
             if (proveedor != null)
             {
-                _context.Proveedor.Remove(proveedor);
+                proveedor.Activo = false;
+                _context.Entry(proveedor).State = EntityState.Modified;
                 _context.SaveChanges();
             }
             return RedirectToAction("Proveedores");

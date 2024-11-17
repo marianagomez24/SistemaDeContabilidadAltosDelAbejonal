@@ -30,9 +30,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
             public string Direccion { get; set; } 
 
             [Column(TypeName = "datetime")] 
-            public DateTime FechaIngreso { get; set; } = DateTime.Now; 
-
-            [StringLength(50)] 
-            public string Estado { get; set; } 
+            public DateTime FechaIngreso { get; set; } = DateTime.Now;
+            public bool Activo { get; set; } = true;
         }
     }

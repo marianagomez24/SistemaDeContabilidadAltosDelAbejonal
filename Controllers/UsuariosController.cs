@@ -14,8 +14,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         // GET: Usuarios
         public ActionResult Index()
         {
-            var usuarios = db.Usuarios.Include(u => u.Rol);
-            return View(usuarios.ToList());
+            var usuariosActivos = db.Usuarios.Where(u => u.Activo == true).Include(u => u.Rol).ToList();
+            return View(usuariosActivos);
         }
 
         // GET: Usuarios/Details/5
@@ -41,8 +41,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         }
 
         // POST: Usuarios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDUsuario,Nombre,PrimerApellido,SegundoApellido,Contraseña,Correo,Telefono,Direccion,IDRol")] Usuario usuario)
@@ -76,8 +74,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         }
 
         // POST: Usuarios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IDUsuario,Nombre,PrimerApellido,SegundoApellido,Contraseña,Correo,Telefono,Direccion,IDRol")] Usuario usuario)
@@ -99,11 +95,13 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Usuario usuario = db.Usuarios.Find(id);
             if (usuario == null)
             {
                 return HttpNotFound();
             }
+
             return View(usuario);
         }
 
@@ -113,8 +111,13 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Usuario usuario = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuario);
-            db.SaveChanges();
+            if (usuario != null)
+            {
+                usuario.Activo = false;
+                db.Entry(usuario).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
 

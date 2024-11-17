@@ -18,8 +18,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
 
         public ActionResult Clientes()
         {
-            var clientes = _context.Cliente.ToList();
-            return View(clientes);
+            var clientesActivos = db.Cliente.Where(c => c.Activo == true).ToList();
+            return View(clientesActivos);
         }
 
         public ActionResult AgregarCliente()
@@ -75,7 +75,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Cliente cliente = db.Cliente.Find(id);
+            Cliente cliente = db.Cliente.Find(id); 
             if (cliente == null)
             {
                 return HttpNotFound();
@@ -88,14 +88,16 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cliente cliente = db.Cliente.Find(id);
+            Cliente cliente = db.Cliente.Find(id); 
             if (cliente != null)
             {
-                db.Cliente.Remove(cliente);
+                cliente.Activo = false;
+                db.Entry(cliente).State = EntityState.Modified; 
                 db.SaveChanges();
             }
             return RedirectToAction("Clientes");
         }
+
 
         protected override void Dispose(bool disposing)
         {

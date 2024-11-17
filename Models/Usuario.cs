@@ -28,6 +28,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         [ForeignKey("Rol")]
         public int? IDRol { get; set; }
         public Rol Rol { get; set; }
+        public bool Activo { get; set; } = true;
 
     }
 }
