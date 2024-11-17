@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using SistemaContabilidadAltosDelAbejonal.Models;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
@@ -45,8 +46,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         }
 
         // POST: Compras/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdCompra,IDPedido,IDProveedor,FechaCompra,TotalCompra")] Compra compra)
@@ -81,8 +80,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         }
 
         // POST: Compras/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdCompra,IDPedido,IDProveedor,FechaCompra,TotalCompra")] Compra compra)
@@ -123,6 +120,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        
 
         protected override void Dispose(bool disposing)
         {

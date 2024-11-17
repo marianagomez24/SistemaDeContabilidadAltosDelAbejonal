@@ -23,7 +23,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         [StringLength(255)]
         public string Direccion { get; set; }
         public DateTime FechaIngreso { get; set; }
-        public bool Activo { get; set; }
+        public bool Activo { get; set; } = true;
 
     }
 }
