@@ -69,5 +69,35 @@ namespace SistemaContabilidadAltosDelAbejonal.Datos
 
             }
         }
+        public List<ReporteCompraProveedor> RetornarProveedores()
+        {
+            List<ReporteCompraProveedor> objLista = new List<ReporteCompraProveedor>();
+
+            using (SqlConnection oconexion = new SqlConnection("Data Source=FRANCISCOVICTUS\\SQLEXPRESS;Initial Catalog=AltosDelAbejonalDB; Integrated Security=True"))
+            {
+                string query = "SP_ComprasProveedor";
+
+                SqlCommand cmd = new SqlCommand(query, oconexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                oconexion.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        objLista.Add(new ReporteCompraProveedor()
+                        {
+                            Proveedor = dr["Proveedor"].ToString(),
+                            Compras = int.Parse(dr["Compras"].ToString()),
+                        });
+                    }
+                }
+
+                return objLista;
+
+            }
+        }
+
     }
 }

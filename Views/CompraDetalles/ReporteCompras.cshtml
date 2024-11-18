@@ -1,5 +1,8 @@
-﻿@{
-    ViewBag.Title = "Reporte Compra";
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.CompraDetalle>
+
+@{
+    ViewBag.Title = "Reportes de Compras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="page-content">
@@ -23,81 +26,55 @@
         </div>
 
         <!-- Reporte -->
-
-        <div class="row" style="margin-top:20px">
-            <div class="col-lg-6">
+        <div class="row justify-content-center" style="margin-top:20px;">
+            <!-- Columna 1: Reporte de Ventas -->
+            <div class="col-lg-6 d-flex justify-content-center mb-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><b>Reporte Ventas: 3 Ultimos meses</b> </div>
+                    <div class="panel-heading"><b>Reporte Compras Mensual</b> </div>
                     <div class="panel-body">
-                        <canvas id="myBarChart" width="100" height="50"></canvas>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-6">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><b>Reporte Productos: 3 Ultimos meses</b> </div>
-                    <div class="panel-body">
-                        <canvas id="myPieChart" width="100" height="50"></canvas>
+                        <canvas id="myBarChart" width="800" height="400"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Page-content -->
-
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-sm-6">
-                    <script>document.write(new Date().getFullYear())</script> © Clivax.
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end d-none d-sm-block">
-                        Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="http://codebucks.in/" target="_blank" class="text-muted">Codebucks</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 </div>
+
 
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        $(document).ready(function () {
 
-         jQuery.ajax({
+            // Llamada para obtener los datos de Compras
+            jQuery.ajax({
                 url: '@Url.Action("ReporteCompra", "CompraDetalles")',
                 type: "GET",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
+                    console.log('Datos de Compras:', data);  // Verifica los datos recibidos
 
-                    /*console.log(data);*/
+                    if (data.length === 0) {
+                        alert('No se encontraron datos de compras.');
+                        return;
+                    }
 
                     var arrayMeses = [];
                     var arrayCantidad = [];
 
                     for (var i = 0; i < data.length; i++) {
-
-                        /*console.log(data[i].mes)*/
-                        arrayMeses.push(data[i].mes)
-                        arrayCantidad.push(data[i].cantidad)
+                        arrayMeses.push(data[i].Mes);
+                        arrayCantidad.push(data[i].Cantidad);
                     }
 
-                    console.log(arrayMeses)
-                    console.log(arrayCantidad)
-
                     var controlBar1 = document.getElementById("myBarChart");
-
                     var graficoBar1 = new Chart(controlBar1, {
                         type: 'bar',
                         data: {
                             labels: arrayMeses,
                             datasets: [{
                                 label: "Total Compras",
-                                /*backgroundColor: "#0800B1",*/
                                 backgroundColor: ["#03B100", "#0083B1", "#0800B1"],
                                 borderColor: "#000000",
                                 borderWidth: 0,
@@ -106,53 +83,44 @@
                         },
                         options: {
                             scales: {
-                                xAxes: [{
-                                    gridLines: {
-                                        display: true
-                                    },
-                                }],
-                                yAxes: [{
-                                    ticks: {
-                                        min: 0,
-                                    },
-                                    gridLines: {
-                                        display: true
-                                    }
-                                }],
+                                x: {
+                                    grid: { display: true }
+                                },
+                                y: {
+                                    ticks: { min: 0 },
+                                    grid: { display: true }
+                                }
                             },
-                            legend: {
-                                display: true
-                            }
+                            legend: { display: true }
                         }
                     });
-
-
                 },
                 error: function (error) {
-                    console.log(error)
+                    console.log('Error al obtener los datos de compras:', error);
                 }
-        });
+            });
 
-
-         jQuery.ajax({
-                url: '@Url.Action("ReporteCompra", "CompraDetalles")',
+            // Llamada para obtener los datos de Productos
+            jQuery.ajax({
+                url: '@Url.Action("ReporteCompraProductos", "CompraDetalles")',
                 type: "GET",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
+                    console.log('Datos de Productos:', data);  // Verifica los datos recibidos
 
-                    /*console.log(data);*/
+                    if (data.length === 0) {
+                        alert('No se encontraron datos de productos.');
+                        return;
+                    }
 
                     var arrayProductos = [];
                     var arrayCantidad = [];
 
                     for (var i = 0; i < data.length; i++) {
-
-                        /*console.log(data[i].producto)*/
-                        arrayProductos.push(data[i].producto)
-                        arrayCantidad.push(data[i].cantidad)
+                        arrayProductos.push(data[i].Producto);
+                        arrayCantidad.push(data[i].Cantidad);
                     }
-
 
                     var controlPie1 = document.getElementById("myPieChart");
                     var graficoPie1 = new Chart(controlPie1, {
@@ -165,12 +133,12 @@
                             }],
                         },
                     });
-
                 },
                 error: function (error) {
-                    console.log(error)
+                    console.log('Error al obtener los datos de productos:', error);
                 }
-         });
-
+            });
+        });
     </script>
 }
+

@@ -52,11 +52,13 @@ namespace SistemaContabilidadAltosDelAbejonal
                 "~/assets/libs/simplebar/simplebar.min.css",
                 "~/assets/css/app.min.css",              
                 "~/assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
-                "~/assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
+                "~/assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css",
+                 "~/Content/Chart.min.css"
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/bootstrap").Include(
-                "~/Scripts/bootstrap.js"
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/Chart.min.js"
                 ));
         }
     }
