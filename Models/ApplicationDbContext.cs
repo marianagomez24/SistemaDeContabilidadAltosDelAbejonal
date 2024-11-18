@@ -18,11 +18,14 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Factura> Facturas { get; set; }
         public DbSet<Proveedor> Proveedor { get; set; }
+        public DbSet<Compra> Compra { get; set; }
+        public DbSet<CompraDetalle> CompraDetalle { get; set; }
+        public DbSet<EstadoEntrega> EstadoEntrega { get; set; }
+        public DbSet<PedidoProducto> PedidoProducto { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<System.Data.Entity.ModelConfiguration.Conventions.PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }

@@ -1,0 +1,138 @@
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.Compra>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Compras Realizadas</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Compras</a></li>
+                                <li class="breadcrumb-item active">Compras Realizadas</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Se muestran las compras realizadas por la empresa.</p>
+
+                            <table id="datatable-row-callback" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.FechaCompra)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Proveedor.Nombre)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PedidoProducto.)
+                                        </th>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>43</td>
+                                        <td>13-10-2022</td>
+                                        <td>Monteverde</td>
+                                        <td>Capuccino</td>
+                                        <td>300</td>
+                                        <td>₡320,800</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <script>document.write(new Date().getFullYear())</script> © Clivax.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="http://codebucks.in/" target="_blank" class="text-muted">Codebucks</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+<!-- end main content-->
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PedidoProducto.Observaciones)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Proveedor.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaCompra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalCompra)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PedidoProducto.Observaciones)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proveedor.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCompra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalCompra)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IDCompra }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IDCompra }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IDCompra })
+            </td>
+        </tr>
+    }
+
+</table>

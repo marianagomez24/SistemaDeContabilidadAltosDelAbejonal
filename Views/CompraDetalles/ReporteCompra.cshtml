@@ -1,0 +1,176 @@
+﻿@{
+    ViewBag.Title = "Reporte Compra";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Reportes de Compras</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Compras</a></li>
+                            <li class="breadcrumb-item active">Reportes Empresa</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Reporte -->
+
+        <div class="row" style="margin-top:20px">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><b>Reporte Ventas: 3 Ultimos meses</b> </div>
+                    <div class="panel-body">
+                        <canvas id="myBarChart" width="100" height="50"></canvas>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"><b>Reporte Productos: 3 Ultimos meses</b> </div>
+                    <div class="panel-body">
+                        <canvas id="myPieChart" width="100" height="50"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page-content -->
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <script>document.write(new Date().getFullYear())</script> © Clivax.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="http://codebucks.in/" target="_blank" class="text-muted">Codebucks</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+         jQuery.ajax({
+                url: '@Url.Action("ReporteCompra", "CompraDetalles")',
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    /*console.log(data);*/
+
+                    var arrayMeses = [];
+                    var arrayCantidad = [];
+
+                    for (var i = 0; i < data.length; i++) {
+
+                        /*console.log(data[i].mes)*/
+                        arrayMeses.push(data[i].mes)
+                        arrayCantidad.push(data[i].cantidad)
+                    }
+
+                    console.log(arrayMeses)
+                    console.log(arrayCantidad)
+
+                    var controlBar1 = document.getElementById("myBarChart");
+
+                    var graficoBar1 = new Chart(controlBar1, {
+                        type: 'bar',
+                        data: {
+                            labels: arrayMeses,
+                            datasets: [{
+                                label: "Total Compras",
+                                /*backgroundColor: "#0800B1",*/
+                                backgroundColor: ["#03B100", "#0083B1", "#0800B1"],
+                                borderColor: "#000000",
+                                borderWidth: 0,
+                                data: arrayCantidad,
+                            }],
+                        },
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                    gridLines: {
+                                        display: true
+                                    },
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                    },
+                                    gridLines: {
+                                        display: true
+                                    }
+                                }],
+                            },
+                            legend: {
+                                display: true
+                            }
+                        }
+                    });
+
+
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+        });
+
+
+         jQuery.ajax({
+                url: '@Url.Action("ReporteCompra", "CompraDetalles")',
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    /*console.log(data);*/
+
+                    var arrayProductos = [];
+                    var arrayCantidad = [];
+
+                    for (var i = 0; i < data.length; i++) {
+
+                        /*console.log(data[i].producto)*/
+                        arrayProductos.push(data[i].producto)
+                        arrayCantidad.push(data[i].cantidad)
+                    }
+
+
+                    var controlPie1 = document.getElementById("myPieChart");
+                    var graficoPie1 = new Chart(controlPie1, {
+                        type: 'pie',
+                        data: {
+                            labels: arrayProductos,
+                            datasets: [{
+                                data: arrayCantidad,
+                                backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+                            }],
+                        },
+                    });
+
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+         });
+
+    </script>
+}
