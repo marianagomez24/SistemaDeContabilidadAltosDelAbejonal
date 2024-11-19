@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.TipoGrano>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreGrano)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreGrano)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IDTipoGrano }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IDTipoGrano })
+            </td>
+        </tr>
+    }
+    <div style="text-align: center;">
+        <button class="btn btn-primary" style="color: white;">
+            @Html.ActionLink("Crear Nuevo tipo de grano", "Create", null, new { @style = "color: white; text-decoration: none;" })
+        </button>
+    </div>
+
+</table>

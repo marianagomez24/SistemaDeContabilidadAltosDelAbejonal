@@ -135,6 +135,7 @@
     <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CategoriaProductoesController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\CompraDetallesController.cs" />
     <Compile Include="Controllers\ComprasController.cs" />
@@ -143,6 +144,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
+    <Compile Include="Controllers\TipoGranoesController.cs" />
+    <Compile Include="Controllers\TipoPresentacionsController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\VentasController.cs" />
     <Compile Include="Datos\DT_Reporte.cs" />
@@ -1770,6 +1773,18 @@
     <Content Include="Views\CompraDetalles\Index.cshtml" />
     <Content Include="Views\CompraDetalles\ReporteCompras.cshtml" />
     <Content Include="Views\CompraDetalles\ReporteComprasProveedores.cshtml" />
+    <Content Include="Views\TipoGranoes\Create.cshtml" />
+    <Content Include="Views\TipoGranoes\Delete.cshtml" />
+    <Content Include="Views\TipoGranoes\Edit.cshtml" />
+    <Content Include="Views\TipoGranoes\Index.cshtml" />
+    <Content Include="Views\CategoriaProductoes\Create.cshtml" />
+    <Content Include="Views\CategoriaProductoes\Delete.cshtml" />
+    <Content Include="Views\CategoriaProductoes\Edit.cshtml" />
+    <Content Include="Views\CategoriaProductoes\Index.cshtml" />
+    <Content Include="Views\TipoPresentacions\Create.cshtml" />
+    <Content Include="Views\TipoPresentacions\Delete.cshtml" />
+    <Content Include="Views\TipoPresentacions\Edit.cshtml" />
+    <Content Include="Views\TipoPresentacions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

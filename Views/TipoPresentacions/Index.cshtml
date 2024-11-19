@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.TipoPresentacion>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombrePresentacion)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombrePresentacion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IDTipoPresentacion }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IDTipoPresentacion })
+            </td>
+        </tr>
+    }
+    <div style="text-align: center;">
+        <button class="btn btn-primary" style="color: white;">
+            @Html.ActionLink("Crear Nueva Presentacion", "Create", null, new { @style = "color: white; text-decoration: none;" })
+        </button>
+    </div>
+
+</table>
