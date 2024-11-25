@@ -22,6 +22,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<CompraDetalle> CompraDetalle { get; set; }
         public DbSet<EstadoEntrega> EstadoEntrega { get; set; }
         public DbSet<PedidoProducto> PedidoProducto { get; set; }
+        public DbSet<Cotizacion> Cotizaciones { get; set; }
+        public DbSet<CotizacionDetalle> CotizacionDetalles { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<System.Data.Entity.ModelConfiguration.Conventions.PluralizingTableNameConvention>();

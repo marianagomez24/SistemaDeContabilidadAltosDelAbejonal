@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.Cotizacion>
+    @{
+        ViewBag.Title = "Cotizaciones Existentes";
+    }
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Total (Con IVA)</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cotizacion in Model)
+            {
+                <tr>
+                    <td>@cotizacion.IDCotizacion</td>
+                    <td>@cotizacion.Cliente</td>
+                    <td>@cotizacion.FechaCotizacion.ToString("dd/MM/yyyy")</td>
+                    <td>@cotizacion.Estado</td>
+                    <td>@cotizacion.TotalConIVA.ToString("C")</td>
+                    <td>
+                        <a href="@Url.Action("Detalles", "Cotizaciones", new { id = cotizacion.IDCotizacion })" class="btn btn-primary">
+                            Ver Detalles
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
