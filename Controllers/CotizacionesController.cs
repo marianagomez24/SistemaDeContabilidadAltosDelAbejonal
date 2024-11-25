@@ -1,6 +1,7 @@
 ﻿using SistemaContabilidadAltosDelAbejonal.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -85,11 +86,32 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
 
         public ActionResult Index()
         {
-            var cotizaciones = _context.Cotizaciones.Include(c => c.Cliente).ToList();
-
+            var cotizaciones = _context.Cotizaciones.ToList();
+            var clientes = _context.Cliente.ToList();
+            ViewBag.Clientes = clientes;
             return View(cotizaciones);
         }
 
-       
+        public ActionResult Details(int id)
+        {
+            // Obtener la cotización con sus detalles
+            var cotizacion = _context.Cotizaciones
+                .Where(c => c.IDCotizacion == id)
+                .FirstOrDefault();
+
+            if (cotizacion == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Obtener los detalles de la cotización
+            var cotizacionDetalles = _context.CotizacionDetalles
+                .Where(cd => cd.IDCotizacion == id)
+                .Include(cd => cd.Producto) // Incluir información del producto
+                .ToList();
+
+            ViewBag.Cotizacion = cotizacion;
+            return View(cotizacionDetalles);
+        }
     }
 }
