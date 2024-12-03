@@ -94,7 +94,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
 
         public ActionResult Details(int id)
         {
-            // Obtener la cotización con sus detalles
             var cotizacion = _context.Cotizaciones
                 .Where(c => c.IDCotizacion == id)
                 .FirstOrDefault();
@@ -104,10 +103,9 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 return HttpNotFound();
             }
 
-            // Obtener los detalles de la cotización
             var cotizacionDetalles = _context.CotizacionDetalles
                 .Where(cd => cd.IDCotizacion == id)
-                .Include(cd => cd.Producto) // Incluir información del producto
+                .Include(cd => cd.Producto) 
                 .ToList();
 
             ViewBag.Cotizacion = cotizacion;
