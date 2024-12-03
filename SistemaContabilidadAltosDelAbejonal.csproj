@@ -139,6 +139,7 @@
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\CompraDetallesController.cs" />
     <Compile Include="Controllers\ComprasController.cs" />
+    <Compile Include="Controllers\CotizacionesController.cs" />
     <Compile Include="Controllers\GestionFacturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -156,6 +157,9 @@
     <Compile Include="Models\CategoriaProducto.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\CompraDetalle.cs" />
+    <Compile Include="Models\Cotizacion.cs" />
+    <Compile Include="Models\CotizacionDetalle.cs" />
+    <Compile Include="Models\CotizacionViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PedidoProducto.cs" />
     <Compile Include="Models\Producto.cs" />
@@ -1785,6 +1789,9 @@
     <Content Include="Views\TipoPresentacions\Delete.cshtml" />
     <Content Include="Views\TipoPresentacions\Edit.cshtml" />
     <Content Include="Views\TipoPresentacions\Index.cshtml" />
+    <Content Include="Views\Cotizaciones\Create.cshtml" />
+    <Content Include="Views\Cotizaciones\Index.cshtml" />
+    <Content Include="Views\Cotizaciones\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
