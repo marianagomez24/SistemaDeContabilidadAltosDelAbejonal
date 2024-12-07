@@ -52,7 +52,6 @@
                                         <th>Teléfono</th>
                                         <th>Dirección</th>
                                         <th>Fecha de Ingreso</th>
-                                        <th>Estado</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
@@ -65,7 +64,6 @@
                                             <td>@proveedor.Telefono</td>
                                             <td>@proveedor.Direccion</td>
                                             <td>@proveedor.FechaIngreso.ToString("dd/MM/yyyy")</td>
-                                            <td>@proveedor.Estado</td>
                                             <td>
                                                 <button class="btn btn-info">
                                                     @Html.ActionLink("Editar Proveedor", "EditarProveedor", new { id = proveedor.IDProveedor }, new { @style = "color: white; text-decoration: none;" })
@@ -90,8 +88,7 @@
                                                         <p><strong>Email:</strong> @Html.DisplayFor(modelItem => proveedor.Email)</p>
                                                         <p><strong>Teléfono:</strong> @Html.DisplayFor(modelItem => proveedor.Telefono)</p>
                                                         <p><strong>Dirección:</strong> @Html.DisplayFor(modelItem => proveedor.Direccion)</p>
-                                                        <p><strong>Fecha de Ingreso:</strong> @Html.DisplayFor(modelItem => proveedor.FechaIngreso)</p>
-                                                        <p><strong>Estado:</strong> @Html.DisplayFor(modelItem => proveedor.Estado)</p>
+                                                        <p><strong>Fecha de Ingreso:</strong> @Html.DisplayFor(modelItem => proveedor.FechaIngreso)</p>                                                    
                                                     </div>
                                                     @using (Html.BeginForm("EliminarProveedor", "Proveedores", new { id = proveedor.IDProveedor }, FormMethod.Post))
                                                     {

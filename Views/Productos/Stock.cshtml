@@ -5,6 +5,10 @@
     var totalStock = Model.Sum(p => p.Stock);
 }
 
+@{
+    var rolUsuario = Session["RolUsuario"] as string;
+}
+
 <div class="page-content">
     <div class="container-fluid">
 
@@ -81,10 +85,13 @@
                                             <td>@producto.Precio</td>
                                             <td>@producto.FechaActualizacion.ToString("dd/MM/yyyy")</td>
                                             <td>
-                                                <button class="btn btn-info">
-                                                    @Html.ActionLink("Editar Producto", "EditarProducto", new { id = producto.IDProducto }, new { @style = "color: white; text-decoration: none;" })
-                                                </button>
-                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@producto.IDProducto">Eliminar</button>
+                                                @if (rolUsuario == "Administrador")
+                                                {
+                                                    <button class="btn btn-info">
+                                                        @Html.ActionLink("Editar Producto", "EditarProducto", new { id = producto.IDProducto }, new { @style = "color: white; text-decoration: none;" })
+                                                    </button>
+                                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@producto.IDProducto">Eliminar</button>
+                                                }
                                             </td>
                                         </tr>
                                         <!-- Modal Para Eliminar-->
@@ -130,7 +137,10 @@
     </div>
     <!-- container-fluid -->
     <div style="text-align: center;">
-        <button class="btn btn-primary" onclick="location.href = '/Productos/AgregarProducto'">Agregar Producto</button>
+        @if (rolUsuario == "Administrador")
+        {
+            <button class="btn btn-primary" onclick="location.href = '/Productos/AgregarProducto'">Agregar Producto</button>
+        }
     </div>
 </div>
 <!-- End Page-content -->

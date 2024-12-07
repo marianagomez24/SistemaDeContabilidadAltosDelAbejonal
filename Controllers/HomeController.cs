@@ -10,5 +10,10 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         {
             return View();
         }
+
+        public ActionResult AccesoDenegado()
+        {
+            return View();
+        }
     }
 }
