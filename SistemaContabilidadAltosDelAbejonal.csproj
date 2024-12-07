@@ -174,8 +174,9 @@
     <Compile Include="Models\TipoGrano.cs" />
     <Compile Include="Models\TipoPresentacion.cs" />
     <Compile Include="Models\Usuario.cs" />
-    <Compile Include="Models\Ventas.cs" />
     <Compile Include="Models\Factura.cs" />
+    <Compile Include="Models\Venta.cs" />
+    <Compile Include="Models\VentaDetalle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1793,10 +1794,13 @@
     <Content Include="Views\Cotizaciones\Index.cshtml" />
     <Content Include="Views\Cotizaciones\Details.cshtml" />
     <Content Include="Views\Home\AccesoDenegado.cshtml" />
+    <Content Include="Views\Cotizaciones\Edit.cshtml" />
+    <Content Include="Views\Ventas\Edit.cshtml" />
+    <Content Include="Views\Ventas\Index.cshtml" />
+    <Content Include="Views\Ventas\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Ventas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

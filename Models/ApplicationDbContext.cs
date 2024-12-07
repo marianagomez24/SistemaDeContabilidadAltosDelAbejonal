@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using SistemaContabilidadAltosDelAbejonal.Controllers;
+using System.Data.Entity;
 using System.Web.Services.Description;
 
 namespace SistemaContabilidadAltosDelAbejonal.Models
@@ -14,7 +15,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Rol> Rols { get; set; }
-        public DbSet<Ventas> Venta { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Factura> Facturas { get; set; }
         public DbSet<Proveedor> Proveedor { get; set; }
@@ -24,6 +24,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<PedidoProducto> PedidoProducto { get; set; }
         public DbSet<Cotizacion> Cotizaciones { get; set; }
         public DbSet<CotizacionDetalle> CotizacionDetalles { get; set; }
+        public DbSet<Venta> Ventas { get; set; }
+        public DbSet<VentaDetalle> VentaDetalles { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<System.Data.Entity.ModelConfiguration.Conventions.PluralizingTableNameConvention>();
