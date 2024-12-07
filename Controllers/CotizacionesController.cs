@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -110,6 +111,85 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
 
             ViewBag.Cotizacion = cotizacion;
             return View(cotizacionDetalles);
+        }
+
+
+        public ActionResult Edit(int id)
+        {
+            var cotizacion = _context.Cotizaciones.FirstOrDefault(c => c.IDCotizacion == id);
+
+            if (cotizacion == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(cotizacion);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Cotizacion cotizacion)
+        {
+            if (ModelState.IsValid)
+            {
+                var cotizacionDb = _context.Cotizaciones.FirstOrDefault(c => c.IDCotizacion == cotizacion.IDCotizacion);
+
+                if (cotizacionDb == null)
+                {
+                    return HttpNotFound();
+                }
+
+                cotizacionDb.Estado = cotizacion.Estado;
+                cotizacionDb.TotalSinIVA = cotizacion.TotalSinIVA;
+                cotizacionDb.IVA = cotizacion.IVA;
+                cotizacionDb.TotalConIVA = cotizacion.TotalConIVA;
+                cotizacionDb.Observaciones = cotizacion.Observaciones;
+
+                if (cotizacionDb.Estado == "Pagado")
+                {
+                    var usuarioSesion = Session["UsuarioID"] as int?;
+
+                    if (usuarioSesion == null)
+                    {
+                        
+                        return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                    }
+                    var venta = new Venta
+                    {
+                        IDCliente = cotizacionDb.IDCliente,
+                        IDUsuario = usuarioSesion.Value,
+                        FechaVenta = DateTime.Now,
+                        TotalVenta = cotizacionDb.TotalConIVA, 
+                        Observaciones = cotizacionDb.Observaciones
+                    };
+
+                    _context.Ventas.Add(venta);
+                    _context.SaveChanges();
+
+                    var cotizacionDetalles = _context.CotizacionDetalles.Where(cd => cd.IDCotizacion == cotizacionDb.IDCotizacion).ToList();
+
+                    foreach (var detalle in cotizacionDetalles)
+                    {
+                        var ventaDetalle = new VentaDetalle
+                        {
+                            IDVenta = venta.IDVenta,
+                            IDProducto = detalle.IDProducto,
+                            Cantidad = detalle.Cantidad,
+                            PrecioUnitario = detalle.PrecioUnitario,
+                        };
+
+                        _context.VentaDetalles.Add(ventaDetalle);
+                    }
+
+                    _context.SaveChanges(); 
+                }
+
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(cotizacion);
         }
     }
 }

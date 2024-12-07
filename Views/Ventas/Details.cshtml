@@ -1,0 +1,85 @@
+﻿
+@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.VentaDetalle>
+
+@{
+    var venta = ViewBag.Venta as SistemaContabilidadAltosDelAbejonal.Models.Venta;
+}
+
+@{
+    ViewBag.Title = "Detalles de Venta";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ventas</a></li>
+                            <li class="breadcrumb-item active">Detalles de Venta</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        <div class="card">
+            <div class="card-header card-header-bordered">
+                <h3 class="card-title">Detalles de la Cotización</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Fecha de Venta:</strong> @venta.FechaVenta.ToShortDateString()</p>
+                <p><strong>Total de Venta:</strong> @venta.TotalVenta</p>
+                <p><strong>Observaciones:</strong> @venta.Observaciones</p>
+            </div>
+        </div>
+        <h4>Detalles de los Productos</h4>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sección de Cotizaciones</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Search bar and button -->
+
+                        <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                            <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Unitario</th>
+                                        <th>Total Producto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var detalle in Model)
+                                    {
+                                        <tr>
+                                            <td>@detalle.Producto.Nombre</td>
+                                            <td>@detalle.Cantidad</td>
+                                            <td>@detalle.PrecioUnitario</td>
+                                            <td>@detalle.TotalProducto</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <a href="@Url.Action("Index", "Ventas")" class="btn btn-secondary">Volver</a>
+                        </div>
+
+                    </div>
+
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End P<age-content -->
+</div>

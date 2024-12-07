@@ -59,6 +59,9 @@
                                                 <a href="@Url.Action("Details", "Cotizaciones", new { id = cotizacion.IDCotizacion })" class="btn btn-primary">
                                                     Ver Detalles
                                                 </a>
+                                                <button class="btn btn-info">
+                                                    @Html.ActionLink("Editar Cotizacion", "Edit", new { id = cotizacion.IDCotizacion }, new { @style = "color: white; text-decoration: none;" })
+                                                </button>
                                             </td>
                                         </tr>
                                     }
