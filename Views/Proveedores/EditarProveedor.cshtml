@@ -72,20 +72,6 @@
                                     @Html.ValidationMessageFor(model => model.FechaIngreso, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div>
-                                    @Html.DropDownListFor(model => model.Estado,
-                                        new List<SelectListItem>
-                                        {
-                                            new SelectListItem { Text = "Activo", Value = "Activo" },
-                                            new SelectListItem { Text = "Inactivo", Value = "Inactivo" }
-                                        },
-                                        new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
                             <div class="col-12">
                                 <input type="submit" value="Guardar" class="btn btn-primary" />
                                 <button type="button" class="btn btn-primary" style="color: white;">

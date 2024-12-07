@@ -154,6 +154,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\AuthorizeRole.cs" />
     <Compile Include="Models\CategoriaProducto.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\CompraDetalle.cs" />
@@ -1756,7 +1757,6 @@
     <Content Include="Views\Usuarios\Create.cshtml" />
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
-    <Content Include="Views\Ventas\GenerarReporte.cshtml" />
     <Content Include="Views\Productos\EditarProducto.cshtml" />
     <Content Include="Views\Productos\AgregarProducto.cshtml" />
     <Content Include="Views\GestionFacturas\Edit.cshtml" />
@@ -1792,9 +1792,11 @@
     <Content Include="Views\Cotizaciones\Create.cshtml" />
     <Content Include="Views\Cotizaciones\Index.cshtml" />
     <Content Include="Views\Cotizaciones\Details.cshtml" />
+    <Content Include="Views\Home\AccesoDenegado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Ventas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

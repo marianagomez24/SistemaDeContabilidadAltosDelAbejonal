@@ -46,15 +46,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function () {
-
-            // Llamada para obtener los datos de Compras
             jQuery.ajax({
                 url: '@Url.Action("ReporteCompraProveedor", "CompraDetalles")',
                 type: "GET",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    console.log('Datos de Compras:', data);  // Verifica los datos recibidos
+                    console.log('Datos de Compras:', data); 
 
                     if (data.length === 0) {
                         alert('No se encontraron datos de compras.');
@@ -73,9 +71,9 @@
                     var graficoPie1 = new Chart(controlPie1, {
                         type: 'pie',
                         data: {
-                            labels: arrayProveedores,  // Etiquetas: proveedores
+                            labels: arrayProveedores, 
                             datasets: [{
-                                data: arrayCompras,  // Datos: cantidad de compras
+                                data: arrayCompras, 
                                 backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#6f42c1', '#e83e8c'],  // Colores del gráfico
                             }],
                         },

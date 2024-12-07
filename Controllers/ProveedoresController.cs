@@ -1,4 +1,5 @@
 ﻿using SistemaContabilidadAltosDelAbejonal.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -32,6 +33,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         {
             if (ModelState.IsValid)
             {
+                proveedor.FechaIngreso = DateTime.Now;
                 _context.Proveedor.Add(proveedor);
                 _context.SaveChanges();
                 return RedirectToAction("Proveedores");
