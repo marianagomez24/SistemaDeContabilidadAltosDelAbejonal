@@ -92,17 +92,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             return Json(objLista, JsonRequestBehavior.AllowGet);
         }
 
-
-        [HttpGet]
-        public JsonResult ReporteCompraProductos()
-        {
-            DT_Reporte objDT_Reporte = new DT_Reporte();
-
-            List<ReporteCompraProductos> objLista = objDT_Reporte.RetornarProcutos();
-
-            return Json(objLista, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpGet]
         public JsonResult ReporteCompraProveedor()
         {

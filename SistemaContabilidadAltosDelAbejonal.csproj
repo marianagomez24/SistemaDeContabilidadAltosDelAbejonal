@@ -170,6 +170,8 @@
     <Compile Include="Models\ReporteCompraProductos.cs" />
     <Compile Include="Models\ReporteCompra.cs" />
     <Compile Include="Models\ReporteCompraProveedor.cs" />
+    <Compile Include="Models\ReporteComparacion.cs" />
+    <Compile Include="Models\ReporteVenta.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\TipoGrano.cs" />
     <Compile Include="Models\TipoPresentacion.cs" />
@@ -1798,6 +1800,8 @@
     <Content Include="Views\Ventas\Edit.cshtml" />
     <Content Include="Views\Ventas\Index.cshtml" />
     <Content Include="Views\Ventas\Details.cshtml" />
+    <Content Include="Views\Ventas\ReporteVentas.cshtml" />
+    <Content Include="Views\Ventas\ReporteComparaciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

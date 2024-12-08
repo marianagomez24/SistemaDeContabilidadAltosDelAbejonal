@@ -1,10 +1,9 @@
-﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.CompraDetalle>
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.Venta>
 
 @{
-    ViewBag.Title = "ComprasProveedores";
+    ViewBag.Title = "Reportes de Gastos e Ingresos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <div class="page-content">
     <div class="container-fluid">
@@ -13,12 +12,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Reportes de Compras</h4>
+                    <h4 class="mb-sm-0">Reportes de Gastos e Ingresos</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Compras</a></li>
-                            <li class="breadcrumb-item active">Reportes Empresa</li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Reporte</a></li>
+                            <li class="breadcrumb-item active">Reportes de Gastos e Ingresos</li>
                         </ol>
                     </div>
 
@@ -31,9 +30,9 @@
             <!-- Columna 1: Reporte de Ventas -->
             <div class="col-lg-6 d-flex justify-content-center mb-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><b>Reporte de compras por proveedor</b> </div>
+                    <div class="panel-heading"><b>Reportes de Gastos e Ingresos</b> </div>
                     <div class="panel-body">
-                        <canvas id="myPieChart" width="533" height="266"></canvas>
+                        <canvas id="myPieChart" width="480" height="220"></canvas>
                     </div>
                 </div>
             </div>
@@ -41,46 +40,53 @@
     </div>
 </div>
 
-
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function () {
             jQuery.ajax({
-                url: '@Url.Action("ReporteCompraProveedor", "CompraDetalles")',
+                url: '@Url.Action("ReporteComparacion", "Ventas")',
                 type: "GET",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    console.log('Datos de Compras:', data); 
+                    console.log('Datos de comparación:', data);
 
                     if (data.length === 0) {
-                        alert('No se encontraron datos de compras.');
+                        alert('No se encontraron datos de comparación.');
                         return;
                     }
 
-                    var arrayProveedores = [];
-                    var arrayCompras = [];
+                    var totalCompras = 0;
+                    var totalVentas = 0;
 
-                    for (var i = 0; i < data.length; i++) {
-                        arrayProveedores.push(data[i].Proveedor);
-                        arrayCompras.push(data[i].Compras);
-                    }
+                    data.forEach(item => {
+                        totalCompras += item.MontoTotalCompras;
+                        totalVentas += item.MontoTotalVentas;
+                    });
 
                     var controlPie1 = document.getElementById("myPieChart");
                     var graficoPie1 = new Chart(controlPie1, {
                         type: 'pie',
                         data: {
-                            labels: arrayProveedores, 
+                            labels: ["Compras Totales", "Ventas Totales"],
                             datasets: [{
-                                data: arrayCompras, 
-                                backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#6f42c1', '#e83e8c'],  
+                                data: [totalCompras, totalVentas],
+                                backgroundColor: ['#007bff', '#28a745'],
                             }],
                         },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                }
+                            }
+                        }
                     });
                 },
                 error: function (error) {
-                    console.log('Error al obtener los datos de compras por proveedor:', error);
+                    console.log('Error al obtener los datos de comparación:', error);
                 }
             });
         });

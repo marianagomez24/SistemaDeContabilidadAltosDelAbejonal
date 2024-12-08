@@ -1,7 +1,7 @@
-﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.CompraDetalle>
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.Venta>
 
 @{
-    ViewBag.Title = "Reportes de Compras";
+    ViewBag.Title = "Reportes de Ventas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,11 +12,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Reportes de Compras</h4>
+                    <h4 class="mb-sm-0">Reportes de Ventas</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Compras</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ventas</a></li>
                             <li class="breadcrumb-item active">Reportes Empresa</li>
                         </ol>
                     </div>
@@ -25,10 +25,12 @@
             </div>
         </div>
 
+        <!-- Reporte -->
         <div class="row justify-content-center" style="margin-top:20px;">
+            <!-- Columna 1: Reporte de Ventas -->
             <div class="col-lg-6 d-flex justify-content-center mb-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><b>Reporte Compras Mensual</b> </div>
+                    <div class="panel-heading"><b>Reporte Ventas Mensual</b> </div>
                     <div class="panel-body">
                         <canvas id="myBarChart" width="800" height="400"></canvas>
                     </div>
@@ -38,22 +40,20 @@
     </div>
 </div>
 
-
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function () {
-
             jQuery.ajax({
-                url: '@Url.Action("ReporteCompra", "CompraDetalles")',
+                url: '@Url.Action("ReporteVenta", "Ventas")',
                 type: "GET",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    console.log('Datos de Compras:', data); 
+                    console.log('Datos de Ventas:', data);
 
                     if (data.length === 0) {
-                        alert('No se encontraron datos de compras.');
+                        alert('No se encontraron datos de ventas.');
                         return;
                     }
 
@@ -71,8 +71,8 @@
                         data: {
                             labels: arrayMeses,
                             datasets: [{
-                                label: "Total Compras",
-                                backgroundColor: ["#03B100", "#0083B1", "#0800B1"],
+                                label: "Total Ventas",
+                                backgroundColor: ["#FF5733", "#33FFBD", "#3383FF"],
                                 borderColor: "#000000",
                                 borderWidth: 0,
                                 data: arrayCantidad,
@@ -93,10 +93,9 @@
                     });
                 },
                 error: function (error) {
-                    console.log('Error al obtener los datos de compras:', error);
+                    console.log('Error al obtener los datos de ventas:', error);
                 }
-            });  
+            });
         });
     </script>
 }
-

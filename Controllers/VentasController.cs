@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using SistemaContabilidadAltosDelAbejonal.Datos;
 using SistemaContabilidadAltosDelAbejonal.Models;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
@@ -13,12 +14,17 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
     public class VentasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private readonly ApplicationDbContext _context;
-        public VentasController()
-        {
 
-            _context = new ApplicationDbContext();
+        public ActionResult ReporteVentas()
+        {
+            return View();
         }
+
+        public ActionResult ReporteComparaciones()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             var ventas = db.Ventas.Include(v => v.Cliente).Include(v => v.Usuario);
@@ -28,7 +34,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         // GET: Ventas/Details/5
         public ActionResult Details(int id)
         {
-            var venta = _context.Ventas
+            var venta = db.Ventas
                 .Where(c => c.IDVenta == id)
                 .FirstOrDefault();
 
@@ -37,7 +43,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 return HttpNotFound();
             }
 
-            var ventaDetalles = _context.VentaDetalles
+            var ventaDetalles = db.VentaDetalles
                 .Where(cd => cd.IDVenta == id)
                 .Include(cd => cd.Producto)
                 .ToList();
@@ -132,6 +138,26 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             db.Ventas.Remove(venta);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public JsonResult ReporteVenta()
+        {
+            DT_Reporte objDT_Reporte = new DT_Reporte();
+
+            List<ReporteVenta> objLista = objDT_Reporte.RetornarVentas();
+
+            return Json(objLista, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult ReporteComparacion()
+        {
+            DT_Reporte dtReporte = new DT_Reporte();
+
+            List<ReporteComparacion> lista = dtReporte.RetornarGastoIngreso();
+
+            return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
