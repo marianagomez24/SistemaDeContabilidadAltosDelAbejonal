@@ -18,7 +18,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         // GET: GestionFacturas
         public ActionResult Facturas()
         {
-            var facturas = _context.Facturas.ToList();
+            var facturas = _context.Facturas.Where(f => !f.Activo).ToList();
             return View(facturas);
         }
 
@@ -99,7 +99,9 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             var factura = _context.Facturas.Find(id);
             if (factura != null)
             {
-                _context.Facturas.Remove(factura);
+                factura.Activo = true;
+
+                _context.Entry(factura).State = System.Data.Entity.EntityState.Modified;
                 _context.SaveChanges();
             }
 
