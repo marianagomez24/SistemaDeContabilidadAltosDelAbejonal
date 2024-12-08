@@ -5,35 +5,106 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<!-- Start right Content here -->
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Categorias</h4>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NombreCategoria)
-        </th>
-        <th></th>
-    </tr>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Administrar</a></li>
+                            <li class="breadcrumb-item active">Categorias</li>
+                        </ol>
+                    </div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreCategoria)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.IDCategoria }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.IDCategoria })
-            </td>
-        </tr>
-    }
-    <div style="text-align: center;">
-        <button class="btn btn-primary" style="color: white;">
-            @Html.ActionLink("Crear Nueva Categoria", "Create", null, new { @style = "color: white; text-decoration: none;" })
-        </button>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sección de Categorias de Cafe</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Search bar and button -->
+
+                        <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                            <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.IDCategoria)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.NombreCategoria)
+                                        </th>
+                                        <th>
+                                            Accion
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.IDCategoria</td>
+                                            <td>@item.NombreCategoria</td>
+                                            <td>
+                                                <button class="btn btn-info" style="color: white;">
+                                                    @Html.ActionLink("Edit", "Edit", new { id = item.IDCategoria }, new { @style = "color: white; text-decoration: none;" })
+                                                </button>
+                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@item.IDCategoria">Eliminar</button>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Modal Para Eliminar-->
+                                        <div class="modal fade" id="modal1-@item.IDCategoria" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@item.IDCategoria" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modal1Label-@item.IDCategoria">Confirmar Eliminación del item:</h5>
+                                                        <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="mdi mdi-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-muted mb-0">Numero de Identificacion: @Html.DisplayFor(modelItem => item.IDCategoria)</p>
+                                                        <p class="text-muted mb-0">Nombre Categoria: @Html.DisplayFor(modelItem => item.NombreCategoria)</p>
+                                                    </div>
+                                                    @using (Html.BeginForm("Delete", "CategoriaProductoes", new { id = item.IDCategoria }, FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <div class="modal-footer">
+                                                            <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+        <div style="text-align: center;">
+            <button class="btn btn-primary" style="color: white;">
+                @Html.ActionLink("Agregar nueva categoria", "Create", null, new { @style = "color: white; text-decoration: none;" })
+            </button>
+        </div>
     </div>
-
-</table>
+    <!-- End Page-content -->
+</div>

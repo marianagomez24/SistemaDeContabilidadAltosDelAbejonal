@@ -5,35 +5,106 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<!-- Start right Content here -->
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Granos</h4>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NombreGrano)
-        </th>
-        <th></th>
-    </tr>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Administrar</a></li>
+                            <li class="breadcrumb-item active">Granos</li>
+                        </ol>
+                    </div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreGrano)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.IDTipoGrano }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.IDTipoGrano })
-            </td>
-        </tr>
-    }
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sección de Granos de Cafe</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Search bar and button -->
+
+                        <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                            <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.IDTipoGrano)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.NombreGrano)
+                                        </th>
+                                        <th>
+                                            Accion
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.IDTipoGrano</td>
+                                            <td>@item.NombreGrano</td>
+                                            <td>
+                                                <button class="btn btn-info" style="color: white;">
+                                                    @Html.ActionLink("Edit", "Edit", new { id = item.IDTipoGrano }, new { @style = "color: white; text-decoration: none;" })
+                                                </button>
+                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@item.IDTipoGrano">Eliminar</button>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Modal Para Eliminar-->
+                                        <div class="modal fade" id="modal1-@item.IDTipoGrano" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@item.IDTipoGrano" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modal1Label-@item.IDTipoGrano">Confirmar Eliminación del item:</h5>
+                                                        <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="mdi mdi-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-muted mb-0">Numero de Identificacion: @Html.DisplayFor(modelItem => item.IDTipoGrano)</p>
+                                                        <p class="text-muted mb-0">Nombre: @Html.DisplayFor(modelItem => item.NombreGrano)</p>
+                                                    </div>
+                                                    @using (Html.BeginForm("Delete", "TipoGranoes", new { id = item.IDTipoGrano }, FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <div class="modal-footer">
+                                                            <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- end row -->
+    </div>
+    <!-- container-fluid -->
     <div style="text-align: center;">
         <button class="btn btn-primary" style="color: white;">
-            @Html.ActionLink("Crear Nuevo tipo de grano", "Create", null, new { @style = "color: white; text-decoration: none;" })
+            @Html.ActionLink("Agregar nuevo grano", "Create", null, new { @style = "color: white; text-decoration: none;" })
         </button>
     </div>
-
-</table>
+</div>
+<!-- End Page-content -->
+</div>

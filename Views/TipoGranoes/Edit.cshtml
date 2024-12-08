@@ -5,34 +5,64 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Editar Grano</h4>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>TipoGrano</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IDTipoGrano)
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Otras Opciones</a></li>
+                                <li class="breadcrumb-item active">Editar Grano</li>
+                            </ol>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NombreGrano, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NombreGrano, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NombreGrano, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
+            <div class="row">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Datos del Grano</h3>
+                    </div>
+                    <div class="card-body">
+                        <form class="custom-validation" action="#">
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.IDTipoGrano)
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.NombreGrano, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="form-floating">
+                                    @Html.EditorFor(model => model.NombreGrano, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.NombreGrano, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <input type="submit" value="Guardar" class="btn btn-primary" />
+                                <button type="button" class="btn btn-primary" style="color: white;">
+                                    @Html.ActionLink("Regresar", "Index", null, new { @style = "color: white; text-decoration: none;" })
+                                </button>
+                            </div>
+                        </form>
+                        <!-- end card -->
+                    </div> <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div> <!-- container-fluid -->
+        }
+    </div><!-- End Page-content -->
 </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
