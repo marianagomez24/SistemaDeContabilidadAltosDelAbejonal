@@ -29,7 +29,7 @@
                     @using (Html.BeginForm("Edit", "GestionFacturas", FormMethod.Post, new { @class = "custom-validation" }))
                     {
                         @Html.AntiForgeryToken()
-                        @Html.HiddenFor(m => m.IdFactura)
+                        @Html.HiddenFor(m => m.IdFacturas)
 
                         <div class="mb-3">
                             <div class="form-floating">

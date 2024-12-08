@@ -7,24 +7,25 @@ using System.Web;
 
 namespace SistemaContabilidadAltosDelAbejonal.Models
 {
-    [Table("Factura")]
+    [Table("Facturas")]
     public class Factura
     {
         [Key]
 
-        public int IdFactura { get; set; }
+        public int IdFacturas { get; set; }
 
         [Required]
         [StringLength(50)]
         public string TipoFactura { get; set; }
-
         public DateTime FechaIngreso { get; set; }
 
-        public DateTime FechaEmision {  get; set; }
+        public DateTime? FechaEmision { get; set; }
 
-        public DateTime FechaPago { get; set; }
+        public DateTime? FechaPago { get; set; }
 
-        public int Total {  get; set; }
+        public int Total { get; set; }
+
+        public bool Activo { get; set; }
 
 
     }

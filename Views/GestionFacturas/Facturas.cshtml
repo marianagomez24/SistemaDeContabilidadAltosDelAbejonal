@@ -49,36 +49,36 @@
                                 @foreach (var factura in Model)
                                 {
                                     <tr>
-                                        <td>@factura.IdFactura</td>
+                                        <td>@factura.IdFacturas</td>
                                         <td>@factura.TipoFactura</td>
                                         <td>@factura.FechaIngreso.ToString("dd/MM/yyyy")</td>
-                                        <td>@factura.FechaEmision.ToString("dd/MM/yyyy")</td>
-                                        <td>@factura.FechaPago.ToString("dd/MM/yyyy")</td>
+                                        <td>@factura.FechaEmision</td>
+                                        <td>@factura.FechaPago</td>
                                         <td>@factura.Total</td>
                                         <td>
-                                            @Html.ActionLink("Editar Factura", "Edit", "GestionFacturas", new { id = factura.IdFactura }, new { @class = "btn btn-info" })
+                                            @Html.ActionLink("Editar Factura", "Edit", "GestionFacturas", new { id = factura.IdFacturas }, new { @class = "btn btn-info" })
 
-                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete-@factura.IdFactura">Eliminar</button>
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete-@factura.IdFacturas">Eliminar</button>
                                         </td>
                                     </tr>
 
                                     <!-- Modal Para Eliminar-->
-                                    <div class="modal fade" id="modalDelete-@factura.IdFactura" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel-@factura.IdFactura" aria-hidden="true">
+                                    <div class="modal fade" id="modalDelete-@factura.IdFacturas" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel-@factura.IdFacturas" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="modalDeleteLabel-@factura.IdFactura">Confirmar Eliminación de Factura</h5>
+                                                    <h5 class="modal-title" id="modalDeleteLabel-@factura.IdFacturas">Confirmar Eliminación de Factura</h5>
                                                     <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
                                                         <i class="mdi mdi-close"></i>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p class="text-muted mb-0">¿Estás seguro de que deseas eliminar la factura con el número: <strong>@factura.IdFactura</strong>?</p>
+                                                    <p class="text-muted mb-0">¿Estás seguro de que deseas eliminar la factura con el número: <strong>@factura.IdFacturas</strong>?</p>
                                                     <p class="text-muted mb-0">Tipo de Factura: @factura.TipoFactura</p>
-                                                    <p class="text-muted mb-0">Fecha de Emisión: @factura.FechaEmision.ToString("dd/MM/yyyy")</p>
+                                                    <p class="text-muted mb-0">Fecha de Emisión: @factura.FechaEmision</p>
                                                     <p class="text-muted mb-0">Total: @factura.Total</p>
                                                 </div>
-                                                @using (Html.BeginForm("Delete", "GestionFacturas", new { id = factura.IdFactura }, FormMethod.Post))
+                                                @using (Html.BeginForm("Delete", "GestionFacturas", new { id = factura.IdFacturas }, FormMethod.Post))
                                                 {
                                                     @Html.AntiForgeryToken()
                                                     <div class="modal-footer">
@@ -105,4 +105,3 @@
         </button>
     </div>
 </div>
-
