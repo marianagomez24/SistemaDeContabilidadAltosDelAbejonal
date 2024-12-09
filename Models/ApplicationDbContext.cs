@@ -26,6 +26,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<CotizacionDetalle> CotizacionDetalles { get; set; }
         public DbSet<Venta> Ventas { get; set; }
         public DbSet<VentaDetalle> VentaDetalles { get; set; }
+        public DbSet<Comision> Comisiones { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<System.Data.Entity.ModelConfiguration.Conventions.PluralizingTableNameConvention>();

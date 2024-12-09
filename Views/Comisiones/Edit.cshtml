@@ -1,0 +1,78 @@
+﻿@model SistemaContabilidadAltosDelAbejonal.Models.Comision
+
+@{
+    ViewBag.Title = "Editar Comisión";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Editar Comisión</h3>
+                    </div>
+                    <div class="card-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.IDComision)
+
+                        <!-- Campo: Selección de Venta -->
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.IDVenta, "Venta", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="form-floating">
+                                @Html.DropDownListFor(model => model.IDVenta, (SelectList)ViewBag.IDVenta, "- Seleccione Venta -", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IDVenta, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Campo: Selección de Usuario -->
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.IDUsuario, "Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="form-floating">
+                                @Html.DropDownListFor(model => model.IDUsuario, (SelectList)ViewBag.IDUsuario, "- Seleccione Usuario -", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IDUsuario, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Campo: Porcentaje de Comisión -->
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.PorcentajeComision, "Porcentaje de Comisión", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="form-floating">
+                                @Html.EditorFor(model => model.PorcentajeComision, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.PorcentajeComision, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Campo: Monto de Comisión -->
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.MontoComision, "Monto de Comisión", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="form-floating">
+                                @Html.EditorFor(model => model.MontoComision, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MontoComision, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Campo: Fecha de Registro -->
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.FechaRegistro, "Fecha de Registro", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="form-floating">
+                                @Html.TextBoxFor(model => model.FechaRegistro, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                                @Html.ValidationMessageFor(model => model.FechaRegistro, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                            <button type="button" class="btn btn-secondary">
+                                @Html.ActionLink("Regresar", "Comisiones", "Comisiones", null, new { @style = "color: white; text-decoration: none;" })
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

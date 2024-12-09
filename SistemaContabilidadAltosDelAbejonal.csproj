@@ -137,6 +137,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoriaProductoesController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\ComisionesController.cs" />
     <Compile Include="Controllers\CompraDetallesController.cs" />
     <Compile Include="Controllers\ComprasController.cs" />
     <Compile Include="Controllers\CotizacionesController.cs" />
@@ -157,6 +158,8 @@
     <Compile Include="Models\AuthorizeRole.cs" />
     <Compile Include="Models\CategoriaProducto.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Comision.cs" />
+    <Compile Include="Models\ComisionViewModel.cs" />
     <Compile Include="Models\CompraDetalle.cs" />
     <Compile Include="Models\Cotizacion.cs" />
     <Compile Include="Models\CotizacionDetalle.cs" />
@@ -1802,6 +1805,11 @@
     <Content Include="Views\Ventas\Details.cshtml" />
     <Content Include="Views\Ventas\ReporteVentas.cshtml" />
     <Content Include="Views\Ventas\ReporteComparaciones.cshtml" />
+    <Content Include="Views\Comisiones\Comisiones.cshtml" />
+    <Content Include="Views\Comisiones\Details.cshtml" />
+    <Content Include="Views\Comisiones\Create.cshtml" />
+    <Content Include="Views\Comisiones\Edit.cshtml" />
+    <Content Include="Views\Comisiones\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

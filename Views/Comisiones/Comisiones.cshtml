@@ -1,0 +1,106 @@
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.ComisionViewModel>
+
+
+@{
+    ViewBag.Title = "Comisiones";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- Start Page Title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Comisiones</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Comisiones</a></li>
+                            <li class="breadcrumb-item active">Listado de Comisiones</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sección de Comisiones</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                            <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Vendedor</th>
+                                        <th>Identificador de Venta</th>
+                                        <th>Porcentaje de Comisión</th>
+                                        <th>Monto de Comisión</th>
+                                        <th>Fecha de Registro</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var comision in Model)
+                                    {
+                                        <tr>
+                                            <td>@comision.UsuarioNombre</td>
+                                            <td>@comision.VentaDescripcion</td>
+                                            <td>@comision.PorcentajeComision %</td>
+                                            <td>@String.Format("{0:C}", comision.MontoComision)</td>
+                                            <td>@comision.FechaRegistro.ToString("yyyy-MM-dd")</td>
+                                            <td>
+                                                <button class="btn btn-info">
+                                                    @Html.ActionLink("Editar", "Edit", new { id = comision.IDComision }, new { @style = "color: white; text-decoration: none;" })
+                                                </button>
+                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-@comision.IDComision">Eliminar</button>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Modal para Confirmar Eliminación -->
+                                        <div class="modal fade" id="modal-delete-@comision.IDComision" tabindex="-1" role="dialog" aria-labelledby="modalLabel-@comision.IDComision" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalLabel-@comision.IDComision">Confirmar Eliminación</h5>
+                                                        <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i class="mdi mdi-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p><strong>Vendedor:</strong> @comision.UsuarioNombre</p>
+                                                        <p><strong>Identificador de Venta:</strong> @comision.VentaDescripcion</p>
+                                                        <p><strong>Porcentaje de Comisión:</strong> @comision.PorcentajeComision %</p>
+                                                        <p><strong>Monto de Comisión:</strong> @String.Format("{0:C}", comision.MontoComision)</p>
+                                                        <p><strong>Fecha de Registro:</strong> @comision.FechaRegistro.ToString("yyyy-MM-dd")</p>
+                                                    </div>
+                                                    @using (Html.BeginForm("Delete", "Comisiones", new { id = comision.IDComision }, FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn btn-primary" onclick="location.href = '@Url.Action("Create", "Comisiones")'">Agregar Comisión</button>
+        </div>
+    </div>
+</div>
