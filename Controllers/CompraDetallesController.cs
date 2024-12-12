@@ -31,6 +31,28 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             return View(compraDetalle.ToList());
         }
 
+        // GET: CompraDetalles/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // Buscar el detalle de compra por su ID
+            CompraDetalle compraDetalle = db.CompraDetalle
+                .Include(c => c.Compra) // Incluir datos relacionados de Compra
+                .Include(c => c.Producto) // Incluir datos relacionados de Producto
+                .FirstOrDefault(c => c.IDCompraDetalle == id);
+
+            if (compraDetalle == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(compraDetalle);
+        }
+
         // GET: CompraDetalles/Create
         public ActionResult Create()
         {

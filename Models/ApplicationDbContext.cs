@@ -20,8 +20,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DbSet<Proveedor> Proveedor { get; set; }
         public DbSet<Compra> Compra { get; set; }
         public DbSet<CompraDetalle> CompraDetalle { get; set; }
-        public DbSet<EstadoEntrega> EstadoEntrega { get; set; }
         public DbSet<PedidoProducto> PedidoProducto { get; set; }
+        public DbSet<PedidoProductoDetalle> PedidoProductoDetalle { get; set; }
         public DbSet<Cotizacion> Cotizaciones { get; set; }
         public DbSet<CotizacionDetalle> CotizacionDetalles { get; set; }
         public DbSet<Venta> Ventas { get; set; }

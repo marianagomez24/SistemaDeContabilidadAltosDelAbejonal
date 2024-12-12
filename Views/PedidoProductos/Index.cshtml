@@ -1,7 +1,7 @@
-﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.Cotizacion>
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.PedidoProducto>
 
 @{
-    ViewBag.Title = "Cotizaciones Existentes";
+    ViewBag.Title = "Pedidos Existentes";
 }
 
 <div class="page-content">
@@ -11,15 +11,14 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Cotizaciones</h4>
+                    <h4 class="mb-sm-0">Pedidos</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Cotizaciones y Ventas</a></li>
-                            <li class="breadcrumb-item active">Ver Cotizaciones</li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Pedidos y Compras</a></li>
+                            <li class="breadcrumb-item active">Ver Pedidos</li>
                         </ol>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -29,40 +28,41 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Sección de Cotizaciones</h4>
+                        <h4 class="card-title">Sección de Pedidos</h4>
                     </div>
                     <div class="card-body">
-                        <!-- Search bar and button -->
-
                         <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                             <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Cliente</th>
+                                        <th>Proveedor</th>
                                         <th>Fecha</th>
+                                        <th>Fecha Entrega Estimada</th>
                                         <th>Estado</th>
-                                        <th>Total (Con IVA)</th>
+                                        <th>Observaciones</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var cotizacion in Model)
+                                    @foreach (var pedidoProducto in Model)
                                     {
-                                        var cliente = ((List<SistemaContabilidadAltosDelAbejonal.Models.Cliente>)ViewBag.Clientes)
-                                        .FirstOrDefault(c => c.IDCliente == cotizacion.IDCliente);
+                                        var proveedor = ((List<SistemaContabilidadAltosDelAbejonal.Models.Proveedor>)ViewBag.Proveedores)
+                                        .FirstOrDefault(c => c.IDProveedor == pedidoProducto.IDProveedor);
+                                        var estadoClass = pedidoProducto.Estado == "Pendiente" ? "bg-danger text-white" : "bg-success text-white";
                                         <tr>
-                                            <td>@cotizacion.IDCotizacion</td>
-                                            <td>@(cliente != null ? cliente.Nombre : "Sin cliente")</td>
-                                            <td>@cotizacion.FechaCotizacion.ToString("dd/MM/yyyy")</td>
-                                            <td>@cotizacion.Estado</td>
-                                            <td>@cotizacion.TotalConIVA.ToString("C")</td>
+                                            <td>@pedidoProducto.IDPedidoProducto</td>
+                                            <td>@(proveedor != null ? proveedor.Nombre : "Sin proveedor")</td>
+                                            <td>@pedidoProducto.FechaPedido.ToString("dd/MM/yyyy")</td>
+                                            <td>@pedidoProducto.FechaEntregaEstimada.ToString("dd/MM/yyyy")</td>
+                                            <td class="@estadoClass">@pedidoProducto.Estado</td>
+                                            <td>@pedidoProducto.Observaciones</td>
                                             <td>
-                                                <a href="@Url.Action("Details", "Cotizaciones", new { id = cotizacion.IDCotizacion })" class="btn btn-primary">
+                                                <a href="@Url.Action("Details", "PedidoProductos", new { id = pedidoProducto.IDPedidoProducto })" class="btn btn-primary">
                                                     Ver Detalles
                                                 </a>
                                                 <button class="btn btn-info">
-                                                    @Html.ActionLink("Editar Cotizacion", "Edit", new { id = cotizacion.IDCotizacion }, new { @style = "color: white; text-decoration: none;" })
+                                                    @Html.ActionLink("Editar Pedido", "Edit", new { id = pedidoProducto.IDPedidoProducto }, new { @style = "color: white; text-decoration: none;" })
                                                 </button>
                                             </td>
                                         </tr>
@@ -70,14 +70,9 @@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
-
-                </div> <!-- end col -->
+                </div>
             </div>
-            <!-- end row -->
         </div>
-        <!-- container-fluid -->
     </div>
-    <!-- End P<age-content -->
 </div>

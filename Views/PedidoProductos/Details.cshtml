@@ -1,11 +1,11 @@
-﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.VentaDetalle>
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.PedidoProductoDetalle>
 
 @{
-    var venta = ViewBag.Venta as SistemaContabilidadAltosDelAbejonal.Models.Venta;
+    var pedidoProducto = ViewBag.PedidoProducto as SistemaContabilidadAltosDelAbejonal.Models.PedidoProducto;
 }
 
 @{
-    ViewBag.Title = "Detalles de Venta";
+    ViewBag.Title = "Detalles de Pedido";
 }
 
 <div class="page-content">
@@ -17,8 +17,8 @@
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ventas</a></li>
-                            <li class="breadcrumb-item active">Detalles de Venta</li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Pedido y Compras</a></li>
+                            <li class="breadcrumb-item active">Detalles de Pedido</li>
                         </ol>
                     </div>
 
@@ -28,12 +28,14 @@
         <!-- end page title -->
         <div class="card">
             <div class="card-header card-header-bordered">
-                <h3 class="card-title">Detalles de la Cotización</h3>
+                <h3 class="card-title">Detalles de la Pedido</h3>
             </div>
             <div class="card-body">
-                <p><strong>Fecha de Venta:</strong> @venta.FechaVenta.ToShortDateString()</p>
-                <p><strong>Total de Venta:</strong> @venta.TotalVenta</p>
-                <p><strong>Observaciones:</strong> @venta.Observaciones</p>
+                <h3>Cliente: @pedidoProducto.Proveedor.Nombre</h3>
+                <p><strong>Fecha de Pedido:</strong> @pedidoProducto.FechaPedido.ToShortDateString()</p>
+                <p><strong>Fecha Entrega Estimada:</strong> @pedidoProducto.FechaEntregaEstimada.ToShortDateString()</p>
+                <p><strong>Estado:</strong> @pedidoProducto.Estado</p>
+                <p><strong>Observaciones:</strong> @pedidoProducto.Observaciones</p>
             </div>
         </div>
         <h4>Detalles de los Productos</h4>
@@ -41,7 +43,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Sección de Cotizaciones</h4>
+                        <h4 class="card-title">Sección de Pedidos</h4>
                     </div>
                     <div class="card-body">
                         <!-- Search bar and button -->
@@ -61,15 +63,15 @@
                                     {
                                         <tr>
                                             <td>@detalle.Producto.Nombre</td>
-                                            <td>@detalle.Cantidad</td>
-                                            <td>@detalle.PrecioUnitario</td>
+                                            <td>@detalle.CantidadPedido\</td>
+                                            <td>@detalle.PrecioPedido</td>
                                             <td>@detalle.TotalProducto</td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
 
-                            <a href="@Url.Action("Index", "Ventas")" class="btn btn-secondary">Volver</a>
+                            <a href="@Url.Action("Index", "PedidoProductos")" class="btn btn-secondary">Volver</a>
                         </div>
 
                     </div>

@@ -17,29 +17,35 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         // GET: Compras
         public ActionResult Index()
         {
-            var compra = db.Compra.Include(c => c.PedidoProducto).Include(c => c.Proveedor);
+            var compra = db.Compra.Include(c => c.Proveedor);
             return View(compra.ToList());
         }
 
         // GET: Compras/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Compra compra = db.Compra.Find(id);
+            var compra = db.Compra
+                .Where(c => c.IDCompra == id)
+                .FirstOrDefault();
+
             if (compra == null)
             {
                 return HttpNotFound();
             }
-            return View(compra);
+
+            var compraDetalles = db.CompraDetalle
+                .Where(cd => cd.IDCompra == id)
+                .Include(cd => cd.Producto)
+                .ToList();
+
+            ViewBag.Compra = compra;
+            return View(compraDetalles);
         }
 
         // GET: Compras/Create
         public ActionResult Create()
         {
-            ViewBag.IDPedido = new SelectList(db.PedidoProducto, "IDPedido", "Observaciones");
+            ViewBag.IDPedidoProducto = new SelectList(db.PedidoProducto, "IDPedidoProducto", "Observaciones");
             ViewBag.IDProveedor = new SelectList(db.Proveedor, "IDProveedor", "Nombre");
             return View();
         }
@@ -49,7 +55,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDCompra,IDPedido,IDProveedor,FechaCompra,TotalCompra")] Compra compra)
+        public ActionResult Create([Bind(Include = "IDCompra,IDPedidoProducto,IDProveedor,FechaCompra,TotalCompra")] Compra compra)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +64,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDPedido = new SelectList(db.PedidoProducto, "IDPedido", "Observaciones", compra.IDPedido);
+            ViewBag.IDPedidoProducto = new SelectList(db.PedidoProducto, "IDPedidoProducto", "Observaciones");
             ViewBag.IDProveedor = new SelectList(db.Proveedor, "IDProveedor", "Nombre", compra.IDProveedor);
             return View(compra);
         }
@@ -75,7 +81,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDPedido = new SelectList(db.PedidoProducto, "IDPedido", "Observaciones", compra.IDPedido);
+            ViewBag.IDPedidoProducto = new SelectList(db.PedidoProducto, "IDPedidoProducto", "Observaciones");
             ViewBag.IDProveedor = new SelectList(db.Proveedor, "IDProveedor", "Nombre", compra.IDProveedor);
             return View(compra);
         }
@@ -85,7 +91,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDCompra,IDPedido,IDProveedor,FechaCompra,TotalCompra")] Compra compra)
+        public ActionResult Edit([Bind(Include = "IDCompra,IDPedidoProducto,IDProveedor,FechaCompra,TotalCompra")] Compra compra)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +99,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDPedido = new SelectList(db.PedidoProducto, "IDPedido", "Observaciones", compra.IDPedido);
+            ViewBag.IDPedidoProducto = new SelectList(db.PedidoProducto, "IDPedidoProducto", "Observaciones");
             ViewBag.IDProveedor = new SelectList(db.Proveedor, "IDProveedor", "Nombre", compra.IDProveedor);
             return View(compra);
         }

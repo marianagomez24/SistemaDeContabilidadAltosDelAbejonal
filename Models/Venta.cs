@@ -23,7 +23,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         public DateTime FechaVenta { get; set; }
         public decimal TotalVenta { get; set; }
         public string Observaciones { get; set; }
-
         public ICollection<VentaDetalle> VentaDetalles { get; set; }
     }
 }

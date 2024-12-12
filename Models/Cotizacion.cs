@@ -13,6 +13,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
     {
         [Key]
         public int IDCotizacion { get; set; }
+
         [ForeignKey("Cliente")]
         public int? IDCliente { get; set; }
         public virtual Cliente Cliente { get; set; }
