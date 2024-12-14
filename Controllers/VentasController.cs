@@ -30,6 +30,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             var ventas = db.Ventas.Include(v => v.Cliente).Include(v => v.Usuario);
             return View(ventas.ToList());
         }
+       
+        
 
         // GET: Ventas/Details/5
         public ActionResult Details(int id)

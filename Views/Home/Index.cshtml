@@ -1,5 +1,6 @@
-﻿@{
-    var nombreUsuario = Session["NombreUsuario"] as string; 
+﻿@model SistemaContabilidadAltosDelAbejonal.Models.IndexViewModel
+@{
+    var nombreUsuario = Session["NombreUsuario"] as string;
 }
 <div class="page-content">
     <div class="container-fluid">
@@ -15,7 +16,7 @@
                             </h4>
                             <p class="text-muted mb-0">Aquí tienes un resumen del día.</p>
                         </div>
-                    }       
+                    }
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -26,247 +27,158 @@
                 </div>
             </div>
         </div>
-        <!--    end row -->
+    </div>
+    <!--    end row -->
 
-        <div class="row">
-            <div class="col-xxl-9">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-cart-plus fs-14 text-muted"></i>
-                        </div>
-                        <h4 class="card-title mb-0">Ventas Generales</h4>
-                        <div class="dropdown card-addon">
-                            <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="mdi mdi-dots-sidebar"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Ventas por categoría</a>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Pedidos</a>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Ganancias</a>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Ventas</a>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-xxl-9">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-cart-plus fs-14 text-muted"></i>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
-                                    <div>
-                                        <p class="text-muted text-truncate mb-2">Total de ventas</p>
-                                        <h5 class="mb-0">₡34,254</h5>
-                                    </div>
-                                    <div class="text-success float-end">
-                                        <i class="mdi mdi-menu-up"> </i>2.2%
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
-                                    <div>
-                                        <p class="text-muted text-truncate mb-2">Última Venta</p>
-                                        <h5 class="mb-0">₡12,253</h5>
-                                    </div>
-                                    <div class="text-success float-end">
-                                        <i class="mdi mdi-menu-up"> </i>2.1%
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
-                                    <div>
-                                        <p class="text-muted text-truncate mb-2">Gastos</p>
-                                        <h5 class="mb-0">-₡10</h5>
-                                    </div>
-                                    <div class="text-success float-end">
-                                        <i class="mdi mdi-menu-up"> </i>1.8%
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="sales_figures" data-colors='["--bs-info", "--bs-success"]' class="apex-charts" dir="ltr"></div>
-                    </div>
+                    <h4 class="card-title mb-0">Ventas Generales</h4>
                 </div>
-                <div class="row">
-                    <div class="col-xl-4">
-                        <div class="card bg-danger-subtle" style="background: url('~/assets/images/dashboard/dashboard-shape-1.png'); background-repeat: no-repeat; background-position: bottom center; ">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="avatar avatar-sm avatar-label-danger">
-                                        <i class="mdi mdi-buffer mt-1"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="text-danger mb-1">Saldo Total</p>
-                                        <h4 class="mb-0">₡1,452.55</h4>
-                                    </div>
+                <div class="card-body">
+                    <!-- Contenedor con dos columnas del mismo tamaño -->
+                    <div class="row">
+                        <!-- Columna de Última Venta -->
+                        <div class="col-sm-6">
+                            <div class="d-flex justify-content-between align-items-center shadow-lg p-3 rounded">
+                                <div>
+                                    <p class="text-primary text-truncate mb-2">Última Venta</p>
+                                    <h5 class="text-primary mb-0">₡@Model.UltimaVenta.TotalVenta.ToString("N2")</h5>
+                                    <p class="text-primary mt-1">Fecha: @Model.UltimaVenta.FechaVenta.ToString("dd/MM/yyyy")</p>
                                 </div>
-                                <div class="hstack gap-2 mt-3">
-                                    <button class="btn btn-light">Aceptar</button>
-                                    <button class="btn btn-info">Verificar</button>
+                                <div class="icon-container bg-primary-light rounded-circle p-2">
+                                    <i class="fas fa-shopping-cart text-primary fs-24"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Columna de Total Ventas -->
+                        <div class="col-sm-6">
+                            <div class="d-flex justify-content-between align-items-center shadow-lg p-3 rounded">
+                                <div>
+                                    <p class="text-primary text-truncate mb-2">Total Ventas</p>
+                                    <h5 class="text-primary mb-0">₡@Model.TotalVentas.ToString("N2")</h5>
+                                </div>
+                                <div class="icon-container bg-primary-light rounded-circle p-2">
+                                    <i class="fas fa-dollar-sign text-primary fs-24"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4">
-                        <div class="card bg-success-subtle" style="background: url('~/assets/images/dashboard/dashboard-shape-2.png'); background-repeat: no-repeat; background-position: bottom center; ">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="avatar avatar-sm avatar-label-success">
-                                        <i class="mdi mdi-cash-usd-outline mt-1"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="text-success mb-1">Próximos pagos</p>
-                                        <h4 class="mb-0">₡120</h4>
-                                    </div>
+
+                    <!-- Gráficos o contenido adicional -->
+                    <div id="sales_figures" data-colors='["--bs-info", "--bs-success"]' class="apex-charts mt-4" dir="ltr"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Stock -->
+    <div class="row">
+        <div class="col-xxl-9">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-table fs-14 text-muted"></i>
+                    </div>
+                    <h4 class="card-title mb-0">Información General</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Contenedor con tres columnas -->
+                    <div class="row">
+                        <!-- Columna de Stock Total de Productos -->
+                        <div class="col-sm-4">
+                            <div class="d-flex justify-content-between align-items-center shadow-lg p-3 rounded bg-danger-subtle" style="background: url('~/assets/images/dashboard/dashboard-shape-1.png'); background-repeat: no-repeat; background-position: bottom center;">
+                                <div>
+                                    <p class="text-danger mb-1">Stock Total de Productos</p>
+                                    <h5 class="text-danger mb-0">@Model.MontoTotalStock.ToString("N2")</h5>
                                 </div>
-                                <div class="mt-3 mb-2">
-                                    <p class="mb-0">4 no confirmados</p>
+                                <div class="avatar avatar-sm avatar-label-danger">
+                                    <i class="mdi mdi-buffer mt-1"></i>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4">
-                        <div class="card bg-info-subtle" style="background: url('~/assets/images/dashboard/dashboard-shape-3.png'); background-repeat: no-repeat; background-position: bottom center; ">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="avatar avatar-sm avatar-label-info">
-                                        <i class="mdi mdi-webhook mt-1"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="text-info mb-1">Ventas realizadas.</p>
-                                        <h4 class="mb-0">72</h4>
-                                    </div>
+
+                        <!-- Columna de Próximos Pagos -->
+                        <div class="col-sm-4">
+                            <div class="d-flex justify-content-between align-items-center shadow-lg p-3 rounded bg-success-subtle" style="background: url('~/assets/images/dashboard/dashboard-shape-2.png'); background-repeat: no-repeat; background-position: bottom center;">
+                                <div>
+                                    <p class="text-success mb-1">Próximos pagos</p>
+                                    <h5 class="text-success mb-0">₡@Model.TotalPagosPendientes</h5>
                                 </div>
-                                <div class="mt-3 mb-2">
-                                    <p class="mb-0"><span class="text-primary me-2 fs-14"><i class="fas fa-caret-up me-1"></i>3.4%</span>vs último mes</p>
+                                <div class="avatar avatar-sm avatar-label-success">
+                                    <i class="mdi mdi-cash-usd-outline mt-1"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Columna de Ventas Realizadas -->
+                        <div class="col-sm-4">
+                            <div class="d-flex justify-content-between align-items-center shadow-lg p-3 rounded bg-info-subtle" style="background: url('~/assets/images/dashboard/dashboard-shape-3.png'); background-repeat: no-repeat; background-position: bottom center;">
+                                <div>
+                                    <p class="text-info mb-1">Ventas realizadas</p>
+                                    <h5 class="text-info mb-0">@Model.TotalVentasRealizadas</h5>
+                                </div>
+                                <div class="avatar avatar-sm avatar-label-info">
+                                    <i class="mdi mdi-webhook mt-1"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- end row -->
-                <div class="row">
-                    <div class="col-xl-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    <i class="fas fa-hockey-puck fs-14 text-muted"></i>
-                                </div>
-                                <h4 class="card-title mb-0">Ventas por categoría</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="row mb-2">
-                                            <div class="col-6">
-                                                <div>
-                                                    <p><i class="mdi mdi-brightness-5 text-primary me-2"></i>Café molido <span class="text-muted fs-14">50%</span></p>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div>
-                                                    <p><i class="mdi mdi-brightness-5 text-danger me-2"></i>Exportar café <span class="text-muted fs-14">80%</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col-6">
-                                                <div>
-                                                    <p><i class="mdi mdi-brightness-5 text-info me-2"></i>Café entero <span class="text-muted fs-14">90%</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div>
-                                            <div id="gradient_chart" data-colors='["--bs-primary", "--bs-success", "--bs-warning", "--bs-danger", "--bs-info", "--bs-dark", "--bs-purple", "--bs-orange"]' class="apex-charts" dir="ltr"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Productos por categoría -->
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-cogs fs-14 text-muted"></i>
                     </div>
-                    <div class="col-xl-4">
-                        <div class="card" style="overflow-y: auto; height: 304px;" data-simplebar="init">
-                            <div class="card-header card-header-bordered">
-                                <div class="card-icon text-muted"><i class="fa fa-clipboard-list fs-14"></i></div>
-                                <h3 class="card-title">Actividades recientes</h3>
-                                <div class="card-addon">
-                                    <button class="btn btn-sm btn-label-primary">Ver más</button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="timeline timeline-timed">
-                                    <div class="timeline-item">
-                                        <span class="timeline-time">10:00</span>
-                                        <div class="timeline-pin"><i class="marker marker-circle text-primary"></i></div>
-                                        <div class="timeline-content">
-                                            <div>
-                                                <span>Reunión de equipo</span>
-                                                <div class="avatar-group ms-2">
-                                                    <div class="avatar avatar-circle">
-                                                        <img src="~/assets/images/users/avatar-1.png" alt="Avatar image" class="avatar-2xs" />
-                                                    </div>
-                                                    <div class="avatar avatar-circle">
-                                                        <img src="~/assets/images/users/avatar-2.png" alt="Avatar image" class="avatar-2xs" />
-                                                    </div>
-                                                    <div class="avatar avatar-circle">
-                                                        <img src="~/assets/images/users/avatar-3.png" alt="Avatar image" class="avatar-2xs" />
-                                                    </div>
-                                                </div>
-                                            </div>
+                    <h4 class="card-title mb-0">Productos disponibles</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        @foreach (var producto in Model.Productos)
+                        {
+                            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                                <div class="card shadow-sm border-light">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="mdi mdi-cup text-primary fs-3 me-2"></i>
+                                            <strong>@producto.Nombre</strong>
                                         </div>
-                                    </div>
-                                    <div class="timeline-item">
-                                        <span class="timeline-time">14:00</span>
-                                        <div class="timeline-pin"><i class="marker marker-circle text-danger"></i></div>
-                                        <div class="timeline-content">
-                                            <p class="mb-0">Actualizar Inventario <a href="GestionProductos.html">Inventario</a> </p>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-item">
-                                        <span class="timeline-time">15:20</span>
-                                        <div class="timeline-pin"><i class="marker marker-circle text-success"></i></div>
-                                        <div class="timeline-content">
-                                            <p class="mb-0">Visualizar reportes financieros.</p>
+                                        <div class="d-flex justify-content-between">
+                                            <span class="text-muted fs-14">Stock: @producto.Stock</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Pedidos -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card" style="height: 495px; overflow: hidden auto;" data-simplebar="init">
                 <div class="row">
                     <div class="col-12">
                         <div class="card" style="height: 495px; overflow: hidden auto;" data-simplebar="init">
                             <div class="card-header">
-                                <div class="card-icon text-muted"><i class="fas fa-sync-alt fs-14"></i></div>
                                 <h3 class="card-title">Pedidos</h3>
-                                <div class="card-addon dropdown">
-                                    <button class="btn btn-label-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown"> <i class="fas fa-filter fs-12 align-middle ms-1"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
-                                        <a class="dropdown-item" href="#">
-                                            <div class="dropdown-icon"><i class="fa fa-poll"></i></div>
-                                            <span class="dropdown-content">Hoy</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <div class="dropdown-icon"><i class="fa fa-chart-pie"></i></div>
-                                            <span class="dropdown-content">Hace un día</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <div class="dropdown-icon"><i class="fa fa-chart-line"></i></div>
-                                            <span class="dropdown-content">Hace una semana</span>
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive-md">
@@ -275,192 +187,50 @@
                                             <tr>
                                                 <th>ID orden</th>
                                                 <th>Estado</th>
-                                                <th>Operarios</th>
-                                                <th>Dirección</th>
-                                                <th>Progreso</th>
                                                 <th>Fecha de encargo</th>
                                                 <th>Fecha de entrega</th>
-                                                <td>Entregado</td>
+                                                <th>Entregado</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="align-middle">837563</td>
-                                                <td class="align-middle"><i class="marker marker-dot m-0 me-2 text-primary"></i> Entregado</td>
-                                                <td class="align-middle">
-                                                    <div class="avatar-group">
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-1.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="assets/images/users/avatar-2.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-3.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-4.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-5.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">Italia</td>
-                                                <td class="align-middle">
-                                                    <div class="">
-                                                        <h6 class="">90%</h6>
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-primary" style="width: 90%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">26/06/2024</td>
-                                                <td class="align-middle">01/07/2024</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="align-middle">982365</td>
-                                                <td class="align-middle"><i class="marker marker-dot m-0 me-2 text-danger"></i> Pendiente</td>
-                                                <td class="align-middle">
-                                                    <div class="avatar-group">
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-6.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-7.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-8.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">San Francisco</td>
-                                                <td class="align-middle">
-                                                    <div class="">
-                                                        <h6 class="">20%</h6>
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-primary" style="width: 20%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">23/04/2024</td>
-                                                <td class="align-middle">26/04/2024</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="align-middle">872048</td>
-                                                <td class="align-middle"><i class="marker marker-dot m-0 me-2 text-success"></i> En proceso</td>
-                                                <td class="align-middle">
-                                                    <div class="avatar-group">
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-5.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-4.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-1.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-2.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">Dinamarca</td>
-                                                <td class="align-middle">
-                                                    <div class="">
-                                                        <h6 class="">75%</h6>
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-primary" style="width: 75%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">26/04/2024</td>
-                                                <td class="align-middle">12/05/2024</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="align-middle">324712</td>
-                                                <td class="align-middle"><i class="marker marker-dot m-0 me-2 text-warning"></i> En espera</td>
-                                                <td class="align-middle">
-                                                    <div class="avatar-group">
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-3.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-4.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-5.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">México</td>
-                                                <td class="align-middle">
-                                                    <div class="">
-                                                        <h6 class="">30%</h6>
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">26/06/2024</td>
-                                                <td class="align-middle">28/06/2024</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="align-middle">128747</td>
-                                                <td class="align-middle"><i class="marker marker-dot m-0 me-2 text-success"></i> En proceso</td>
-                                                <td class="align-middle">
-                                                    <div class="avatar-group">
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-6.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-7.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-8.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-5.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">Nueva York</td>
-                                                <td class="align-middle">
-                                                    <div class="">
-                                                        <h6 class="">60%</h6>
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-primary" style="width: 60%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">10/09/2024</td>
-                                                <td class="align-middle">15/09/2024</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="align-middle">415423</td>
-                                                <td class="align-middle"><i class="marker marker-dot m-0 me-2 text-danger"></i> Pendiente</td>
-                                                <td class="align-middle">
-                                                    <div class="avatar-group">
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-2.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                        <div class="avatar avatar-circle">
-                                                            <img src="~/assets/images/users/avatar-6.png" alt="Avatar image" class="avatar-2xs">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">Londres</td>
-                                                <td class="align-middle">
-                                                    <div class="">
-                                                        <h6 class="">72%</h6>
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-primary" style="width: 72%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">05/06/2024</td>
-                                                <td class="align-middle">26/06/2024</td>
-                                            </tr>
+                                            @foreach (var pedido in Model.Pedidos)
+                                            {
+                                                <tr>
+                                                    <td class="align-middle">@pedido.IDPedidoProducto</td>
+                                                    <td class="align-middle">
+                                                        @if (pedido.Estado == "Entregado")
+                                                        {
+                                                            <i class="marker marker-dot m-0 me-2 text-primary"></i>
+                                                        }
+                                                        else if (pedido.Estado == "Pendiente")
+                                                        {
+                                                            <i class="marker marker-dot m-0 me-2 text-danger"></i>
+                                                        }
+                                                        else if (pedido.Estado == "En proceso")
+                                                        {
+                                                            <i class="marker marker-dot m-0 me-2 text-success"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="marker marker-dot m-0 me-2 text-warning"></i>
+                                                        }
+                                                    </td>
+
+
+                                                    <td class="align-middle">@pedido.FechaPedido.ToString("dd/MM/yyyy")</td>
+                                                    <td class="align-middle">@pedido.FechaEntregaEstimada.ToString("dd/MM/yyyy")</td>
+                                                    <td class="align-middle">
+                                                        @if (pedido.Estado == "Entregado")
+                                                        {
+                                                            @:Sí
+                                                        }
+                                                        else
+                                                        {
+                                                            @:No
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -468,548 +238,149 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-xxl-3">
-                <div class="row">
-                    <div class="col-xxl-12 col-xl-6 order-1">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="float-end">
-                                    <select class="form-select form-select-sm">
-                                        <option selected>Abr</option>
-                                        <option value="1">Mar</option>
-                                        <option value="2">Feb</option>
-                                        <option value="3">Ene</option>
-                                    </select>
-                                </div>
-                                <h4 class="card-title mb-4">Análisis de ventas</h4>
-                                <div id="pattern_chart" data-colors='["--bs-primary", "--bs-success", "--bs-warning", "--bs-danger", "--bs-info"]' class="apex-charts" dir="ltr"></div>
-
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="text-center mt-4">
-                                            <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-primary font-size-10 me-1"></i> Producto A</p>
-                                            <h5>42 %</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="text-center mt-4">
-                                            <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-success font-size-10 me-1"></i> Producto B</p>
-                                            <h5>26 %</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="text-center mt-4">
-                                            <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-warning font-size-10 me-1"></i> Producto C</p>
-                                            <h5>42 %</h5>
-                                        </div>
-
-                                        <div class="text-center mt-4">
-                                            <form action="@Url.Action("GenerarReporte", "Ventas")" method="get">
-                                                <label for="fechaInicio">Fecha Inicio:</label>
-                                                <input type="date" name="fechaInicio" id="fechaInicio" required />
-
-                                                <label for="fechaFin">Fecha Fin:</label>
-                                                <input type="date" name="fechaFin" id="fechaFin" required />
-
-                                                <button class="btn btn-primary" type="submit">Generar Reporte</button>
-                                            </form>
-                                        </div>
-
-                                        <script>
-                                            function generarReporte() {
-
-                                                window.location.href = '/Ventas/GenerarReporte';
-                                            }
-                                        </script>
 
 
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-xxl-12 order-4 order-xxl-2">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-icon text-muted"><i class="fa fa-bell"></i></div>
-                                <h3 class="card-title">Notificaciones</h3>
-                                <div class="card-addon">
-                                    <div class="dropdown">
-                                        <button class="btn btn-sm py-0 btn-label-primary dropdown-toggle" data-bs-toggle="dropdown">Todos <i class="mdi mdi-chevron-down fs-17 align-middle ms-1"></i></button>
-                                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
-                                            <a class="dropdown-item" href="#"><span class="badge badge-label-primary">Personal</span> </a>
-                                            <a class="dropdown-item" href="#"><span class="badge badge-label-info">Trabajo</span> </a>
-                                            <a class="dropdown-item" href="#"><span class="badge badge-label-success">Importante</span> </a>
-                                            <a class="dropdown-item" href="#"><span class="badge badge-label-danger">Compañía</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="rich-list rich-list-bordered rich-list-action">
-                                    <div class="rich-list-item">
-                                        <div class="rich-list-prepend">
-                                            <div class="avatar avatar-xs avatar-label-info">
-                                                <div class=""><i class="fa fa-file-invoice"></i></div>
-                                            </div>
-                                        </div>
-                                        <div class="rich-list-content">
-                                            <h4 class="rich-list-title mb-1">Nuevo reporte</h4>
-                                            <p class="rich-list-subtitle mb-0">Hace 2 minutos</p>
-                                        </div>
-                                        <div class="rich-list-append">
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-label-secondary btn-icon" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h fs-12"></i></button>
-                                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
-                                                    <a class="dropdown-item" href="#">
-                                                        <div class="dropdown-icon"><i class="fa fa-check"></i></div>
-                                                        <span class="dropdown-content">Listo</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <div class="dropdown-icon"><i class="fa fa-trash-alt"></i></div>
-                                                        <span class="dropdown-content">Eliminar</span>
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">
-                                                        <div class="dropdown-icon"><i class="fa fa-cog"></i></div>
-                                                        <span class="dropdown-content">Ajustes</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="rich-list-item">
-                                        <div class="rich-list-prepend">
-                                            <div class="avatar avatar-xs avatar-label-success">
-                                                <div class=""><i class="fa fa-shopping-basket"></i></div>
-                                            </div>
-                                        </div>
-                                        <div class="rich-list-content">
-                                            <h4 class="rich-list-title mb-1">Última orden actualizada</h4>
-                                            <p class="rich-list-subtitle mb-0">Hace una hora</p>
-                                        </div>
-                                        <div class="rich-list-append">
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-label-secondary btn-icon" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h fs-12"></i></button>
-                                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
-                                                    <a class="dropdown-item" href="#">
-                                                        <div class="dropdown-icon"><i class="fa fa-check"></i></div>
-                                                        <span class="dropdown-content">Listo</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <div class="dropdown-icon"><i class="fa fa-trash-alt"></i></div>
-                                                        <span class="dropdown-content">Eliminar</span>
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">
-                                                        <div class="dropdown-icon"><i class="fa fa-cog"></i></div>
-                                                        <span class="dropdown-content">Ajustes</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="rich-list-item">
-                                        <div class="rich-list-prepend">
-                                            <div class="avatar avatar-xs avatar-label-danger">
-                                                <div class=""><i class="fa fa-users"></i></div>
-                                            </div>
-                                        </div>
-                                        <div class="rich-list-content">
-                                            <h4 class="rich-list-title mb-1">Reunión cancelada</h4>
-                                            <p class="rich-list-subtitle mb-0">Hace 5 horas</p>
-                                        </div>
-                                        <div class="rich-list-append">
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-label-secondary btn-icon" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h fs-12"></i></button>
-                                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
-                                                    <a class="dropdown-item" href="#">
-                                                        <div class="dropdown-icon"><i class="fa fa-check"></i></div>
-                                                        <span class="dropdown-content">Listo</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <div class="dropdown-icon"><i class="fa fa-trash-alt"></i></div>
-                                                        <span class="dropdown-content">Eliminar</span>
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">
-                                                        <div class="dropdown-icon"><i class="fa fa-cog"></i></div>
-                                                        <span class="dropdown-content">Ajustes</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-12 order-3">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Ganancias de la compañía</h4>
-                                <div class="dropdown card-addon">
-                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="mdi mdi-dots-sidebar"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item">Reportes de ventas</a>
-                                        <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item">Exportar reporte</a>
-                                        <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item">Verificar</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="">
-                                    <div class="mb-3">
-                                        <div id="semi_donut_chart" data-colors='["--bs-primary", "--bs-warning"]' class="apex-charts" dir="ltr"></div>
-                                    </div>
-
-                                    <div class="row justify-content-center mt-n5">
-                                        <div class="col-6">
-                                            <div class="p-2 shadow">
-                                                <p class="text-muted text-truncate mb-2">Ganancias</p>
-                                                <h5 class="mb-0">₡15.5k <span class="fs-12 text-primary ms-2"><i class="mdi mdi-arrow-up"></i> 17%</span></h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="p-2 shadow">
-                                                <p class="text-muted text-truncate mb-2">Gastos</p>
-                                                <h5 class="mb-0">₡11.4k <span class="fs-12 text-danger ms-2"><i class="mdi mdi-arrow-down"></i> 14%</span></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div id="bar_chart" data-colors='["--bs-danger"]' class="apex-charts" dir="ltr"></div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-12 col-xl-6 order-2 order-xxl-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    <i class="fas fa-calendar-alt fs-14 text-muted"></i>
-                                </div>
-                                <h4 class="card-title mb-0">Ventas Por Periodo</h4>
-                            </div>
-                            <div class="card-body">
-                                <div id="monthly_states" data-colors='["--bs-success", "--bs-danger", "--bs-warning"]' class="apex-charts" dir="ltr"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
-        <!-- end row -->
-
-        <div class="row">
-            <div class="col-xxl-8 col-xl-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-layer-group fs-14 text-muted"></i>
-                        </div>
-                        <h4 class="card-title mb-0">Días más vendidos</h4>
-                    </div><!-- end card header -->
-
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-sm-8">
-                                <div id="products" data-colors='["--bs-primary"]' class="apex-charts" dir="ltr"></div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="d-grid gap-2">
-                                    <div class="mb-3">
-                                        <div class="d-flex justify-content-between">
-                                            <span class="text-muted">48%</span>
-                                            <span class="text-muted">Domingo</span>
-                                        </div>
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: 48%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="d-flex justify-content-between">
-                                            <span class="text-muted">100%</span>
-                                            <span class="text-muted">Lunes</span>
-                                        </div>
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style="width: 100%;"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <div class="d-flex justify-content-between">
-                                            <span class="text-muted">40%</span>
-                                            <span class="text-muted">Martes</span>
-                                        </div>
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width: 40%;"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <div class="d-flex justify-content-between">
-                                            <span class="text-muted">68%</span>
-                                            <span class="text-muted">Miércoles</span>
-                                        </div>
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" style="width: 68%;"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <div class="d-flex justify-content-between">
-                                            <span class="text-muted">56%</span>
-                                            <span class="text-muted">Jueves</span>
-                                        </div>
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 56%;"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <div class="d-flex justify-content-between">
-                                            <span class="text-muted">80%</span>
-                                            <span class="text-muted">Viernes</span>
-                                        </div>
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" style="width: 80%;"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="">
-                                        <div class="d-flex justify-content-between">
-                                            <span class="text-muted">80%</span>
-                                            <span class="text-muted">Sábado</span>
-                                        </div>
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" style="width: 92%;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- end card-body -->
-                </div>
-                <!-- end card -->
-            </div>
-            <!-- end col -->
-            <div class="col-xxl-4 col-xl-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-user-friends fs-14 text-muted"></i>
-                        </div>
-                        <h4 class="card-title mb-0">Gráfico de Pedidos</h4>
-                    </div><!-- end card header -->
-
-                    <div class="card-body">
-                        <div id="user_traffic" data-colors='["--bs-info", "--bs-primary"]' class="apex-charts" dir="ltr"></div>
-                    </div><!-- end card-body -->
-                </div>
-                <!-- end card -->
-            </div>
-            <!-- end col -->
-        </div>
-        <!-- end row -->
-
-        <div class="row">
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-header justify-content-between">
-                        <div class="card-icon text-muted"><i class="fas fa-sort-amount-up fs-14"></i></div>
-                        <h4 class="card-title">Historial de transacciones</h4>
-                        <div class="card-addon dropdown">
-                            <button class="btn btn-label-primary py-0 btn-sm dropdown-toggle" data-bs-toggle="dropdown">Opciones <i class="mdi mdi-chevron-down fs-17 align-middle ms-1"></i></button>
-                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
-                                <a class="dropdown-item" href="#">
-                                    <div class="dropdown-icon"><i class="fa fa-poll"></i></div>
-                                    <span class="dropdown-content">Reportes</span>
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <div class="dropdown-icon"><i class="fa fa-chart-pie"></i></div>
-                                    <span class="dropdown-content">Gráficos</span>
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <div class="dropdown-icon"><i class="fa fa-chart-line"></i></div>
-                                    <span class="dropdown-content">Estadísticas</span>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">
-                                    <div class="dropdown-icon"><i class="fa fa-cog"></i></div>
-                                    <span class="dropdown-content">Ajustes</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="border-bottom text-center pb-3">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <span class="text-primary fs-24 me-2"><i class="fas fa-arrow-circle-right"></i></span>
-                                <h4 class="display-5 mb-0">4</h4>
-                            </div>
-                            <p class="text-muted mb-0">Facturas Pendientes</p>
-                        </div>
-                        <div class="d-flex justify-content-between py-3">
-                            <p class="text-muted fs-5 mb-0">Detalles de la factura</p>
-                            <div class="dropdown">
-                                <span class="dropdown-toggle" data-bs-toggle="dropdown">15 Días <i class="mdi mdi-chevron-down fs-17 align-middle ms-1"></i></span>
-                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
-                                    <a class="dropdown-item" href="#">
-                                        <div class="dropdown-icon"><i class="fa fa-poll"></i></div>
-                                        <span class="dropdown-content">Reporte</span>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="dropdown-icon"><i class="fa fa-chart-pie"></i></div>
-                                        <span class="dropdown-content">Gráficos</span>
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="dropdown-icon"><i class="fa fa-chart-line"></i></div>
-                                        <span class="dropdown-content">Estadísticas</span>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="dropdown-icon"><i class="fa fa-cog"></i></div>
-                                        <span class="dropdown-content">Ajustes</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="hstack gap-4 justify-content-center pb-3">
-                            <div class="text-center">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <span class="text-info fs-22 me-2"><i class="fas fa-arrow-circle-up"></i></span>
-                                    <h4 class="display-6 mb-0">28</h4>
-                                </div>
-                                <p class="text-muted mb-0">Facturas en proceso de pagar</p>
-                            </div>
-
-                            <div class="text-center">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <span class="text-danger fs-22 me-2"><i class="fas fa-arrow-circle-down"></i></span>
-                                    <h4 class="display-6 mb-0">32</h4>
-                                </div>
-                                <p class="text-muted mb-0">Facturas pagadas</p>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <h5 class="fs-6 mb-0"><i class="fas fa-arrow-circle-up text-info me-2"></i>Factura 1</h5>
-                                <p class="text-muted mb-0">+1,235</p>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <h5 class="fs-6 mb-0"><i class="fas fa-arrow-circle-down text-danger me-2"></i>Factura2</h5>
-                                <p class="text-muted mb-0">-152</p>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <h5 class="fs-6 mb-0"><i class="fas fa-arrow-circle-down text-danger me-2"></i>Factura 3</h5>
-                                <p class="text-muted mb-0">+13,487</p>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <h5 class="fs-6 mb-0"><i class="fas fa-arrow-circle-up text-info me-2"></i>Factura 4</h5>
-                                <p class="text-muted mb-0">-1,523</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6">
-                <div class="card" style="height: 416px; overflow: hidden auto;" data-simplebar="init">
-                    <div class="card-header card-header-bordered">
-                        <div class="card-icon text-muted"><i class="fa fa-user-tag fs14"></i></div>
-                        <h3 class="card-title">Empleados</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="rich-list rich-list-flush">
-                            <div class="flex-column align-items-stretch">
-                                <div class="rich-list-item">
-                                    <div class="rich-list-prepend">
-                                        <div class="avatar avatar-xs">
-                                            <div class=""><img src="~/assets/images/users/avatar-1.png" alt="Avatar image" class="avatar-2xs" /></div>
-                                        </div>
-                                    </div>
-                                    <div class="rich-list-content">
-                                        <h4 class="rich-list-title mb-1">Andrés Murillo</h4>
-                                        <p class="rich-list-subtitle mb-0">Contador</p>
-                                    </div>
-                                    <div class="rich-list-append"><button class="btn btn-sm btn-label-primary">Contactar</button></div>
-                                </div>
-                            </div>
-                            <div class="flex-column align-items-stretch">
-                                <div class="rich-list-item">
-                                    <div class="rich-list-prepend">
-                                        <div class="avatar avatar-xs">
-                                            <div class=""><img src="~/assets/images/users/avatar-2.png" alt="Avatar image" class="avatar-2xs" /></div>
-                                        </div>
-                                    </div>
-                                    <div class="rich-list-content">
-                                        <h4 class="rich-list-title mb-1">Isabela Campos</h4>
-                                        <p class="rich-list-subtitle mb-0">Gerente de ventas</p>
-                                    </div>
-                                    <div class="rich-list-append"><button class="btn btn-sm btn-label-primary">Contador</button></div>
-                                </div>
-                            </div>
-                            <div class="flex-column align-items-stretch">
-                                <div class="rich-list-item">
-                                    <div class="rich-list-prepend">
-                                        <div class="avatar avatar-xs">
-                                            <div class=""><img src="~/assets/images/users/avatar-4.png" alt="Avatar image" class="avatar-2xs" /></div>
-                                        </div>
-                                    </div>
-                                    <div class="rich-list-content">
-                                        <h4 class="rich-list-title mb-1">Maria López</h4>
-                                        <p class="rich-list-subtitle mb-0">Gerente de Inventario</p>
-                                    </div>
-                                    <div class="rich-list-append"><button class="btn btn-sm btn-label-primary">Contactar</button></div>
-                                </div>
-                            </div>
-                            <div class="flex-column align-items-stretch">
-                                <div class="rich-list-item">
-                                    <div class="rich-list-prepend">
-                                        <div class="avatar avatar-xs">
-                                            <div class=""><img src="~/assets/images/users/avatar-6.png" alt="Avatar image" class="avatar-2xs" /></div>
-                                        </div>
-                                    </div>
-                                    <div class="rich-list-content">
-                                        <h4 class="rich-list-title mb-1">Mauricio Vindas</h4>
-                                        <p class="rich-list-subtitle mb-0">Administrador</p>
-                                    </div>
-                                    <div class="rich-list-append"><button class="btn btn-sm btn-label-primary">Contactar</button></div>
-                                </div>
-                            </div>
-                            <div class="flex-column align-items-stretch">
-                                <div class="rich-list-item">
-                                    <div class="rich-list-prepend">
-                                        <div class="avatar avatar-xs">
-                                            <div class=""><img src="~/assets/images/users/avatar-5.png" alt="Avatar image" class="avatar-2xs" /></div>
-                                        </div>
-                                    </div>
-                                    <div class="rich-list-content">
-                                        <h4 class="rich-list-title mb-1">Fernando Rodríguez</h4>
-                                        <p class="rich-list-subtitle mb-0">Encargado de los pedidos</p>
-                                    </div>
-                                    <div class="rich-list-append"><button class="btn btn-sm btn-label-primary">Contactar</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end row -->
     </div>
-    <!-- end container-fluid -->
 </div>
+
+<!-- Historial de Transacciones -->
+<div class="row">
+    <!-- Columna de Historial de Transacciones -->
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header justify-content-between">
+                <div class="card-icon text-muted"><i class="fas fa-sort-amount-up fs-14"></i></div>
+                <h4 class="card-title">Historial de transacciones</h4>
+                <div class="card-addon dropdown">
+                    <button class="btn btn-label-primary py-0 btn-sm dropdown-toggle" data-bs-toggle="dropdown">Opciones <i class="mdi mdi-chevron-down fs-17 align-middle ms-1"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
+                        <a class="dropdown-item" href="#">
+                            <div class="dropdown-icon"><i class="fa fa-poll"></i></div>
+                            <span class="dropdown-content">Reportes</span>
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <div class="dropdown-icon"><i class="fa fa-chart-pie"></i></div>
+                            <span class="dropdown-content">Gráficos</span>
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <div class="dropdown-icon"><i class="fa fa-chart-line"></i></div>
+                            <span class="dropdown-content">Estadísticas</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <div class="dropdown-icon"><i class="fa fa-cog"></i></div>
+                            <span class="dropdown-content">Ajustes</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="border-bottom text-center pb-3">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <span class="text-primary fs-24 me-2"><i class="fas fa-arrow-circle-right"></i></span>
+                        <h4 class="display-5 mb-0">@Model.FacturasEnProceso.Count</h4>
+                    </div>
+                    <p class="text-muted mb-0">Facturas Pendientes</p>
+                </div>
+
+                <div class="py-3">
+                    <p class="text-muted fs-5 mb-0">Detalles de las facturas pendientes:</p>
+                    <ul class="list-group">
+                        @foreach (var factura in Model.FacturasEnProceso)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Factura #:</strong> @factura.IdFacturas <br />
+                                    <strong>Tipo:</strong> @factura.TipoFactura <br />
+                                    <strong>Fecha Ingreso:</strong> @factura.FechaIngreso.ToString("dd/MM/yyyy")
+                                </div>
+                                <span class="badge bg-primary rounded-pill">@factura.Total.ToString("C")</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="d-flex justify-content-between py-3">
+                    <p class="text-muted fs-5 mb-0">Total de pagos pendientes:</p>
+                    <span class="text-primary fs-5">@Model.TotalPagosPendientes.ToString("C")</span>
+                </div>
+            </div>
+
+            <div class="hstack gap-4 justify-content-center pb-3">
+                <div class="text-center">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <span class="text-info fs-22 me-2"><i class="fas fa-arrow-circle-up"></i></span>
+                        <h4 class="display-6 mb-0">@Model.FacturasEnProceso.Count()</h4>
+                    </div>
+                    <p class="text-muted mb-0">Facturas en proceso de pagar</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <span class="text-danger fs-22 me-2"><i class="fas fa-arrow-circle-down"></i></span>
+                        <h4 class="display-6 mb-0">@Model.FacturasPagadas.Count()</h4>
+                    </div>
+                    <p class="text-muted mb-0">Facturas pagadas</p>
+                </div>
+            </div>
+
+            <div>
+                @foreach (var factura in Model.FacturasEnProceso)
+                {
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h5 class="fs-6 mb-0"><i class="fas fa-arrow-circle-up text-info me-2"></i>@factura.TipoFactura</h5>
+                        <p class="text-muted mb-0">@factura.Total.ToString("C")</p>
+                    </div>
+                }
+
+                @foreach (var factura in Model.FacturasPagadas)
+                {
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h5 class="fs-6 mb-0"><i class="fas fa-arrow-circle-down text-danger me-2"></i>@factura.TipoFactura</h5>
+                        <p class="text-muted mb-0">@factura.Total.ToString("C")</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Columna de Empleados -->
+    <div class="col-xl-6">
+        <div class="card" style="height: 416px; overflow: hidden auto;" data-simplebar="init">
+            <div class="card-header card-header-bordered">
+                <div class="card-icon text-muted"><i class="fa fa-user-tag fs14"></i></div>
+                <h3 class="card-title">Empleados</h3>
+            </div>
+            <div class="card-body">
+                <div class="rich-list rich-list-flush">
+                    @foreach (var usuario in Model.Usuarios)
+                    {
+                        <div class="flex-column align-items-stretch">
+                            <div class="rich-list-item">
+                                <div class="rich-list-prepend">
+                                    <div class="avatar avatar-xs">
+                                        <div>
+                                            <img src="~/assets/images/users/avatar-1.png" alt="Avatar image" class="avatar-2xs" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rich-list-content">
+                                    <h4 class="rich-list-title mb-1">@usuario.Nombre @usuario.PrimerApellido @usuario.SegundoApellido</h4>
+                                    <p class="rich-list-subtitle mb-0">@usuario.Rol</p>
+                                </div>
+                                <div class="rich-list-append">
+                                    <button class="btn btn-sm btn-label-primary">Contactar</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- End Page-content -->
