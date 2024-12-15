@@ -6,6 +6,8 @@ using System.Net;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
+    [AuthorizeRole("Administrador", "Vendedor")]
+
     public class ClientesController : Controller
     {
         private readonly ApplicationDbContext _context;

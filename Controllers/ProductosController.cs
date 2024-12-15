@@ -32,7 +32,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             
         }
 
-
+        [AuthorizeRole("Administrador")]
         public ActionResult AgregarProducto()
         {
             ViewBag.IDTipoGrano = new SelectList(db.TipoGranos, "IDTipoGrano", "NombreGrano");
@@ -59,6 +59,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             return View(producto);
         }
 
+        [AuthorizeRole("Administrador")]
         public ActionResult EditarProducto(int? id)
         {
             if (id == null)

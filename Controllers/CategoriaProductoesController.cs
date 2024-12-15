@@ -10,6 +10,7 @@ using SistemaContabilidadAltosDelAbejonal.Models;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
+    [AuthorizeRole("Administrador")]
     public class CategoriaProductoesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

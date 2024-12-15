@@ -4,6 +4,9 @@
     ViewBag.Title = "Clientes";
 }
 
+@{
+    var rolUsuario = Session["RolUsuario"] as string;
+}
 <div class="page-content">
     <div class="container-fluid">
 
@@ -70,53 +73,56 @@
                                                 <button class="btn btn-info">
                                                     @Html.ActionLink("Editar Cliente", "EditarCliente", new { id = cliente.IDCliente }, new { @style = "color: white; text-decoration: none;" })
                                                 </button>
-                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@cliente.IDCliente">Eliminar</button>
+                                                @if (rolUsuario == "Administrador")
+                                                {
+                                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@cliente.IDCliente">Eliminar</button>
+                                                }
                                             </td>
-                                        </tr>
-                                        <!-- Modal Para Eliminar-->
-                                        <div class="modal fade" id="modal1-@cliente.IDCliente" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@cliente.IDCliente" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="modal1Label-@cliente.IDCliente">Confirmar Eliminación del Cliente</h5>
-                                                        <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
-                                                            <i class="mdi mdi-close"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h6>Detalles del Cliente</h6>
-                                                        <hr>
-                                                        <p><strong>Nombre:</strong> @Html.DisplayFor(modelItem => cliente.Nombre)</p>
-                                                        <p><strong>Primer Apellido:</strong> @Html.DisplayFor(modelItem => cliente.PrimerApellido)</p>
-                                                        <p><strong>Segundo Apellido:</strong> @Html.DisplayFor(modelItem => cliente.SegundoApellido)</p>
-                                                        <p><strong>Cédula:</strong> @Html.DisplayFor(modelItem => cliente.Cedula)</p>
-                                                        <p><strong>Teléfono:</strong> @Html.DisplayFor(modelItem => cliente.Telefono)</p>
-                                                        <p><strong>Dirección:</strong> @Html.DisplayFor(modelItem => cliente.Direccion)</p>
-                                                    </div>
-                                                    @using (Html.BeginForm("EliminarCliente", "Clientes", new { id = cliente.IDCliente }, FormMethod.Post))
-                                                    {
-                                                        @Html.AntiForgeryToken()
-                                                        <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
+                                            </tr>
+                                            <!-- Modal Para Eliminar-->
+                                            <div class="modal fade" id="modal1-@cliente.IDCliente" tabindex="-1" role="dialog" aria-labelledby="modal1Label-@cliente.IDCliente" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modal1Label-@cliente.IDCliente">Confirmar Eliminación del Cliente</h5>
+                                                            <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                                <i class="mdi mdi-close"></i>
+                                                            </button>
                                                         </div>
-                                                    }
+                                                        <div class="modal-body">
+                                                            <h6>Detalles del Cliente</h6>
+                                                            <hr>
+                                                            <p><strong>Nombre:</strong> @Html.DisplayFor(modelItem => cliente.Nombre)</p>
+                                                            <p><strong>Primer Apellido:</strong> @Html.DisplayFor(modelItem => cliente.PrimerApellido)</p>
+                                                            <p><strong>Segundo Apellido:</strong> @Html.DisplayFor(modelItem => cliente.SegundoApellido)</p>
+                                                            <p><strong>Cédula:</strong> @Html.DisplayFor(modelItem => cliente.Cedula)</p>
+                                                            <p><strong>Teléfono:</strong> @Html.DisplayFor(modelItem => cliente.Telefono)</p>
+                                                            <p><strong>Dirección:</strong> @Html.DisplayFor(modelItem => cliente.Direccion)</p>
+                                                        </div>
+                                                        @using (Html.BeginForm("EliminarCliente", "Clientes", new { id = cliente.IDCliente }, FormMethod.Post))
+                                                        {
+                                                            @Html.AntiForgeryToken()
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
+                                                            </div>
+                                                        }
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    }
-                                </tbody>
-                            </table>
+                                        }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- end row -->
+                </div>
+                <!-- container-fluid -->
+                <div style="text-align: center;">
+                    <button class="btn btn-primary" onclick="location.href = '/Clientes/AgregarCliente'">Agregar Cliente</button>
                 </div>
             </div>
-        </div>
-        <!-- end row -->
-    </div>
-    <!-- container-fluid -->
-    <div style="text-align: center;">
-        <button class="btn btn-primary" onclick="location.href = '/Clientes/AgregarCliente'">Agregar Cliente</button>
-    </div>
-</div>
-<!-- End Page-content -->
+            <!-- End Page-content -->

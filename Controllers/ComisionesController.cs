@@ -40,9 +40,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             }
             catch (Exception ex)
             {
-                // Opcional: Log o manejar la excepción adecuadamente
                 ViewBag.Error = $"Error al cargar las comisiones: {ex.Message}";
-                return View(new List<ComisionViewModel>()); // Devuelve una lista vacía en caso de error
+                return View(new List<ComisionViewModel>()); 
             }
         }
 
@@ -61,7 +60,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
 
             if (comision == null)
             {
-                // Puedes enviar un mensaje a la vista para mostrar un error
                 TempData["Error"] = "No se encontró la comisión.";
                 return RedirectToAction("Comisiones");
             }
@@ -84,6 +82,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         {
             if (ModelState.IsValid)
             {
+                comision.FechaRegistro = DateTime.Now;
                 db.Comisiones.Add(comision);
                 db.SaveChanges();
                 return RedirectToAction("Comisiones");
@@ -102,22 +101,18 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            // Busca la comisión en la base de datos
             Comision comision = db.Comisiones.Include(c => c.Venta)
                                               .Include(c => c.Usuario)
                                               .FirstOrDefault(c => c.IDComision == id);
-
-            // Verifica si la comisión existe
             if (comision == null)
             {
                 return HttpNotFound("No se encontró la comisión solicitada.");
             }
 
-            // Prepara los valores para las listas desplegables
             ViewBag.IDVenta = new SelectList(db.Ventas.ToList(), "IDVenta", "TotalVenta", comision.IDVenta);
             ViewBag.IDUsuario = new SelectList(db.Usuarios.ToList(), "IDUsuario", "Nombre", comision.IDUsuario);
 
-            return View(comision); // Pasa la comisión encontrada a la vista
+            return View(comision); 
         }
         // POST: Comisiones/Edit/5
         [HttpPost]
@@ -126,34 +121,28 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Busca la comisión en la base de datos
                 Comision comisionExistente = db.Comisiones.Find(comision.IDComision);
 
                 if (comisionExistente == null)
                 {
-                    // Si la comisión no se encuentra, se lanza un error
                     return HttpNotFound("No se encontró la comisión para editar.");
                 }
 
-                // Asigna los valores del formulario a la comisión existente
                 comisionExistente.IDVenta = comision.IDVenta;
                 comisionExistente.IDUsuario = comision.IDUsuario;
                 comisionExistente.PorcentajeComision = comision.PorcentajeComision;
                 comisionExistente.MontoComision = comision.MontoComision;
                 comisionExistente.FechaRegistro = comision.FechaRegistro;
-
-                // Marca la entidad como modificada
                 db.Entry(comisionExistente).State = EntityState.Modified;
-                db.SaveChanges(); // Guarda los cambios en la base de datos
+                db.SaveChanges(); 
 
-                // Redirige a la lista de comisiones
                 return RedirectToAction("Comisiones");
             }
 
-            // Si el modelo no es válido, vuelve a cargar las listas y muestra los errores
+     
             ViewBag.IDVenta = new SelectList(db.Ventas.ToList(), "IDVenta", "TotalVenta", comision.IDVenta);
             ViewBag.IDUsuario = new SelectList(db.Usuarios.ToList(), "IDUsuario", "Nombre", comision.IDUsuario);
-            return View(comision); // Regresa a la vista con los errores de validación
+            return View(comision);
         }
 
         // GET: Comisiones/Delete/5

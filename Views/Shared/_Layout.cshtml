@@ -10,6 +10,7 @@
     @Styles.Render("~/Content/css")
 </head>
 <body>
+
     <!-- Begin page -->
     <div id="layout-wrapper">
 
@@ -69,7 +70,7 @@
                             var nombreUsuario = Session["NombreUsuario"] as string;
                             var rolUsuario = Session["RolUsuario"] as string;
                         }
-                        
+
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn btn-sm top-icon p-0" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="rounded avatar-2xs p-0" src="~/assets/images/users/avatar-6.png" alt="Header Avatar">
@@ -95,24 +96,27 @@
                                             <div class="rich-list-append"><span class="badge badge-label-light fs-6">6+</span></div>
                                         </div>
                                     </div>
-                                    <div class="card-body p-0">
-                                        <div class="grid-nav grid-nav-flush grid-nav-action grid-nav-no-rounded">
-                                            <div class="grid-nav-row">
-                                                <a href="/Usuarios/Index" class="grid-nav-item">
-                                                    <div class="grid-nav-icon"><i class="far fa-address-card"></i></div>
-                                                    <span class="grid-nav-content">Editar Datos Personales </span>
-                                                </a>
+                                    @if (rolUsuario == "Administrador")
+                                    {
+                                        <div class="card-body p-0">
+                                            <div class="grid-nav grid-nav-flush grid-nav-action grid-nav-no-rounded">
+                                                <div class="grid-nav-row">
+                                                    <a href="/Usuarios/Index" class="grid-nav-item">
+                                                        <div class="grid-nav-icon"><i class="far fa-address-card"></i></div>
+                                                        <span class="grid-nav-content">Editar Datos Personales </span>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
+                                    }
+                                        <div class="card-footer card-footer-bordered rounded-0">
+                                            @using (Html.BeginForm("Logout", "Login", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-label-danger">Cerrar Sesión</button>
+                                            }
+                                        </div>
                                     </div>
-                                    <div class="card-footer card-footer-bordered rounded-0">
-                                        @using (Html.BeginForm("Logout", "Login", FormMethod.Post))
-                                        {
-                                            @Html.AntiForgeryToken()
-                                            <button type="submit" class="btn btn-label-danger">Cerrar Sesión</button>
-                                        }
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <!-- End Profile -->
@@ -124,6 +128,7 @@
         <!-- End topbar -->
     </div>
     <!-- ========== Left Sidebar Start ========== -->
+
     <div class="sidebar-left">
 
         <div data-simplebar class="h-100">
@@ -150,101 +155,110 @@
 
                         </ul>
                     </li>
+                    @if (rolUsuario == "Administrador" || rolUsuario == "Contador")
+                    {
+                        <!--Informes Financieros-->
+                        <li class="menu-title">Informes Financieros</li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow ">
+                                <i class="fas fa-newspaper"></i>
+                                <span>Facturas</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="/GestionFacturas/Facturas"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Gestion de Facturas</a></li>
 
-                    <!--Informes Financieros-->
-                    <li class="menu-title">Informes Financieros</li>
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow ">
-                            <i class="fas fa-newspaper"></i>
-                            <span>Facturas</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="/GestionFacturas/Facturas"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Gestion de Facturas</a></li>
+                            </ul>
+                        </li>
 
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow ">
-                            <i class="fas fa-file-contract"></i>
-                            <span>Resumen Financiero</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="/Ventas/ReporteComparaciones"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Ingresos Y Gastos</a></li>
-                        </ul>
-                    </li>             
-                   <!--Cotizaciones-->
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow ">
+                                <i class="fas fa-file-contract"></i>
+                                <span>Resumen Financiero</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="/Ventas/ReporteComparaciones"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Ingresos Y Gastos</a></li>
+                            </ul>
+                        </li>
+                    }
+                    <!--Cotizaciones-->
 
                     <li class="menu-title">Cotizaciones y Ventas</li>
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow ">
-                            <i class="fas fa-address-card"></i>
-                            <span>Clientes</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="/Clientes/Clientes"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Clientes</a></li>                          
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow ">
-                            <i class="fas fa-coins"></i>
-                            <span>Cotizaciones</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="/Cotizaciones/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Ver Cotizaciones</a></li>
-                            <li><a href="/Cotizaciones/Create"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Crear Cotización</a></li>
+                    @if (rolUsuario == "Administrador" || rolUsuario == "Vendedor")
+                    {
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow ">
+                                <i class="fas fa-address-card"></i>
+                                <span>Clientes</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="/Clientes/Clientes"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Clientes</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow ">
+                                <i class="fas fa-coins"></i>
+                                <span>Cotizaciones</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="/Cotizaciones/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Ver Cotizaciones</a></li>
+                                <li><a href="/Cotizaciones/Create"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Crear Cotización</a></li>
 
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow ">
-                            <i class="fas fa-money-bill"></i>
-                            <span>Ventas</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="/Ventas/ReporteVentas"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Datos de Ventas</a></li>
-                            <li><a href="#"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Ver Ingresos de Venta</a></li>
-                            <li><a href="/Comisiones/Comisiones"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Comisiones</a></li>
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
+                    }
 
+                    @if (rolUsuario == "Administrador" || rolUsuario == "Contador")
+                    {
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow ">
+                                <i class="fas fa-money-bill"></i>
+                                <span>Ventas</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="/Ventas/ReporteVentas"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Datos de Ventas</a></li>
+                                <li><a href="/Ventas/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Ver Ingresos de Venta</a></li>
+                                <li><a href="/Comisiones/Comisiones"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Comisiones</a></li>
+                            </ul>
+                        </li>
+                    }
 
 
                     <!--Compras-->
+                    @if (rolUsuario == "Administrador")
+                    {
+                        <li class="menu-title">Compras</li>
 
-                    <li class="menu-title">Compras</li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow ">
+                                <i class="fas fa-shipping-fast"></i>
+                                <span>Pedidos</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="/PedidoProductos/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Estado de Pedidos</a></li>
+                            </ul>
+                        </li>
 
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow ">
-                            <i class="fas fa-shipping-fast"></i>
-                            <span>Pedidos</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="/PedidoProductos/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Estado de Pedidos</a></li>
-                        </ul>
-                    </li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow ">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Compras</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="/Compras/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Compras Realizadas</a></li>
+                            </ul>
+                        </li>
 
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow ">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span>Compras</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="/Compras/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Compras Realizadas</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow ">
-                            <i class="fas fa-folder-open"></i>
-                            <span>Proveedores</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="/Proveedores/AgregarProveedor"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Agregar Proveedor</a></li>
-                            <li><a href="/Proveedores/Proveedores"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Lista de Proveedores</a></li>
-                        </ul>
-                    </li>
-
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow ">
+                                <i class="fas fa-folder-open"></i>
+                                <span>Proveedores</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="/Proveedores/AgregarProveedor"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Agregar Proveedor</a></li>
+                                <li><a href="/Proveedores/Proveedores"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Lista de Proveedores</a></li>
+                            </ul>
+                        </li>
+                    }
                     <!--Otras Páginas-->
                     <li class="menu-title">Páginas</li>
 
@@ -259,29 +273,32 @@
                     </li>
 
                     <!--Otras Opciones-->
-                    <li class="menu-title">Otras Opciones</li>
+                    @if (rolUsuario == "Administrador")
+                    {
+                        <li class="menu-title">Otras Opciones</li>
 
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow ">
-                            <i class="fa fa-check"></i>
-                            <span>Administrar</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="/Usuarios/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Usuarios</a></li>
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow ">
-                                    <i class="fa fa-check"></i>
-                                    <span>Administrar Inventarios</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="/TipoGranoes/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Tipo Grano</a></li>
-                                    <li><a href="/TipoPresentacions/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Tipo Presentacion</a></li>
-                                    <li><a href="/CategoriaProductoes/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Categoria Productos</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow ">
+                                <i class="fa fa-check"></i>
+                                <span>Administrar</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="/Usuarios/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Usuarios</a></li>
+                                <li>
+                                    <a href="javascript: void(0);" class="has-arrow ">
+                                        <i class="fa fa-check"></i>
+                                        <span>Administrar Inventarios</span>
+                                    </a>
+                                    <ul class="sub-menu" aria-expanded="false">
+                                        <li><a href="/TipoGranoes/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Tipo Grano</a></li>
+                                        <li><a href="/TipoPresentacions/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Tipo Presentacion</a></li>
+                                        <li><a href="/CategoriaProductoes/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Categoria Productos</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    </ul>
             </div>
             <!-- Sidebar -->
         </div>
@@ -299,8 +316,9 @@
     <footer class="footer">
         <div class="container-fluid">
             <div class="row align-items-center">
-                <div class="col-sm-6">              
-                   <p><script>document.write(new Date().getFullYear())</script>.</p> 
+                <div class="col-sm-6">
+                    <p>
+                    <script>document.write(new Date().getFullYear())</script>.</p>
                 </div>
                 <div class="col-sm-6">
                     <div class="text-sm-end d-none d-sm-block">

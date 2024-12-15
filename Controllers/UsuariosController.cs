@@ -7,6 +7,7 @@ using BCrypt.Net;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
+    [AuthorizeRole("Administrador")]
     public class UsuariosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
