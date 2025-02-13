@@ -28,39 +28,47 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult IniciarSesion(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var usuario = db.Usuarios.SingleOrDefault(u => u.Correo == model.Correo);
-
-                if (usuario != null)
+                if (ModelState.IsValid)
                 {
-                    if (usuario.Contraseña == null)
-                    {
-                        ModelState.AddModelError("", "La contraseña no está almacenada.");
-                        return View(model);
-                    }
+                    var usuario = db.Usuarios.SingleOrDefault(u => u.Correo == model.Correo);
 
-                    if (BCrypt.Net.BCrypt.Verify(model.Contraseña, usuario.Contraseña))
+                    if (usuario != null)
                     {
-                        var rol = db.Rols.SingleOrDefault(r => r.IDRol == usuario.IDRol);
-                        if (rol != null)
+                        if (usuario.Contraseña == null)
                         {
-                            Session["RolUsuario"] = rol.NombreRol;
+                            ModelState.AddModelError("", "La contraseña no está almacenada.");
+                            return View(model);
                         }
-                        Session["UsuarioID"] = usuario.IDUsuario;
-                        Session["NombreUsuario"] = usuario.Nombre;
 
-                        return RedirectToAction("Index", "Home");
+                        if (BCrypt.Net.BCrypt.Verify(model.Contraseña, usuario.Contraseña))
+                        {
+                            var rol = db.Rols.SingleOrDefault(r => r.IDRol == usuario.IDRol);
+                            if (rol != null)
+                            {
+                                Session["RolUsuario"] = rol.NombreRol;
+                            }
+                            Session["UsuarioID"] = usuario.IDUsuario;
+                            Session["NombreUsuario"] = usuario.Nombre;
+
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Contraseña incorrecta.");
+                        }
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Contraseña incorrecta.");
+                        ModelState.AddModelError("", "No se encontró un usuario con ese correo.");
                     }
                 }
-                else
-                {
-                    ModelState.AddModelError("", "No se encontró un usuario con ese correo.");
-                }
+            }
+            catch (Exception ex)
+            {
+   
+                return RedirectToAction("Error", "Home");
             }
 
             return View(model);

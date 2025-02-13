@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    ViewBag.Title = "Iniciar Sesión";
+    ViewBag.Title = "Acceso Denegado";
 }
 
 <!DOCTYPE html>
@@ -21,23 +21,24 @@
             <div class="row align-items-center justify-content-center min-vh-100">
                 <div class="col-10 col-md-6 col-lg-4 col-xxl-3">
                     <div class="card mb-0">
-                        <div class="card-body">
-                            <div class="text-center">
-                                <a href="#" class="logo-Abejonal">
-                                    <img src="~/assets/images/AltosAbejonal.jpeg" alt="" height="50" class="auth-logo logo-dark mx-auto">
-                                </a>
-                                <h4 class="mt-4">No tiene permiso para acceder a esta página</h4>
-                                <p class="text-muted">Intente iniciar sesión</p>
+                        <div class="card border">
+                            <div class="card-header card-header-bordered">
+                                <h3 class="card-title">Acceso Denegado</h3>
                             </div>
-                            <a href="/Login/IniciarSesion" class="grid-nav-item">
-                                <div class="grid-nav-icon"><i class="far fa-address-card"></i></div>
-                                <span class="grid-nav-content">Iniciar Sesión </span>
-                            </a>
-                            <div class="mt-5 text-center">
-                                <p>
-                                    ©
-                                    <script>document.write(new Date().getFullYear())</script> Altos Del Abejonal.
-                                </p>
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <img src="~/assets/images/AltosAbejonal.jpeg" alt="" height="50" class="auth-logo logo-dark mx-auto">
+                                    <h4 class="mt-4">No tiene permiso para acceder a esta página</h4>
+                                    <p class="text-muted">Intente iniciar sesión con otra cuenta</p>
+                                </div>                            
+                                <div class="hstack gap-2">
+                                    <a href="/Home/Index" class="grid-nav-item">
+                                        <button class="btn btn-label-primary">Volver al Inicio</button>
+                                    </a>
+                                    <a href="/Login/IniciarSesion" class="grid-nav-item">
+                                        <button class="btn btn-label-info">Iniciar Sesión</button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

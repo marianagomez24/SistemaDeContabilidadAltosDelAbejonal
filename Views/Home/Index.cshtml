@@ -1,7 +1,9 @@
 ﻿@model SistemaContabilidadAltosDelAbejonal.Models.IndexViewModel
 @{
     var nombreUsuario = Session["NombreUsuario"] as string;
+    var rolUsuario = Session["RolUsuario"] as string;
 }
+
 <div class="page-content">
     <div class="container-fluid">
         <div class="row">
@@ -29,53 +31,55 @@
         </div>
     </div>
     <!--    end row -->
-
-    <div class="row">
-        <div class="col-xxl-9">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <i class="fas fa-cart-plus fs-14 text-muted"></i>
+    @if (rolUsuario == "Administrador" || rolUsuario == "Contador")
+    { 
+        <div class="row">
+            <div class="col-xxl-9">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-cart-plus fs-14 text-muted"></i>
+                        </div>
+                        <h4 class="card-title mb-0">Ventas Generales</h4>
                     </div>
-                    <h4 class="card-title mb-0">Ventas Generales</h4>
-                </div>
-                <div class="card-body">
-                    <!-- Contenedor con dos columnas del mismo tamaño -->
-                    <div class="row">
-                        <!-- Columna de Última Venta -->
-                        <div class="col-sm-6">
-                            <div class="d-flex justify-content-between align-items-center shadow-lg p-3 rounded">
-                                <div>
-                                    <p class="text-primary text-truncate mb-2">Última Venta</p>
-                                    <h5 class="text-primary mb-0">₡@Model.UltimaVenta.TotalVenta.ToString("N2")</h5>
-                                    <p class="text-primary mt-1">Fecha: @Model.UltimaVenta.FechaVenta.ToString("dd/MM/yyyy")</p>
+                    <div class="card-body">
+                        <!-- Contenedor con dos columnas del mismo tamaño -->
+                        <div class="row">
+                            <!-- Columna de Última Venta -->
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-between align-items-center shadow-lg p-3 rounded">
+                                    <div>
+                                        <p class="text-primary text-truncate mb-2">Última Venta</p>
+                                        <h5 class="text-primary mb-0">₡@Model.UltimaVenta.TotalVenta.ToString("N2")</h5>
+                                        <p class="text-primary mt-1">Fecha: @Model.UltimaVenta.FechaVenta.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                    <div class="icon-container bg-primary-light rounded-circle p-2">
+                                        <i class="fas fa-shopping-cart text-primary fs-24"></i>
+                                    </div>
                                 </div>
-                                <div class="icon-container bg-primary-light rounded-circle p-2">
-                                    <i class="fas fa-shopping-cart text-primary fs-24"></i>
+                            </div>
+
+                            <!-- Columna de Total Ventas -->
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-between align-items-center shadow-lg p-3 rounded">
+                                    <div>
+                                        <p class="text-primary text-truncate mb-2">Total Ventas</p>
+                                        <h5 class="text-primary mb-0">₡@Model.TotalVentas.ToString("N2")</h5>
+                                    </div>
+                                    <div class="icon-container bg-primary-light rounded-circle p-2">
+                                        <i class="fas fa-dollar-sign text-primary fs-24"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Columna de Total Ventas -->
-                        <div class="col-sm-6">
-                            <div class="d-flex justify-content-between align-items-center shadow-lg p-3 rounded">
-                                <div>
-                                    <p class="text-primary text-truncate mb-2">Total Ventas</p>
-                                    <h5 class="text-primary mb-0">₡@Model.TotalVentas.ToString("N2")</h5>
-                                </div>
-                                <div class="icon-container bg-primary-light rounded-circle p-2">
-                                    <i class="fas fa-dollar-sign text-primary fs-24"></i>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Gráficos o contenido adicional -->
+                        <div id="sales_figures" data-colors='["--bs-info", "--bs-success"]' class="apex-charts mt-4" dir="ltr"></div>
                     </div>
-
-                    <!-- Gráficos o contenido adicional -->
-                    <div id="sales_figures" data-colors='["--bs-info", "--bs-success"]' class="apex-charts mt-4" dir="ltr"></div>
                 </div>
             </div>
         </div>
-    </div>
+        }
 
 
 
@@ -246,106 +250,111 @@
 </div>
 
 <!-- Historial de Transacciones -->
+
 <div class="row">
-    <!-- Columna de Historial de Transacciones -->
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-header justify-content-between">
-                <div class="card-icon text-muted"><i class="fas fa-sort-amount-up fs-14"></i></div>
-                <h4 class="card-title">Historial de transacciones</h4>
-                <div class="card-addon dropdown">
-                    <button class="btn btn-label-primary py-0 btn-sm dropdown-toggle" data-bs-toggle="dropdown">Opciones <i class="mdi mdi-chevron-down fs-17 align-middle ms-1"></i></button>
-                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
-                        <a class="dropdown-item" href="#">
-                            <div class="dropdown-icon"><i class="fa fa-poll"></i></div>
-                            <span class="dropdown-content">Reportes</span>
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <div class="dropdown-icon"><i class="fa fa-chart-pie"></i></div>
-                            <span class="dropdown-content">Gráficos</span>
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <div class="dropdown-icon"><i class="fa fa-chart-line"></i></div>
-                            <span class="dropdown-content">Estadísticas</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <div class="dropdown-icon"><i class="fa fa-cog"></i></div>
-                            <span class="dropdown-content">Ajustes</span>
-                        </a>
+    @if (rolUsuario == "Administrador" || rolUsuario == "Contador")
+    {
+        <!-- Columna de Historial de Transacciones -->
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header justify-content-between">
+                    <div class="card-icon text-muted"><i class="fas fa-sort-amount-up fs-14"></i></div>
+                    <h4 class="card-title">Historial de transacciones</h4>
+                    <div class="card-addon dropdown">
+                        <button class="btn btn-label-primary py-0 btn-sm dropdown-toggle" data-bs-toggle="dropdown">Opciones <i class="mdi mdi-chevron-down fs-17 align-middle ms-1"></i></button>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
+                            <a class="dropdown-item" href="#">
+                                <div class="dropdown-icon"><i class="fa fa-poll"></i></div>
+                                <span class="dropdown-content">Reportes</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="dropdown-icon"><i class="fa fa-chart-pie"></i></div>
+                                <span class="dropdown-content">Gráficos</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="dropdown-icon"><i class="fa fa-chart-line"></i></div>
+                                <span class="dropdown-content">Estadísticas</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                <div class="dropdown-icon"><i class="fa fa-cog"></i></div>
+                                <span class="dropdown-content">Ajustes</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card-body">
-                <div class="border-bottom text-center pb-3">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <span class="text-primary fs-24 me-2"><i class="fas fa-arrow-circle-right"></i></span>
-                        <h4 class="display-5 mb-0">@Model.FacturasEnProceso.Count</h4>
+                <div class="card-body">
+                    <div class="border-bottom text-center pb-3">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <span class="text-primary fs-24 me-2"><i class="fas fa-arrow-circle-right"></i></span>
+                            <h4 class="display-5 mb-0">@Model.FacturasEnProceso.Count</h4>
+                        </div>
+                        <p class="text-muted mb-0">Facturas Pendientes</p>
                     </div>
-                    <p class="text-muted mb-0">Facturas Pendientes</p>
+
+                    <div class="py-3">
+                        <p class="text-muted fs-5 mb-0">Detalles de las facturas pendientes:</p>
+                        <ul class="list-group">
+                            @foreach (var factura in Model.FacturasEnProceso)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Factura #:</strong> @factura.IdFacturas <br />
+                                        <strong>Tipo:</strong> @factura.TipoFactura <br />
+                                        <strong>Fecha Ingreso:</strong> @factura.FechaIngreso.ToString("dd/MM/yyyy")
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">@factura.Total.ToString("C")</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="d-flex justify-content-between py-3">
+                        <p class="text-muted fs-5 mb-0">Total de pagos pendientes:</p>
+                        <span class="text-primary fs-5">@Model.TotalPagosPendientes.ToString("C")</span>
+                    </div>
                 </div>
 
-                <div class="py-3">
-                    <p class="text-muted fs-5 mb-0">Detalles de las facturas pendientes:</p>
-                    <ul class="list-group">
-                        @foreach (var factura in Model.FacturasEnProceso)
-                        {
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>Factura #:</strong> @factura.IdFacturas <br />
-                                    <strong>Tipo:</strong> @factura.TipoFactura <br />
-                                    <strong>Fecha Ingreso:</strong> @factura.FechaIngreso.ToString("dd/MM/yyyy")
-                                </div>
-                                <span class="badge bg-primary rounded-pill">@factura.Total.ToString("C")</span>
-                            </li>
-                        }
-                    </ul>
+                <div class="hstack gap-4 justify-content-center pb-3">
+                    <div class="text-center">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <span class="text-info fs-22 me-2"><i class="fas fa-arrow-circle-up"></i></span>
+                            <h4 class="display-6 mb-0">@Model.FacturasEnProceso.Count()</h4>
+                        </div>
+                        <p class="text-muted mb-0">Facturas en proceso de pagar</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <span class="text-danger fs-22 me-2"><i class="fas fa-arrow-circle-down"></i></span>
+                            <h4 class="display-6 mb-0">@Model.FacturasPagadas.Count()</h4>
+                        </div>
+                        <p class="text-muted mb-0">Facturas pagadas</p>
+                    </div>
                 </div>
 
-                <div class="d-flex justify-content-between py-3">
-                    <p class="text-muted fs-5 mb-0">Total de pagos pendientes:</p>
-                    <span class="text-primary fs-5">@Model.TotalPagosPendientes.ToString("C")</span>
+                <div>
+                    @foreach (var factura in Model.FacturasEnProceso)
+                    {
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h5 class="fs-6 mb-0"><i class="fas fa-arrow-circle-up text-info me-2"></i>@factura.TipoFactura</h5>
+                            <p class="text-muted mb-0">@factura.Total.ToString("C")</p>
+                        </div>
+                    }
+
+                    @foreach (var factura in Model.FacturasPagadas)
+                    {
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h5 class="fs-6 mb-0"><i class="fas fa-arrow-circle-down text-danger me-2"></i>@factura.TipoFactura</h5>
+                            <p class="text-muted mb-0">@factura.Total.ToString("C")</p>
+                        </div>
+                    }
                 </div>
-            </div>
-
-            <div class="hstack gap-4 justify-content-center pb-3">
-                <div class="text-center">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <span class="text-info fs-22 me-2"><i class="fas fa-arrow-circle-up"></i></span>
-                        <h4 class="display-6 mb-0">@Model.FacturasEnProceso.Count()</h4>
-                    </div>
-                    <p class="text-muted mb-0">Facturas en proceso de pagar</p>
-                </div>
-
-                <div class="text-center">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <span class="text-danger fs-22 me-2"><i class="fas fa-arrow-circle-down"></i></span>
-                        <h4 class="display-6 mb-0">@Model.FacturasPagadas.Count()</h4>
-                    </div>
-                    <p class="text-muted mb-0">Facturas pagadas</p>
-                </div>
-            </div>
-
-            <div>
-                @foreach (var factura in Model.FacturasEnProceso)
-                {
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <h5 class="fs-6 mb-0"><i class="fas fa-arrow-circle-up text-info me-2"></i>@factura.TipoFactura</h5>
-                        <p class="text-muted mb-0">@factura.Total.ToString("C")</p>
-                    </div>
-                }
-
-                @foreach (var factura in Model.FacturasPagadas)
-                {
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <h5 class="fs-6 mb-0"><i class="fas fa-arrow-circle-down text-danger me-2"></i>@factura.TipoFactura</h5>
-                        <p class="text-muted mb-0">@factura.Total.ToString("C")</p>
-                    </div>
-                }
             </div>
         </div>
-    </div>
+    }
+
 
     <!-- Columna de Empleados -->
     <div class="col-xl-6">

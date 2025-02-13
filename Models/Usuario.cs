@@ -20,7 +20,8 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         [Required]
         [StringLength(500)]
         public string Contraseña { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El correo es obligatorio.")]
+        [EmailAddress(ErrorMessage = "Ingrese un correo electrónico válido.")]
         public string Correo { get; set; }
         [Required]
         public string Telefono { get; set; }

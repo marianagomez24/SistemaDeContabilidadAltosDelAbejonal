@@ -8,10 +8,11 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "El correo es obligatorio.")]
+        [EmailAddress(ErrorMessage = "Ingrese un correo electrónico válido.")]
         public string Correo { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "La contraseña es obligatoria.")]
         [DataType(DataType.Password)]
         public string Contraseña { get; set; }
     }

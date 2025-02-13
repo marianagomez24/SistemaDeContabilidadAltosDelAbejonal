@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Error";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Altos del Abejonal</title>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/assets/images/AltosAbejonal.jpeg">
+    @Styles.Render("~/Content/css")
+</head>
+
+<body>
+    <div class="">
+        <div class="bg-overlay"></div>
+        <div class="row align-items-center justify-content-center min-vh-100">
+            <div class="col-10 col-md-6 col-lg-4 col-xxl-3">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="~/assets/images/AltosAbejonal.jpeg" alt="" height="50" class="auth-logo logo-dark mx-auto">
+                            <h4 class="mt-4">Ocurrió un error</h4>
+                            <p class="text-muted">Lo sentimos, ha ocurrido un error inesperado.</p>
+                        </div>
+                        <div class="text-center">
+                            <a href="/Home/Index" class="grid-nav-item">
+                                <button class="btn btn-label-primary">Volver al Inicio</button>
+                            </a>
+                        </div>
+                            <div class="mt-5 text-center">
+                                <p>
+                                    ©
+                                    <script>document.write(new Date().getFullYear())</script> Altos Del Abejonal.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    }
+    @Scripts.Render("~/bundles/js")
+</body>
+</html>

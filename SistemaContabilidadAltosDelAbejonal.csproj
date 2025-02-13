@@ -137,7 +137,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoriaProductoesController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
-    <Compile Include="Controllers\ComisionesController.cs" />
     <Compile Include="Controllers\CompraDetallesController.cs" />
     <Compile Include="Controllers\ComprasController.cs" />
     <Compile Include="Controllers\CotizacionesController.cs" />
@@ -159,12 +158,11 @@
     <Compile Include="Models\AuthorizeRole.cs" />
     <Compile Include="Models\CategoriaProducto.cs" />
     <Compile Include="Models\Cliente.cs" />
-    <Compile Include="Models\Comision.cs" />
-    <Compile Include="Models\ComisionViewModel.cs" />
     <Compile Include="Models\CompraDetalle.cs" />
     <Compile Include="Models\Cotizacion.cs" />
     <Compile Include="Models\CotizacionDetalle.cs" />
     <Compile Include="Models\CotizacionViewModel.cs" />
+    <Compile Include="Models\DbInitializer.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PedidoProducto.cs" />
@@ -1806,15 +1804,13 @@
     <Content Include="Views\Ventas\Details.cshtml" />
     <Content Include="Views\Ventas\ReporteVentas.cshtml" />
     <Content Include="Views\Ventas\ReporteComparaciones.cshtml" />
-    <Content Include="Views\Comisiones\Comisiones.cshtml" />
-    <Content Include="Views\Comisiones\Details.cshtml" />
-    <Content Include="Views\Comisiones\Create.cshtml" />
-    <Content Include="Views\Comisiones\Edit.cshtml" />
-    <Content Include="Views\Comisiones\Delete.cshtml" />
     <Content Include="Views\PedidoProductos\Create.cshtml" />
     <Content Include="Views\PedidoProductos\Details.cshtml" />
     <Content Include="Views\PedidoProductos\Edit.cshtml" />
     <Content Include="Views\PedidoProductos\Index.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\Error404.cshtml" />
+    <Content Include="Views\Home\Error500.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

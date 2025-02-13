@@ -10,6 +10,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [AuthorizeRole("Administrador", "Vendedor", "Contador")]
         public async Task<ActionResult> Index()
         {
             
@@ -66,6 +67,17 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             return View();
         }
 
-        
+        public ActionResult Error()
+        {
+            return View();
+        }
+        public ActionResult Error404()
+        {
+            return View();
+        }
+        public ActionResult Error500()
+        {
+            return View();
+        }
     }
 }
