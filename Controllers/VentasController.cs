@@ -109,6 +109,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             {
                 db.Entry(venta).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["SuccessMessage"] = "La información de la venta fue editada correctamente!";
                 return RedirectToAction("Index");
             }
             ViewBag.IDCliente = new SelectList(db.Cliente, "IDCliente", "Nombre", venta.IDCliente);

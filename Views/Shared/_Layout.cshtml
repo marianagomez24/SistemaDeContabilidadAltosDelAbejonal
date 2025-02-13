@@ -109,14 +109,14 @@
                                             </div>
                                         </div>
                                     }
-                                        <div class="card-footer card-footer-bordered rounded-0">
-                                            @using (Html.BeginForm("Logout", "Login", FormMethod.Post))
-                                            {
-                                                @Html.AntiForgeryToken()
-                                                <button type="submit" class="btn btn-label-danger">Cerrar Sesión</button>
-                                            }
-                                        </div>
+                                    <div class="card-footer card-footer-bordered rounded-0">
+                                        @using (Html.BeginForm("Logout", "Login", FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-label-danger">Cerrar Sesión</button>
+                                        }
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <!-- End Profile -->
@@ -234,6 +234,7 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="/PedidoProductos/Index"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Estado de Pedidos</a></li>
+                                <li><a href="/PedidoProductos/Create"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Realizar Pedido</a></li>
                             </ul>
                         </li>
 
@@ -297,7 +298,7 @@
                             </ul>
                         </li>
                     }
-                    </ul>
+                </ul>
             </div>
             <!-- Sidebar -->
         </div>
@@ -317,7 +318,8 @@
             <div class="row align-items-center">
                 <div class="col-sm-6">
                     <p>
-                    <script>document.write(new Date().getFullYear())</script>.</p>
+                        <script>document.write(new Date().getFullYear())</script>.
+                    </p>
                 </div>
                 <div class="col-sm-6">
                     <div class="text-sm-end d-none d-sm-block">
@@ -497,6 +499,41 @@
             </div>
         </div>
     </div>
+
+
+
+    <!-- Modal de Confirmación -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage">@Html.Raw(TempData["SuccessMessage"])</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var message = "@Html.Raw(TempData["SuccessMessage"])";
+        if (message.trim() !== "") {
+            var modal = new bootstrap.Modal(document.getElementById("successModal"));
+            modal.show();
+        }
+    });
+    </script>
+
+
+
+
+
     @Scripts.Render("~/bundles/js")
     @RenderSection("scripts", required: false)
 </body>

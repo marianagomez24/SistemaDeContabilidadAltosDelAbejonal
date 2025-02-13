@@ -80,7 +80,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             }
 
             _context.SaveChanges();
-
+            TempData["SuccessMessage"] = "Pedido agregado correctamente!";
             return RedirectToAction("Create");
         }
 
@@ -171,10 +171,9 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 }
 
                 _context.SaveChanges();
-
+                TempData["SuccessMessage"] = "La información del pedido fue editada correctamente!";
                 return RedirectToAction("Index");
             }
-
             return View(pedidoProducto);
         }
     }

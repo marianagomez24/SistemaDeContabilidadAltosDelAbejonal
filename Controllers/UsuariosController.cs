@@ -51,6 +51,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 usuario.Contraseña = BCrypt.Net.BCrypt.HashPassword(usuario.Contraseña);
                 db.Usuarios.Add(usuario);
                 db.SaveChanges();
+                TempData["SuccessMessage"] = "Usuario agregado correctamente!";
                 return RedirectToAction("Index");
             }
 
@@ -83,6 +84,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             {
                 db.Entry(usuario).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["SuccessMessage"] = "La información del usuario fue editada correctamente!";
                 return RedirectToAction("Index");
             }
             ViewBag.IDRol = new SelectList(db.Rols, "IDRol", "NombreRol", usuario.IDRol);

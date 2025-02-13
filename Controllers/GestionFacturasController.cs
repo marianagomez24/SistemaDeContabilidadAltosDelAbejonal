@@ -37,6 +37,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             {
                 _context.Facturas.Add(factura);
                 _context.SaveChanges();
+                TempData["SuccessMessage"] = "Factura agregada correctamente!";
                 return RedirectToAction("Facturas");
             }
 
@@ -69,6 +70,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             {
                 _context.Entry(factura).State = System.Data.Entity.EntityState.Modified;
                 _context.SaveChanges();
+                TempData["SuccessMessage"] = "La información de la factura fue editada correctamente!";
                 return RedirectToAction("Facturas");
             }
             return View(factura);

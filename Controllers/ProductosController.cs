@@ -26,8 +26,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 .ToList();
 
             var totalStock = productos.Sum(p => p.Stock);
-            ViewBag.TotalStock = totalStock;
-
+            ViewBag.TotalStock = totalStock;        
             return View(productos);
             
         }
@@ -50,6 +49,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 producto.FechaActualizacion = DateTime.Now;
                 db.Productos.Add(producto);
                 db.SaveChanges();
+                TempData["SuccessMessage"] = "Producto agregado correctamente!";
                 return RedirectToAction("Stock"); 
             }
 
@@ -88,6 +88,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 producto.FechaActualizacion = DateTime.Now;
                 db.Entry(producto).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["SuccessMessage"] = "La información del producto fue editada correctamente!";
                 return RedirectToAction("Stock");
             }
 

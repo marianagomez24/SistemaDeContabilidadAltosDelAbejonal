@@ -14,7 +14,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Datos
         {
             List<ReporteCompra> objLista = new List<ReporteCompra>();
 
-            using (SqlConnection oconexion = new SqlConnection("Data Source=FRANCISCOVICTUS\\SQLEXPRESS;Initial Catalog=AltosDelAbejonalDB; Integrated Security=True"))
+            using (SqlConnection oconexion = new SqlConnection("Data Source=DANIELLENOVO\\SQLEXPRESS;Initial Catalog=AltosDelAbejonalDB; Integrated Security=True"))
             {
                 string query = "SP_ComprasMensaules";
 
@@ -44,7 +44,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Datos
         {
             List<ReporteCompraProveedor> objLista = new List<ReporteCompraProveedor>();
 
-            using (SqlConnection oconexion = new SqlConnection("Data Source=FRANCISCOVICTUS\\SQLEXPRESS;Initial Catalog=AltosDelAbejonalDB; Integrated Security=True"))
+            using (SqlConnection oconexion = new SqlConnection("Data Source=DANIELLENOVO\\SQLEXPRESS;Initial Catalog=AltosDelAbejonalDB; Integrated Security=True"))
             {
                 string query = "SP_ComprasProveedor";
 
@@ -74,7 +74,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Datos
         {
             List<ReporteVenta> objLista = new List<ReporteVenta>();
 
-            using (SqlConnection oconexion = new SqlConnection("Data Source=FRANCISCOVICTUS\\SQLEXPRESS;Initial Catalog=AltosDelAbejonalDB; Integrated Security=True"))
+            using (SqlConnection oconexion = new SqlConnection("Data Source=DANIELLENOVO\\SQLEXPRESS;Initial Catalog=AltosDelAbejonalDB; Integrated Security=True"))
             {
                 string query = "SP_VentasMensuales"; 
 
@@ -103,7 +103,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Datos
         {
             List<ReporteComparacion> lista = new List<ReporteComparacion>();
 
-            using (SqlConnection conexion = new SqlConnection("Data Source=FRANCISCOVICTUS\\SQLEXPRESS;Initial Catalog=AltosDelAbejonalDB; Integrated Security=True"))
+            using (SqlConnection conexion = new SqlConnection("Data Source=DANIELLENOVO\\SQLEXPRESS;Initial Catalog=AltosDelAbejonalDB; Integrated Security=True"))
             {
                 SqlCommand cmd = new SqlCommand("SP_GastosIngresos", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;

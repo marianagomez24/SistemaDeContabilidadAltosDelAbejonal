@@ -81,7 +81,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             }
 
             _context.SaveChanges();
-
+            TempData["SuccessMessage"] = "Cotización creada correctamente!";
             return RedirectToAction("Create");
         }
 
@@ -181,14 +181,14 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                         _context.VentaDetalles.Add(ventaDetalle);
                     }
 
-                    _context.SaveChanges(); 
+                    _context.SaveChanges();
+                    TempData["SuccessMessage"] = "La cotización ha sido registrada en las ventas!";
                 }
 
                 _context.SaveChanges();
-
+                TempData["SuccessMessage"] = "La información de la cotización fue editada correctamente!";
                 return RedirectToAction("Index");
             }
-
             return View(cotizacion);
         }
     }

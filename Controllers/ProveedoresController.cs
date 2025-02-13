@@ -36,6 +36,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 proveedor.FechaIngreso = DateTime.Now;
                 _context.Proveedor.Add(proveedor);
                 _context.SaveChanges();
+                TempData["SuccessMessage"] = "Proveedor agregado correctamente!";
                 return RedirectToAction("Proveedores");
             }
             return View(proveedor);
@@ -64,6 +65,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             {
                 _context.Entry(proveedor).State = EntityState.Modified;
                 _context.SaveChanges();
+                TempData["SuccessMessage"] = "La información del proveedor fue editada correctamente!";
                 return RedirectToAction("Proveedores");
             }
             return View(proveedor);

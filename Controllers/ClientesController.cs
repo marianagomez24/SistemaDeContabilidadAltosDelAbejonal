@@ -37,6 +37,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             {
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
+                TempData["SuccessMessage"] = "Cliente agregado correctamente!";              
                 return RedirectToAction("Clientes");
             }
             return View(cliente);
@@ -65,6 +66,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             {
                 db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["SuccessMessage"] = "La información del cliente fue editada correctamente!";
                 return RedirectToAction("Clientes");
             }
             return View(cliente);
