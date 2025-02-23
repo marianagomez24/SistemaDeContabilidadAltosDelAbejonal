@@ -64,6 +64,35 @@
                                                 <button class="btn btn-info">
                                                     @Html.ActionLink("Editar Pedido", "Edit", new { id = pedidoProducto.IDPedidoProducto }, new { @style = "color: white; text-decoration: none;" })
                                                 </button>
+                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete-@pedidoProducto.IDPedidoProducto">Eliminar</button>
+
+                                                <!-- Modal Para Eliminar-->
+                                                <div class="modal fade" id="modalDelete-@pedidoProducto.IDPedidoProducto" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel-@pedidoProducto.IDPedidoProducto" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalDeleteLabel-@pedidoProducto.IDPedidoProducto">Confirmar Eliminación del Pedido</h5>
+                                                                <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <i class="mdi mdi-close"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p class="text-muted mb-0">¿Estás seguro de que deseas eliminar el pedido con el número: <strong>@pedidoProducto.IDPedidoProducto</strong>?</p>
+                                                                <p class="text-muted mb-0">ID Proveedor: @pedidoProducto.IDProveedor</p>
+                                                                <p class="text-muted mb-0">Fecha de Pedido: @pedidoProducto.FechaPedido</p>
+                                                                <p class="text-muted mb-0">Fecha de Entrega Estimada: @pedidoProducto.FechaEntregaEstimada</p>
+                                                            </div>
+                                                            @using (Html.BeginForm("Delete", "PedidoProductos", new { id = @pedidoProducto.IDPedidoProducto }, FormMethod.Post))
+                                                            {
+                                                                @Html.AntiForgeryToken()
+                                                                <div class="modal-footer">
+                                                                    <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     }
