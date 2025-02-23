@@ -87,7 +87,9 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
 
         public ActionResult Index()
         {
-            var cotizaciones = _context.Cotizaciones.ToList();
+            var cotizaciones = _context.Cotizaciones.ToList()
+            .Where(c => c.Estado != "Eliminado")
+            .ToList();
             var clientes = _context.Cliente.ToList();
             ViewBag.Clientes = clientes;
             return View(cotizaciones);
@@ -191,5 +193,26 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             }
             return View(cotizacion);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+            var cotizacion = _context.Cotizaciones.FirstOrDefault(c => c.IDCotizacion == id);
+
+            if (cotizacion == null)
+            {
+                return HttpNotFound();
+            }
+
+            cotizacion.Estado = "Eliminado";
+
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "La cotización ha sido marcada como eliminada.";
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

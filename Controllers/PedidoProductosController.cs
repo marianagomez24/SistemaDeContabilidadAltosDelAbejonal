@@ -86,7 +86,9 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
 
         public ActionResult Index()
         {
-            var pedidoProducto = _context.PedidoProducto.ToList();
+            var pedidoProducto = _context.PedidoProducto.ToList()
+            .Where(c => c.Estado != "Eliminado")
+            .ToList();
             var proveedores = _context.Proveedor.ToList();
             ViewBag.Proveedores = proveedores;
             return View(pedidoProducto);
@@ -175,6 +177,25 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 return RedirectToAction("Index");
             }
             return View(pedidoProducto);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+            var pedidoProdcuto = _context.PedidoProducto.FirstOrDefault(p => p.IDPedidoProducto == id);
+
+            if (pedidoProdcuto == null)
+            {
+                return HttpNotFound();
+            }
+
+            pedidoProdcuto.Estado = "Eliminado";
+
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "El pedido ha sido marcado como eliminado.";
+            return RedirectToAction("Index");
         }
     }
 }

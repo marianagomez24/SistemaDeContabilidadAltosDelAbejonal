@@ -47,6 +47,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     @foreach (var cotizacion in Model)
                                     {
                                         var cliente = ((List<SistemaContabilidadAltosDelAbejonal.Models.Cliente>)ViewBag.Clientes)
@@ -64,6 +65,36 @@
                                                 <button class="btn btn-info">
                                                     @Html.ActionLink("Editar Cotizacion", "Edit", new { id = cotizacion.IDCotizacion }, new { @style = "color: white; text-decoration: none;" })
                                                 </button>
+                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete-@cotizacion.IDCotizacion">Eliminar</button>
+
+                                                <!-- Modal Para Eliminar-->
+                                                <div class="modal fade" id="modalDelete-@cotizacion.IDCotizacion" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel-@cotizacion.IDCotizacion" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalDeleteLabel-@cotizacion.IDCotizacion">Confirmar Eliminación de Cotizacion</h5>
+                                                                <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <i class="mdi mdi-close"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p class="text-muted mb-0">¿Estás seguro de que deseas eliminar la cotización con el número: <strong>@cotizacion.IDCotizacion</strong>?</p>
+                                                                <p class="text-muted mb-0">ID Cliente: @cotizacion.IDCliente</p>
+                                                                <p class="text-muted mb-0">Fecha de Cotizacion: @cotizacion.FechaCotizacion</p>
+                                                                <p class="text-muted mb-0">Total con IVA: @cotizacion.TotalConIVA</p>
+                                                            </div>
+                                                            @using (Html.BeginForm("Delete", "Cotizaciones", new { id = @cotizacion.IDCotizacion }, FormMethod.Post))
+                                                            {
+                                                                @Html.AntiForgeryToken()
+                                                                <div class="modal-footer">
+                                                                    <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </td>
                                         </tr>
                                     }
