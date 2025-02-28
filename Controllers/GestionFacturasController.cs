@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
+    [AuthorizeRole("Administrador", "Contador")]
     public class GestionFacturasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -33,22 +34,24 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Factura factura)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Facturas.Add(factura);
-                _context.SaveChanges();
-                TempData["SuccessMessage"] = "Factura agregada correctamente!";
-                return RedirectToAction("Facturas");
+                if (ModelState.IsValid)
+                {
+                    _context.Facturas.Add(factura);
+                    _context.SaveChanges();
+                    TempData["SuccessMessage"] = "Factura agregada correctamente!";
+                    return RedirectToAction("Facturas");
+                }
+                return View(factura);
             }
-
-            var errors = ModelState.Values.SelectMany(x => x.Errors);
-            foreach (var error in errors)
+            catch (Exception ex)
             {
-                Console.WriteLine(error.ErrorMessage);
+                TempData["ErrorMessage"] = "Ocurrió un error al agregar la factura.";
+                return RedirectToAction("Error", "Home");
             }
-
-            return View(factura);
         }
+
 
         // GET: Editar Facturas
         public ActionResult Edit(int? id)
@@ -66,15 +69,24 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Factura factura)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Entry(factura).State = System.Data.Entity.EntityState.Modified;
-                _context.SaveChanges();
-                TempData["SuccessMessage"] = "La información de la factura fue editada correctamente!";
-                return RedirectToAction("Facturas");
+                if (ModelState.IsValid)
+                {
+                    _context.Entry(factura).State = System.Data.Entity.EntityState.Modified;
+                    _context.SaveChanges();
+                    TempData["SuccessMessage"] = "La información de la factura fue editada correctamente!";
+                    return RedirectToAction("Facturas");
+                }
+                return View(factura);
             }
-            return View(factura);
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Ocurrió un error al editar la factura.";
+                return RedirectToAction("Error", "Home");
+            }
         }
+
 
         // GET: Eliminar Facturas
         public ActionResult Delete(int? id)
@@ -98,16 +110,29 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var factura = _context.Facturas.Find(id);
-            if (factura != null)
+            try
             {
+                var factura = _context.Facturas.Find(id);
+
+                if (factura == null)
+                {
+                    return HttpNotFound();
+                }
+
                 factura.Activo = true;
 
                 _context.Entry(factura).State = System.Data.Entity.EntityState.Modified;
                 _context.SaveChanges();
-            }
 
-            return RedirectToAction("Facturas");
+                TempData["SuccessMessage"] = "La factura ha sido eliminada correctamente.";
+                return RedirectToAction("Facturas");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Ocurrió un error al intentar eliminar la factura.";
+                return RedirectToAction("Error", "Home");
+            }
         }
+
     }
 }

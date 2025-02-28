@@ -10,6 +10,7 @@ using SistemaContabilidadAltosDelAbejonal.Models;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
+    [AuthorizeRole("Administrador", "Contador")]
     public class ComprasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -91,18 +92,29 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDCompra,IDPedidoProducto,IDProveedor,FechaCompra,TotalCompra")] Compra compra)
+        public ActionResult Edit([Bind(Include = "IDCompra,IDPedidoProducto,IDProveedor,FechaCompra,TotalCompra, Observaciones")] Compra compra)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(compra).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(compra).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["SuccessMessage"] = "Compra editada correctamente!";
+                    return RedirectToAction("Index");
+                }
             }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Ocurrió un error al editar la compra.";
+                return RedirectToAction("Error", "Home");
+            }
+
             ViewBag.IDPedidoProducto = new SelectList(db.PedidoProducto, "IDPedidoProducto", "Observaciones");
             ViewBag.IDProveedor = new SelectList(db.Proveedor, "IDProveedor", "Nombre", compra.IDProveedor);
             return View(compra);
         }
+
 
         // GET: Compras/Delete/5
         public ActionResult Delete(int? id)
@@ -124,11 +136,28 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Compra compra = db.Compra.Find(id);
-            db.Compra.Remove(compra);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Compra compra = db.Compra.Find(id);
+
+                if (compra == null)
+                {
+                    return HttpNotFound();
+                }
+
+                db.Compra.Remove(compra);
+                db.SaveChanges();
+
+                TempData["SuccessMessage"] = "La compra ha sido eliminada correctamente.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Ocurrió un error al intentar eliminar la compra.";
+                return RedirectToAction("Error", "Home");
+            }
         }
+
 
         protected override void Dispose(bool disposing)
         {

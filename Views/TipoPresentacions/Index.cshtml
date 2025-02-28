@@ -17,7 +17,7 @@
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Administrar</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Administrar Inventarios</a></li>
                             <li class="breadcrumb-item active">Tipo de Presentacion</li>
                         </ol>
                     </div>
@@ -59,7 +59,7 @@
                                             <td>@item.NombrePresentacion</td>
                                             <td>
                                                 <button class="btn btn-info" style="color: white;">
-                                                    @Html.ActionLink("Edit", "Edit", new { id = item.IDTipoPresentacion }, new { @style = "color: white; text-decoration: none;" })
+                                                    @Html.ActionLink("Editar", "Edit", new { id = item.IDTipoPresentacion }, new { @style = "color: white; text-decoration: none;" })
                                                 </button>
                                                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1-@item.IDTipoPresentacion">Eliminar</button>
                                             </td>

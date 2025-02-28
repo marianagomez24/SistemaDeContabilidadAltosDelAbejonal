@@ -8,6 +8,7 @@ using System;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
+    [AuthorizeRole("Administrador", "Vendedor", "Contador")]
     public class ProductosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -46,11 +47,20 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         {
             if (ModelState.IsValid)
             {
-                producto.FechaActualizacion = DateTime.Now;
-                db.Productos.Add(producto);
-                db.SaveChanges();
-                TempData["SuccessMessage"] = "Producto agregado correctamente!";
-                return RedirectToAction("Stock"); 
+                try
+                {
+                    producto.FechaActualizacion = DateTime.Now;
+                    db.Productos.Add(producto);
+                    db.SaveChanges();
+
+                    TempData["SuccessMessage"] = "Producto agregado correctamente!";
+                    return RedirectToAction("Stock");
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorMessage"] = "Hubo un error al agregar el producto. Intenta nuevamente.";
+                    return RedirectToAction("Error", "Home");
+                }
             }
 
             ViewBag.IDTipoGrano = new SelectList(db.TipoGranos, "IDTipoGrano", "NombreGrano", producto.IDTipoGrano);
@@ -58,6 +68,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             ViewBag.IDCategoria = new SelectList(db.CategoriaProductos, "IDCategoria", "NombreCategoria", producto.IDCategoria);
             return View(producto);
         }
+
 
         [AuthorizeRole("Administrador")]
         public ActionResult EditarProducto(int? id)
@@ -97,6 +108,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             ViewBag.IDCategoria = new SelectList(db.CategoriaProductos, "IDCategoria", "NombreCategoria", producto.IDCategoria);
             return View(producto);
         }
+
         public ActionResult EliminarProducto(int? id)
         {
             if (id == null)
@@ -117,16 +129,26 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Producto producto = db.Productos.Find(id);
-
-            if (producto != null)
+            try
             {
+                Producto producto = db.Productos.Find(id);
+                if (producto == null)
+                {
+                    TempData["ErrorMessage"] = "El producto que intentas eliminar no existe.";
+                    return RedirectToAction("Stock");
+                }
                 db.Productos.Remove(producto);
                 db.SaveChanges();
+                TempData["SuccessMessage"] = "El producto fue eliminado correctamente!";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Hubo un error al eliminar el producto. Intenta nuevamente.";
             }
 
-            return RedirectToAction("Stock"); 
+            return RedirectToAction("Stock");
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

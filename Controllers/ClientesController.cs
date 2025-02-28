@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using System.Net;
+using System;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
@@ -33,15 +34,25 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AgregarCliente([Bind(Include = "IDCliente,Nombre,PrimerApellido,SegundoApellido,Cedula,Telefono,Direccion")] Cliente cliente)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Cliente.Add(cliente);
-                db.SaveChanges();
-                TempData["SuccessMessage"] = "Cliente agregado correctamente!";              
-                return RedirectToAction("Clientes");
+                if (ModelState.IsValid)
+                {
+                    db.Cliente.Add(cliente);
+                    db.SaveChanges();
+                    TempData["SuccessMessage"] = "Cliente agregado correctamente!";
+                    return RedirectToAction("Clientes");
+                }
             }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Ocurrió un error al agregar el cliente.";
+                return RedirectToAction("Error", "Home");
+            }
+
             return View(cliente);
         }
+
 
         public ActionResult EditarCliente(int? id)
         {
@@ -62,15 +73,25 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditarCliente([Bind(Include = "IDCliente,Nombre,PrimerApellido,SegundoApellido,Cedula,Telefono,Direccion")] Cliente cliente)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(cliente).State = EntityState.Modified;
-                db.SaveChanges();
-                TempData["SuccessMessage"] = "La información del cliente fue editada correctamente!";
-                return RedirectToAction("Clientes");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(cliente).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["SuccessMessage"] = "La información del cliente fue editada correctamente!";
+                    return RedirectToAction("Clientes");
+                }
             }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Ocurrió un error al editar la información del cliente.";
+                return RedirectToAction("Error", "Home");
+            }
+
             return View(cliente);
         }
+
 
         public ActionResult EliminarCliente(int? id)
         {
@@ -92,15 +113,30 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cliente cliente = db.Cliente.Find(id); 
-            if (cliente != null)
+            try
             {
-                cliente.Activo = false;
-                db.Entry(cliente).State = EntityState.Modified; 
-                db.SaveChanges();
+                Cliente cliente = db.Cliente.Find(id);
+                if (cliente != null)
+                {
+                    cliente.Activo = false;
+                    db.Entry(cliente).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["SuccessMessage"] = "Cliente desactivado correctamente!";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Cliente no encontrado.";
+                }
             }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Ocurrió un error al desactivar el cliente.";
+                return RedirectToAction("Error", "Home");
+            }
+
             return RedirectToAction("Clientes");
         }
+
 
 
         protected override void Dispose(bool disposing)
