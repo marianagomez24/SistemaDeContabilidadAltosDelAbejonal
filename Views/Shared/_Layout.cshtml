@@ -22,7 +22,7 @@
                 <!-- Logo -->
                 <!-- Start Navbar-Brand -->
                 <div class="navbar-logo-box">
-                    <a href="index.html" class="logo-Abejonal">
+                    <a href="/Home/Index.cshtml" class="logo-Abejonal">
                         <span class="logo-sm">
                             <img src="~/assets/images/AltosAbejonal.jpeg" alt="logo-Abejonal" height="50">
                         </span>
@@ -138,6 +138,7 @@
                         </a>
                     </li>
 
+
                     @if (rolUsuario == "Administrador" || rolUsuario == "Contador" || rolUsuario == "Vendedor")
                     {
                         <!--Inventario-->
@@ -148,10 +149,11 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="/Productos/Stock"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Stock</a></li>
-
+                                <li><a href="/Productos/AgregarProducto"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Agregar Productos</a></li>
                             </ul>
                         </li>
                     }
+                  
                     @if (rolUsuario == "Administrador" || rolUsuario == "Contador")
                     {
                         <!--Informes Financieros-->
@@ -162,8 +164,8 @@
                                 <span>Facturas</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="/GestionFacturas/Facturas"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Gestion de Facturas</a></li>
-
+                                <li><a href="/GestionFacturas/Facturas"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Gestión de Facturas</a></li>
+                                <li><a href="/GestionFacturas/Create"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Agregar Facturas</a></li>
                             </ul>
                         </li>
 
@@ -176,6 +178,7 @@
                                 <li><a href="/Ventas/ReporteComparaciones"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Ingresos Y Gastos</a></li>
                             </ul>
                         </li>
+
                      }
                         <!--Cotizaciones-->
 
@@ -189,6 +192,7 @@
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="/Clientes/Clientes"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Gestión Clientes</a></li>
+                                  <li><a href="/Clientes/AgregarCliente"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Agregar Clientes</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -251,8 +255,8 @@
                                     <span>Proveedores</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="/Proveedores/AgregarProveedor"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Agregar Proveedor</a></li>
                                     <li><a href="/Proveedores/Proveedores"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Lista de Proveedores</a></li>
+                                    <li><a href="/Proveedores/AgregarProveedor"><i class="mdi mdi-checkbox-blank-circle align-middle"></i>Agregar Proveedor</a></li>
                                 </ul>
                             </li>
                         }
