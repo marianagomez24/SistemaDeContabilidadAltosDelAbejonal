@@ -11,6 +11,7 @@ using SistemaContabilidadAltosDelAbejonal.Datos;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
+    [AuthorizeRole("Administrador", "Contador")]
     public class CompraDetallesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -107,22 +108,33 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [HttpGet]
         public JsonResult ReporteCompra()
         {
-            DT_Reporte objDT_Reporte = new DT_Reporte();
-
-            List<ReporteCompra> objLista = objDT_Reporte.RetornarCompras();
-
-            return Json(objLista, JsonRequestBehavior.AllowGet);
+            try
+            {
+                DT_Reporte objDT_Reporte = new DT_Reporte();
+                List<ReporteCompra> objLista = objDT_Reporte.RetornarCompras();
+                return Json(objLista, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = "Ocurrió un error al obtener el reporte de compras." }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]
         public JsonResult ReporteCompraProveedor()
         {
-            DT_Reporte objDT_Reporte = new DT_Reporte();
-
-            List<ReporteCompraProveedor> objLista = objDT_Reporte.RetornarProveedores();
-
-            return Json(objLista, JsonRequestBehavior.AllowGet);
+            try
+            {
+                DT_Reporte objDT_Reporte = new DT_Reporte();
+                List<ReporteCompraProveedor> objLista = objDT_Reporte.RetornarProveedores();
+                return Json(objLista, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = "Ocurrió un error al obtener el reporte de compras por proveedor." }, JsonRequestBehavior.AllowGet);
+            }
         }
+
 
         protected override void Dispose(bool disposing)
         {

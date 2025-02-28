@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
+    [AuthorizeRole("Administrador")]
     public class ProveedoresController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -31,16 +32,30 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AgregarProveedor([Bind(Include = "IDProveedor,Nombre,Email,Telefono,Direccion,FechaIngreso,Estado")] Proveedor proveedor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                proveedor.FechaIngreso = DateTime.Now;
-                _context.Proveedor.Add(proveedor);
-                _context.SaveChanges();
-                TempData["SuccessMessage"] = "Proveedor agregado correctamente!";
-                return RedirectToAction("Proveedores");
+                if (ModelState.IsValid)
+                {
+                    proveedor.FechaIngreso = DateTime.Now;
+                    _context.Proveedor.Add(proveedor);
+                    _context.SaveChanges();
+
+                    TempData["SuccessMessage"] = "Proveedor agregado correctamente!";
+                    return RedirectToAction("Proveedores");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Por favor, verifica los datos ingresados.";
+                    return View(proveedor);
+                }
             }
-            return View(proveedor);
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Hubo un error al agregar el proveedor. Intenta nuevamente.";
+                return View(proveedor);
+            }
         }
+
 
         public ActionResult EditarProveedor(int? id)
         {
@@ -61,15 +76,25 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditarProveedor([Bind(Include = "IDProveedor,Nombre,Email,Telefono,Direccion,FechaIngreso,Estado")] Proveedor proveedor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Entry(proveedor).State = EntityState.Modified;
-                _context.SaveChanges();
-                TempData["SuccessMessage"] = "La información del proveedor fue editada correctamente!";
-                return RedirectToAction("Proveedores");
+                if (ModelState.IsValid)
+                {
+                    _context.Entry(proveedor).State = EntityState.Modified;
+                    _context.SaveChanges();
+                    TempData["SuccessMessage"] = "La información del proveedor fue editada correctamente!";
+                    return RedirectToAction("Proveedores");
+                }
             }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Hubo un error al editar el proveedor. Intenta nuevamente.";
+
+            }
+
             return View(proveedor);
         }
+
 
         public ActionResult EliminarProveedor(int? id)
         {

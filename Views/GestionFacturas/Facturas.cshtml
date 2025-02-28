@@ -16,7 +16,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Facturas</a></li>
-                            <li class="breadcrumb-item active">Información de Facturas</li>
+                            <li class="breadcrumb-item active">Gestión de Facturas</li>
                         </ol>
                     </div>
 
@@ -56,7 +56,7 @@
                                         <td>@factura.FechaPago</td>
                                         <td>@factura.Total</td>
                                         <td>
-                                            @Html.ActionLink("Editar Factura", "Edit", "GestionFacturas", new { id = factura.IdFacturas }, new { @class = "btn btn-info" })
+                                            @Html.ActionLink("Editar", "Edit", "GestionFacturas", new { id = factura.IdFacturas }, new { @class = "btn btn-info" })
 
                                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete-@factura.IdFacturas">Eliminar</button>
                                         </td>

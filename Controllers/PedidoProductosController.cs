@@ -10,6 +10,7 @@ using SistemaContabilidadAltosDelAbejonal.Models;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
+    [AuthorizeRole("Administrador")]
     public class PedidoProductosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -46,43 +47,52 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PedidoProductoViewModel viewModel)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                ViewBag.Proveedores = _context.Proveedor
-                    .Select(c => new { c.IDProveedor, NombreCompleto = c.Nombre})
-                    .ToList();
-                return View(viewModel);
-            }
-
-            var pedidoProducto = new PedidoProducto
-            {
-                IDProveedor = viewModel.IDProveedor,
-                FechaPedido = DateTime.Now,
-                FechaEntregaEstimada = DateTime.Now.AddDays(10),
-                Estado = "Pendiente",
-                Observaciones = viewModel.Observaciones
-            };
-
-            _context.PedidoProducto.Add(pedidoProducto);
-            _context.SaveChanges();
-
-            foreach (var producto in viewModel.ProductoSeleccionadoCompras.Where(p => p.Cantidad > 0))
-            {
-                var detalle = new PedidoProductoDetalle
+                if (!ModelState.IsValid)
                 {
-                    IDPedidoProducto = pedidoProducto.IDPedidoProducto,
-                    IDProducto = producto.IDProducto,
-                    CantidadPedido = producto.Cantidad,
-                    PrecioPedido = producto.PrecioUnitario
+                    ViewBag.Proveedores = _context.Proveedor
+                        .Select(c => new { c.IDProveedor, NombreCompleto = c.Nombre })
+                        .ToList();
+                    return View(viewModel);
+                }
+
+                var pedidoProducto = new PedidoProducto
+                {
+                    IDProveedor = viewModel.IDProveedor,
+                    FechaPedido = DateTime.Now,
+                    FechaEntregaEstimada = DateTime.Now.AddDays(10),
+                    Estado = "Pendiente",
+                    Observaciones = viewModel.Observaciones
                 };
 
-                _context.PedidoProductoDetalle.Add(detalle);
-            }
+                _context.PedidoProducto.Add(pedidoProducto);
+                _context.SaveChanges();
 
-            _context.SaveChanges();
-            TempData["SuccessMessage"] = "Pedido agregado correctamente!";
-            return RedirectToAction("Create");
+                foreach (var producto in viewModel.ProductoSeleccionadoCompras.Where(p => p.Cantidad > 0))
+                {
+                    var detalle = new PedidoProductoDetalle
+                    {
+                        IDPedidoProducto = pedidoProducto.IDPedidoProducto,
+                        IDProducto = producto.IDProducto,
+                        CantidadPedido = producto.Cantidad,
+                        PrecioPedido = producto.PrecioUnitario
+                    };
+
+                    _context.PedidoProductoDetalle.Add(detalle);
+                }
+
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Pedido agregado correctamente!";
+                return RedirectToAction("Create");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Ocurrió un error al intentar crear el pedido.";
+                return RedirectToAction("Error", "Home");
+            }
         }
+
 
         public ActionResult Index()
         {
@@ -131,71 +141,91 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(PedidoProducto pedidoProducto)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var pedidoDb = _context.PedidoProducto.FirstOrDefault(c => c.IDPedidoProducto == pedidoProducto.IDPedidoProducto);
-
-                if (pedidoDb == null)
+                if (ModelState.IsValid)
                 {
-                    return HttpNotFound();
-                }
+                    var pedidoDb = _context.PedidoProducto.FirstOrDefault(c => c.IDPedidoProducto == pedidoProducto.IDPedidoProducto);
 
-                pedidoDb.Estado = pedidoProducto.Estado;
-                pedidoDb.Observaciones = pedidoProducto.Observaciones;
-
-                if (pedidoDb.Estado == "Pagado")
-                {
-                    var compra = new Compra
+                    if (pedidoDb == null)
                     {
-                        IDProveedor = pedidoDb.IDProveedor,
-                        FechaCompra = DateTime.Now
-                    };
+                        return HttpNotFound();
+                    }
 
-                    _context.Compra.Add(compra);
-                    _context.SaveChanges();
+                    pedidoDb.Estado = pedidoProducto.Estado;
+                    pedidoDb.Observaciones = pedidoProducto.Observaciones;
 
-                    var pedidoProductoDetalle = _context.PedidoProductoDetalle.Where(cd => cd.IDPedidoProducto == pedidoDb.IDPedidoProducto).ToList();
-
-                    foreach (var detalle in pedidoProductoDetalle)
+                    if (pedidoDb.Estado == "Pagado")
                     {
-                        var compraDetalle = new CompraDetalle
+                        var compra = new Compra
                         {
-                            IDCompra = compra.IDCompra,
-                            IDProducto = detalle.IDProducto,
-                            Cantidad = detalle.CantidadPedido,
-                            PrecioCompra = detalle.PrecioPedido,
+                            IDProveedor = pedidoDb.IDProveedor,
+                            FechaCompra = DateTime.Now
                         };
 
-                        _context.CompraDetalle.Add(compraDetalle);
+                        _context.Compra.Add(compra);
+                        _context.SaveChanges();
+
+                        var pedidoProductoDetalle = _context.PedidoProductoDetalle
+                            .Where(cd => cd.IDPedidoProducto == pedidoDb.IDPedidoProducto)
+                            .ToList();
+
+                        foreach (var detalle in pedidoProductoDetalle)
+                        {
+                            var compraDetalle = new CompraDetalle
+                            {
+                                IDCompra = compra.IDCompra,
+                                IDProducto = detalle.IDProducto,
+                                Cantidad = detalle.CantidadPedido,
+                                PrecioCompra = detalle.PrecioPedido,
+                            };
+
+                            _context.CompraDetalle.Add(compraDetalle);
+                        }
+
+                        _context.SaveChanges();
                     }
 
                     _context.SaveChanges();
+                    TempData["SuccessMessage"] = "La información del pedido fue editada correctamente!";
+                    return RedirectToAction("Index");
                 }
-
-                _context.SaveChanges();
-                TempData["SuccessMessage"] = "La información del pedido fue editada correctamente!";
-                return RedirectToAction("Index");
+                return View(pedidoProducto);
             }
-            return View(pedidoProducto);
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Ocurrió un error al intentar editar el pedido.";
+                return RedirectToAction("Error", "Home");
+            }
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            var pedidoProdcuto = _context.PedidoProducto.FirstOrDefault(p => p.IDPedidoProducto == id);
-
-            if (pedidoProdcuto == null)
+            try
             {
-                return HttpNotFound();
+                var pedidoProducto = _context.PedidoProducto.FirstOrDefault(p => p.IDPedidoProducto == id);
+
+                if (pedidoProducto == null)
+                {
+                    return HttpNotFound();
+                }
+
+                pedidoProducto.Estado = "Eliminado";
+
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "El pedido ha sido marcado como eliminado.";
+                return RedirectToAction("Index");
             }
-
-            pedidoProdcuto.Estado = "Eliminado";
-
-            _context.SaveChanges();
-
-            TempData["SuccessMessage"] = "El pedido ha sido marcado como eliminado.";
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Ocurrió un error al intentar eliminar el pedido.";
+                return RedirectToAction("Error", "Home");
+            }
         }
+
     }
 }

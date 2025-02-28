@@ -11,6 +11,7 @@ using SistemaContabilidadAltosDelAbejonal.Models;
 
 namespace SistemaContabilidadAltosDelAbejonal.Controllers
 {
+    [AuthorizeRole("Administrador", "Vendedor", "Contador")]
     public class VentasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -105,17 +106,26 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IDVenta,IDCliente,IDUsuario,FechaVenta,TotalVenta,Observaciones")] Venta venta)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(venta).State = EntityState.Modified;
-                db.SaveChanges();
-                TempData["SuccessMessage"] = "La información de la venta fue editada correctamente!";
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(venta).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["SuccessMessage"] = "La información de la venta fue editada correctamente!";
+                    return RedirectToAction("Index");
+                }
             }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Hubo un error al editar la venta. Intenta nuevamente.";
+            }
+
             ViewBag.IDCliente = new SelectList(db.Cliente, "IDCliente", "Nombre", venta.IDCliente);
             ViewBag.IDUsuario = new SelectList(db.Usuarios, "IDUsuario", "Nombre", venta.IDUsuario);
             return View(venta);
         }
+
 
         // GET: Ventas/Delete/5
         public ActionResult Delete(int? id)
