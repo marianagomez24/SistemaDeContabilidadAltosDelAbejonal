@@ -31,38 +31,43 @@
                         @Html.AntiForgeryToken()
 
                         <div class="mb-3">
+                            @Html.LabelFor(model => model.TipoFactura, "Tipo de Factura", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="form-floating">
-                                @Html.TextBoxFor(m => m.TipoFactura, new { @class = "form-control", placeholder = "Ingrese la categoría de la factura", required = "required" })
-                                <label for="TipoFactura" class="fw-normal">Tipo de factura</label>
+                                @Html.EditorFor(model => model.TipoFactura, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TipoFactura, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="mb-3">
+                            @Html.LabelFor(model => model.FechaIngreso, "Fecha de Ingreso", htmlAttributes: new { @class = "control-label col-md-2" } )
                             <div class="form-floating">
                                 @Html.TextBoxFor(m => m.FechaIngreso, "{0:yyyy-MM-dd}", new { @class = "form-control", placeholder = "Fecha de ingreso", required = "required", type = "date" })
-                                <label for="FechaIngreso" class="fw-normal">Fecha de Ingreso al sistema</label>
+                                @Html.ValidationMessageFor(model => model.FechaIngreso, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="mb-3">
+                            @Html.LabelFor(model => model.FechaEmision, "Fecha de Emisión", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="form-floating">
-                                @Html.TextBoxFor(m => m.FechaEmision, "{0:yyyy-MM-dd}", new { @class = "form-control", placeholder = "Ingrese la fecha de emisión", required = "required", type = "date" })
-                                <label for="FechaEmision" class="fw-normal">Fecha de Emisión</label>
+                                @Html.TextBoxFor(m => m.FechaEmision, "{0:yyyy-MM-dd}", new { @class = "form-control", placeholder = "Fecha de emision", required = "required", type = "date" })
+                                @Html.ValidationMessageFor(model => model.FechaEmision, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="mb-3">
+                            @Html.LabelFor(model => model.FechaPago, "Fecha de Pago", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="form-floating">
-                                @Html.TextBoxFor(m => m.FechaPago, "{0:yyyy-MM-dd}", new { @class = "form-control", placeholder = "Ingrese la fecha de pago", required = "required", type = "date" })
-                                <label for="FechaPago" class="fw-normal">Fecha de Pago</label>
+                                @Html.TextBoxFor(m => m.FechaPago, "{0:yyyy-MM-dd}", new { @class = "form-control", placeholder = "Fecha de pago", required = "required", type = "date" })
+                                @Html.ValidationMessageFor(model => model.FechaPago, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <span>₡</span>
+                            @Html.LabelFor(model => model.Total, "Total", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="form-floating">
-                                @Html.TextBoxFor(m => m.Total, new { @class = "form-control", placeholder = "Ingrese el monto a pagar", required = "required" })
-                                <label for="Total" class="fw-normal">Pago Total</label>
+                                @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -71,6 +76,7 @@
                             <a href="@Url.Action("Facturas")" class="btn btn-secondary">Regresar</a>
                         </div>
                     }
+                   
                 </div>
             </div>
         </div>
