@@ -52,11 +52,12 @@
                                     {
                                         var cliente = ((List<SistemaContabilidadAltosDelAbejonal.Models.Cliente>)ViewBag.Clientes)
                                         .FirstOrDefault(c => c.IDCliente == cotizacion.IDCliente);
+                                        var estadoClass = cotizacion.Estado == "Pendiente" ? "bg-danger text-white" : "bg-success text-white";
                                         <tr>
                                             <td>@cotizacion.IDCotizacion</td>
                                             <td>@(cliente != null ? cliente.Nombre : "Sin cliente")</td>
                                             <td>@cotizacion.FechaCotizacion.ToString("dd/MM/yyyy")</td>
-                                            <td>@cotizacion.Estado</td>
+                                            <td class="@estadoClass">@cotizacion.Estado</td>
                                             <td>@cotizacion.TotalConIVA.ToString("C")</td>
                                             <td>
                                                 <a href="@Url.Action("Details", "Cotizaciones", new { id = cotizacion.IDCotizacion })" class="btn btn-primary">
