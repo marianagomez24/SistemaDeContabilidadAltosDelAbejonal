@@ -36,6 +36,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             };
 
             ViewBag.Clientes = _context.Cliente
+                .Where(c => c.Activo == true)
                 .Select(c => new { c.IDCliente, NombreCompleto = c.Nombre + " " + c.PrimerApellido })
                 .ToList();
 
@@ -51,6 +52,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 if (!ModelState.IsValid)
                 {
                     ViewBag.Clientes = _context.Cliente
+                        .Where(c => c.Activo == true)
                         .Select(c => new { c.IDCliente, NombreCompleto = c.Nombre + " " + c.PrimerApellido })
                         .ToList();
                     return View(viewModel);
@@ -100,7 +102,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             var cotizaciones = _context.Cotizaciones.ToList()
             .Where(c => c.Estado != "Eliminado")
             .ToList();
-            var clientes = _context.Cliente.ToList();
+            var clientes = _context.Cliente.Where(c => c.Activo == true).ToList();
             ViewBag.Clientes = clientes;
             return View(cotizaciones);
         }

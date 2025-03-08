@@ -37,6 +37,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             };
 
             ViewBag.Proveedores = _context.Proveedor
+                .Where(c => c.Activo == true)
                 .Select(c => new { c.IDProveedor, NombreCompleto = c.Nombre})
                 .ToList();
 
@@ -52,6 +53,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                 if (!ModelState.IsValid)
                 {
                     ViewBag.Proveedores = _context.Proveedor
+                        .Where(c => c.Activo == true)
                         .Select(c => new { c.IDProveedor, NombreCompleto = c.Nombre })
                         .ToList();
                     return View(viewModel);
@@ -99,7 +101,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             var pedidoProducto = _context.PedidoProducto.ToList()
             .Where(c => c.Estado != "Eliminado")
             .ToList();
-            var proveedores = _context.Proveedor.ToList();
+            var proveedores = _context.Proveedor.Where(c => c.Activo == true).ToList();
             ViewBag.Proveedores = proveedores;
             return View(pedidoProducto);
         }
