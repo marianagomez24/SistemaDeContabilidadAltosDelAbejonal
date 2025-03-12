@@ -1,0 +1,122 @@
+﻿@model IEnumerable<SistemaContabilidadAltosDelAbejonal.Models.Produccion>
+
+@{
+    ViewBag.Title = "Produccion";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Produccion Altos</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Produccion Altos</a></li>
+                            <li class="breadcrumb-item active">Produccion</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sección de Produccion</h4>
+                    </div>
+                    <div class="card-body">
+                        <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Día</th>
+                                    <th>Fecha</th>
+                                    <th>Altura</th>
+                                    <th>Micro Región</th>
+                                    <th>Finca</th>
+                                    <th>Producto</th>
+                                    <th>Proceso</th>
+                                    <th>Variedad</th>
+                                    <th>CJ</th>
+                                    <th>Flote</th>
+                                    <th>Neto</th>
+                                    <th>FF</th>
+                                    <th>Lote Altos</th>
+                                    <th>Lote Exclusive</th>
+                                    <th>Humedad</th>
+                                    <th>Calificación</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var produccion in Model)
+                                {
+                                    <tr>
+                                        <td>@produccion.Dia</td>
+                                        <td>@produccion.Fecha.ToString("dd/MM/yyyy")</td>
+                                        <td>@produccion.Altura</td>
+                                        <td>@produccion.MicroRegion</td>
+                                        <td>@produccion.Finca</td>
+                                        <td>@produccion.Producto</td>
+                                        <td>@produccion.Proceso</td>
+                                        <td>@produccion.Variedad</td>
+                                        <td>@produccion.CJ</td>
+                                        <td>@produccion.Flote</td>
+                                        <td>@produccion.Neto</td>
+                                        <td>@produccion.FF</td>
+                                        <td>@produccion.LoteAltos</td>
+                                        <td>@produccion.LoteExclusive</td>
+                                        <td>@produccion.Humedad</td>
+                                        <td>@produccion.Calificacion</td>
+                                        <td>
+                                            @Html.ActionLink("Editar", "Edit", "Produccion", new { id = produccion.ID }, new { @class = "btn btn-info" })
+
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete-@produccion.ID">Eliminar</button>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Modal Para Eliminar-->
+                                    <div class="modal fade" id="modalDelete-@produccion.ID" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel-@produccion.ID" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalDeleteLabel-@produccion.ID">Confirmar Eliminación de Producción</h5>
+                                                    <button type="button" class="btn btn-sm btn-label-danger btn-icon" data-bs-dismiss="modal" aria-label="Close">
+                                                        <i class="mdi mdi-close"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="text-muted mb-0">¿Estás seguro de que deseas eliminar la factura con el número: <strong>@produccion.ID</strong>?</p>
+                                                    @*<p class="text-muted mb-0">Tipo de Factura: @factura.TipoFactura</p>
+                                                    <p class="text-muted mb-0">Fecha de Emisión: @factura.FechaEmision</p>
+                                                    <p class="text-muted mb-0">Total: @factura.Total</p>*@
+                                                </div>
+                                                @using (Html.BeginForm("Delete", "GestionFacturas", new { id = produccion.ID }, FormMethod.Post))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="modal-footer">
+                                                        <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- container-fluid -->
+</div>
+

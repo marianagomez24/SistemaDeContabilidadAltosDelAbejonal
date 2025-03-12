@@ -15,5 +15,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Models
         [Required(ErrorMessage = "La contraseña es obligatoria.")]
         [DataType(DataType.Password)]
         public string Contraseña { get; set; }
+
+        public bool RecordarCredenciales { get; set; }
     }
 }

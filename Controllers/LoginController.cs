@@ -21,7 +21,17 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         [HttpGet]
         public ActionResult IniciarSesion()
         {
-            return View();
+            var model = new LoginViewModel();
+            var cookieCorreo = Request.Cookies["Correo"];
+            var cookieContraseña = Request.Cookies["Contraseña"];
+
+            if (cookieCorreo != null && cookieContraseña != null)
+            {
+                model.Correo = cookieCorreo.Value;
+                model.Contraseña = cookieContraseña.Value;
+                model.RecordarCredenciales = true;
+            }
+            return View(model);
         }
 
         [HttpPost]
@@ -52,6 +62,18 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                             Session["UsuarioID"] = usuario.IDUsuario;
                             Session["NombreUsuario"] = usuario.Nombre;
 
+                            if (model.RecordarCredenciales)
+                            {
+                                HttpCookie cookieCorreo = new HttpCookie("Correo", model.Correo);
+                                HttpCookie cookieContrasena = new HttpCookie("Contrasena", model.Contraseña);
+
+                                cookieCorreo.Expires = DateTime.Now.AddMonths(1);
+                                cookieContrasena.Expires = DateTime.Now.AddMonths(1);
+
+                                Response.Cookies.Add(cookieCorreo);
+                                Response.Cookies.Add(cookieContrasena);
+                            }
+
                             return RedirectToAction("Index", "Home");
                         }
                         else
@@ -75,7 +97,28 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         }
         public ActionResult Logout()
         {
-            Session.Clear(); 
+            Session.Clear();
+
+            if (Request.Cookies["Correo"] != null)
+            {
+                var cookieCorreo = new HttpCookie("Correo")
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+
+                };
+
+                Response.Cookies.Add(cookieCorreo);
+            }
+
+            if (Request.Cookies["Contraseña"] != null)
+            {
+                var cookieContraseña = new HttpCookie("Contraseña")
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                };
+
+                Response.Cookies.Add(cookieContraseña);
+            }
             return RedirectToAction("IniciarSesion");
         }
     }
