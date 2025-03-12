@@ -82,8 +82,21 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                         PrecioUnitario = producto.PrecioUnitario
                     };
 
+                    
+
                     _context.CotizacionDetalles.Add(detalle);
+                    var productoDb = _context.Productos.FirstOrDefault(p => p.IDProducto == producto.IDProducto);
+                    if (productoDb != null && productoDb.Stock >= producto.Cantidad)
+                    {
+                        productoDb.Stock -= producto.Cantidad;
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = $"No hay suficiente stock para el producto {producto.IDProducto}.";
+                        return RedirectToAction("Create");
+                    }
                 }
+
 
                 _context.SaveChanges();
                 TempData["SuccessMessage"] = "Cotización creada correctamente!";

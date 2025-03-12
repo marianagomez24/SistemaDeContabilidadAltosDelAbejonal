@@ -82,6 +82,16 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
                     };
 
                     _context.PedidoProductoDetalle.Add(detalle);
+                    var productoDb = _context.Productos.FirstOrDefault(p => p.IDProducto == producto.IDProducto);
+                    if (productoDb != null && productoDb.Stock >= producto.Cantidad)
+                    {
+                        productoDb.Stock += producto.Cantidad;
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = $"Ocurrió un error añadiendo el producto {producto.IDProducto} al Stock.";
+                        return RedirectToAction("Create");
+                    }
                 }
 
                 _context.SaveChanges();
