@@ -7,6 +7,63 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+    font-family: 'fa-brands';
+    src: url('../fonts/fa-brands-400.woff2') format('woff2'), url('../fonts/fa-brands-400.woff') format('woff'), url('../fonts/fa-brands-400.ttf') format('truetype'), url('../fonts/fa-brands-400.eot') format('embedded-opentype'), url('../fonts/fa-brands-400.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'fa-regular';
+    src: url('../fonts/fa-regular-400.woff2') format('woff2'), url('../fonts/fa-regular-400.woff') format('woff'), url('../fonts/fa-regular-400.ttf') format('truetype'), url('../fonts/fa-regular-400.eot') format('embedded-opentype'), url('../fonts/fa-regular-400.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'fa-solid';
+    src: url('../fonts/fa-solid-900.woff2') format('woff2'), url('../fonts/fa-solid-900.woff') format('woff'), url('../fonts/fa-solid-900.ttf') format('truetype'), url('../fonts/fa-solid-900.eot') format('embedded-opentype'), url('../fonts/fa-solid-900.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter Bold';
+    src: url('../fonts/inter-bold.woff2') format('woff2'), url('../fonts/inter-bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter Light';
+    src: url('../fonts/inter-light.woff2') format('woff2'), url('../fonts/inter-light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter Medium';
+    src: url('../fonts/inter-medium.woff2') format('woff2'), url('../fonts/inter-medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter Regular';
+    src: url('../fonts/inter-regular.woff2') format('woff2'), url('../fonts/inter-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Material Design Icons';
+    src: url('../fonts/materialdesignicons-webfont.woff2') format('woff2'), url('../fonts/materialdesignicons-webfont.woff') format('woff'), url('../fonts/materialdesignicons-webfont.ttf') format('truetype'), url('../fonts/materialdesignicons-webfont.eot') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .mdi:before,
 .mdi-set {
   display: inline-block;

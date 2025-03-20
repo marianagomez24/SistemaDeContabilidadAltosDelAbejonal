@@ -55,14 +55,6 @@
                                 </div>
                                 @Html.ValidationMessageFor(m => m.Contraseña, "", new { @class = "text-danger" })
 
-                            <div class="mb-sm-5">
-                                <div class="form-check float-sm-start">
-                                    @Html.CheckBoxFor(m => m.RecordarCredenciales, new { @class = "form-check-input", id = "customControlInline" })
-                                    <label class="form-check-label" for="customControlInline">Recordar Credenciales</label>
-                                </div>
-                                <br />
-                            </div>
-
                                 <div class="pt-3 text-center">
                                     <button class="btn btn-primary w-xl waves-effect waves-light" type="submit">Iniciar Sesión</button>
                                 </div>

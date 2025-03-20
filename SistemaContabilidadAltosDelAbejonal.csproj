@@ -304,7 +304,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PedidoProductosController.cs" />
-    <Compile Include="Controllers\ProduccionController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\TipoGranoesController.cs" />
@@ -328,7 +327,6 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PedidoProducto.cs" />
     <Compile Include="Models\PedidoProductoViewModel.cs" />
-    <Compile Include="Models\Produccion.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Compra.cs" />
@@ -1634,9 +1632,6 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Home\Error404.cshtml" />
     <Content Include="Views\Home\Error500.cshtml" />
-    <Content Include="Views\Produccion\Produccion.cshtml" />
-    <Content Include="Views\Produccion\Edit.cshtml" />
-    <Content Include="Views\Produccion\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
