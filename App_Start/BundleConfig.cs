@@ -48,13 +48,13 @@ namespace SistemaContabilidadAltosDelAbejonal
             bundles.Add(new StyleBundle("~/Content/css").Include(//CSS!
                                                                  //Principal
                 "~/assets/css/bootstrap.min.css",
-                "~/assets/css/icons.css",
+                "~/Content/bootstrap-utilities.css",
                 "~/assets/libs/simplebar/simplebar.min.css",
                 "~/assets/css/app.min.css",              
                 "~/assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
                 "~/assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css",
-                "~/Content/Chart.min.css",
-                "~/Content/bootstrap-utilities.css"
+                "~/Content/Chart.min.css"
+                
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/bootstrap").Include(
