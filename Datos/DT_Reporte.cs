@@ -16,7 +16,7 @@ namespace SistemaContabilidadAltosDelAbejonal.Datos
 
             using (SqlConnection oconexion = new SqlConnection("Server=tcp:servidoraltosabejonal.database.windows.net,1433;Initial Catalog=AltosDelAbejonalDB;Persist Security Info=False;User ID=adminaltosabejonal;Password=adminAbejonal0987;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
             {
-                string query = "SP_ComprasMensaules";
+                string query = "SP_ComprasMensuales";
 
                 SqlCommand cmd = new SqlCommand(query, oconexion);
                 cmd.CommandType = CommandType.StoredProcedure;

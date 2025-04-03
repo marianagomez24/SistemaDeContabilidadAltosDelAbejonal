@@ -1604,15 +1604,12 @@
     <Content Include="Views\CompraDetalles\ReporteCompras.cshtml" />
     <Content Include="Views\CompraDetalles\ReporteComprasProveedores.cshtml" />
     <Content Include="Views\TipoGranoes\Create.cshtml" />
-    <Content Include="Views\TipoGranoes\Delete.cshtml" />
     <Content Include="Views\TipoGranoes\Edit.cshtml" />
     <Content Include="Views\TipoGranoes\Index.cshtml" />
     <Content Include="Views\CategoriaProductoes\Create.cshtml" />
-    <Content Include="Views\CategoriaProductoes\Delete.cshtml" />
     <Content Include="Views\CategoriaProductoes\Edit.cshtml" />
     <Content Include="Views\CategoriaProductoes\Index.cshtml" />
     <Content Include="Views\TipoPresentacions\Create.cshtml" />
-    <Content Include="Views\TipoPresentacions\Delete.cshtml" />
     <Content Include="Views\TipoPresentacions\Edit.cshtml" />
     <Content Include="Views\TipoPresentacions\Index.cshtml" />
     <Content Include="Views\Cotizaciones\Create.cshtml" />

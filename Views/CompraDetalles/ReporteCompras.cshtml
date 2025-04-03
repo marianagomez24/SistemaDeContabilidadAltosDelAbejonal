@@ -43,33 +43,29 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function () {
-
             jQuery.ajax({
                 url: '@Url.Action("ReporteCompra", "CompraDetalles")',
                 type: "GET",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    console.log('Datos de Compras:', data); 
+                    console.log('Datos de Compras:', data);
 
                     if (data.length === 0) {
                         alert('No se encontraron datos de compras.');
                         return;
                     }
-
                     var arrayMeses = [];
                     var arrayCantidad = [];
-
                     for (var i = 0; i < data.length; i++) {
                         arrayMeses.push(data[i].Mes);
                         arrayCantidad.push(data[i].Cantidad);
                     }
-
                     var controlBar1 = document.getElementById("myBarChart");
                     var graficoBar1 = new Chart(controlBar1, {
                         type: 'bar',
                         data: {
-                            labels: arrayMeses,
+                            labels: arrayMeses, 
                             datasets: [{
                                 label: "Total Compras",
                                 backgroundColor: ["#03B100", "#0083B1", "#0800B1"],
@@ -95,7 +91,7 @@
                 error: function (error) {
                     console.log('Error al obtener los datos de compras:', error);
                 }
-            });  
+            });
         });
     </script>
 }
