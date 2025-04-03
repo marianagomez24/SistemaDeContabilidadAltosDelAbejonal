@@ -18,8 +18,10 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
         // GET: Compras
         public ActionResult Index()
         {
-            var compra = db.Compra.Include(c => c.Proveedor);
+            var compra = db.Compra.Include(c => c.Proveedor).Where(c => c.TotalCompra >0);
             return View(compra.ToList());
+
+
         }
 
         // GET: Compras/Details/5
@@ -131,7 +133,6 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             return View(compra);
         }
 
-        // POST: Compras/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -139,25 +140,26 @@ namespace SistemaContabilidadAltosDelAbejonal.Controllers
             try
             {
                 Compra compra = db.Compra.Find(id);
-
-                if (compra == null)
+                if (compra != null)
                 {
-                    return HttpNotFound();
+                    compra.TotalCompra = 0;
+                    db.Entry(compra).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["SuccessMessage"] = "Compra desactivado correctamente!";
                 }
-
-                db.Compra.Remove(compra);
-                db.SaveChanges();
-
-                TempData["SuccessMessage"] = "La compra ha sido eliminada correctamente.";
-                return RedirectToAction("Index");
+                else
+                {
+                    TempData["ErrorMessage"] = "Compra no encontrado.";
+                }
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "Ocurrió un error al intentar eliminar la compra.";
+                TempData["ErrorMessage"] = "Ocurrió un error al desactivar la compra.";
                 return RedirectToAction("Error", "Home");
             }
-        }
 
+            return RedirectToAction("Index");
+        }
 
         protected override void Dispose(bool disposing)
         {
